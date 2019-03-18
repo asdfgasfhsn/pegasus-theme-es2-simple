@@ -1,4 +1,5 @@
 import QtQuick 2.7 // note the version: Text padding is used below and that was added in 2.7 as per docs
+import QtGraphicalEffects 1.12
 import "utils.js" as Utils // some helper functions
 
 // The details "view". Consists of some images, a bunch of textual info and a game list.
@@ -51,6 +52,21 @@ FocusScope {
         }
     }
 
+    Image {
+      id: tiled_background
+      // TODO: Make Tile Betterer so it scales nicer...
+      source: 'bg/tile_bg.png'
+      fillMode: Image.Tile
+      horizontalAlignment: Image.AlignLeft
+      verticalAlignment: Image.AlignTop
+          anchors {
+              left: root.left;
+              top: root.top;
+              bottom: root.bottom;
+              right: root.right;
+          }
+    }
+
     // The header ba on the top, with the collection's logo and name
     Rectangle {
         id: header
@@ -62,38 +78,77 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         height: vpx(115)
-        color: "#c5c6c7"
+        color: "transparent"
+
+        // anchors.fill: parent
+        // asynchronous: true
+        // source: currentGame.assets.boxFront || currentGame.assets.logo
+        // sourceSize { width: 256; height: 256 } // optimization (max size)
+        // fillMode: Image.PreserveAspectFit
+        // horizontalAlignment: Image.AlignLeft
+
+        // TODO: Use this else where once things have "settled"
+        Rectangle {
+          // Draw a semi-opaque rectangle to wrap the text
+          id: systemLogoBG
+          height: systemLogo.height + vpx(20)
+          width: systemLogo.width + vpx(20)
+          color: "#393a3b"
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left;
+          anchors.leftMargin: header.paddingH
+          opacity: 0
+        }
 
         Image {
-            height: parent.height - header.paddingV * 2
+          id: systemLogo
+          source: currentCollection.shortName ? "logo/%1.svg".arg(currentCollection.shortName) : ""
+          width: vpx(216)
+          //width: Math.max(vpx(120))
             anchors {
-                verticalCenter: parent.verticalCenter
-                left: parent.left; leftMargin: header.paddingH
-                right: parent.horizontalCenter; rightMargin: header.paddingH
+              verticalCenter: systemLogoBG.verticalCenter
+              horizontalCenter: systemLogoBG.horizontalCenter
             }
             fillMode: Image.PreserveAspectFit
             horizontalAlignment: Image.AlignLeft
-
-            source: currentCollection.shortName ? "logo/%1.svg".arg(currentCollection.shortName) : ""
             asynchronous: true
         }
 
-        Text {
-            text: currentCollection.name
-            wrapMode: Text.WordWrap
-            font.capitalization: Font.AllUppercase
-            font.family: "Open Sans"
-            font.pixelSize: vpx(32)
-            font.weight: Font.Light // this is how you use the light variant
-            horizontalAlignment: Text.AlignRight
-            color: "#7b7d7f"
+        TextMetrics {
+          // Define current game text information
+          id: textMetrics
+          text: currentGame.title
+          font.family: "Open Sans"
+          font.weight: Font.Bold
+          font.pixelSize: vpx(42)
+          font.capitalization: Font.AllUppercase
+        }
 
-            width: parent.width * 0.35
+        Rectangle {
+          // Draw a semi-opaque rectangle to wrap the text
+          id: header_box
+          width: textMetrics.width + vpx(20)
+          height: textMetrics.height + vpx(20)
+          color: "#393a3b"
+          anchors.right: parent.right
+          anchors.rightMargin: content.paddingH
+          anchors.verticalCenter: parent.verticalCenter
+          opacity: 0.6
+          //rotation: 2
+        }
+
+        Text {
+            // Render current game text
+            text: textMetrics.text
+            font: textMetrics.font
+            color: "#97999b"
             anchors {
-                verticalCenter: parent.verticalCenter
-                right: parent.right; rightMargin: header.paddingH
+                verticalCenter: header_box.verticalCenter
+                horizontalCenter: header_box.horizontalCenter
+                margins: vpx(10)
             }
         }
+
     }
 
     Rectangle {
@@ -102,7 +157,7 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: footer.top
-        color: "#97999a"
+        color: "transparent"
 
         readonly property int paddingH: vpx(30)
         readonly property int paddingV: vpx(40)
@@ -201,17 +256,53 @@ FocusScope {
                 readonly property bool selected: ListView.isCurrentItem
                 readonly property color clrDark: "#393a3b"
                 readonly property color clrLight: "#97999b"
+                readonly property color transparent: "transparent"
 
                 width: ListView.view.width
                 height: gameTitle.height
-                color: selected ? clrDark : clrLight
-
+                color: transparent
+                // color: selected ? transparent : clrLight
+                LinearGradient {
+                anchors.fill: parent
+                start: Qt.point(0, 0)
+                end: Qt.point(100, 100)
+                gradient: Gradient {
+                    GradientStop {
+                       position: 0.000
+                       color: Qt.rgba(0.5, 0.5, 0.5, 0.2)
+                      }
+                      // GradientStop {
+                      //    position: 0.167
+                      //    color: Qt.rgba(1, 1, 0, 1)
+                      // }
+                      // GradientStop {
+                      //    position: 0.333
+                      //    color: Qt.rgba(0, 1, 0, 1)
+                      // }
+                      // GradientStop {
+                      //    position: 0.500
+                      //    color: Qt.rgba(0, 1, 1, 1)
+                      // }
+                      // GradientStop {
+                      //    position: 0.667
+                      //    color: Qt.rgba(0, 0, 1, 1)
+                      // }
+                      // GradientStop {
+                      //    position: 0.833
+                      //    color: Qt.rgba(1, 0, 1, 1)
+                      // }
+                    GradientStop {
+                       position: 0.666
+                       color: transparent
+                    }
+                  }
+                }
                 Text {
                     id: gameTitle
                     text: modelData.title
-                    color: parent.selected ? parent.clrLight : parent.clrDark
+                    color: selected ? parent.clrLight : parent.clrDark
 
-                    font.pixelSize: vpx(20)
+                    font.pixelSize: parent.selected ? vpx(20) : vpx(20)
                     font.capitalization: Font.AllUppercase
                     font.family: "Open Sans"
 
