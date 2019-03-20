@@ -1,5 +1,5 @@
 import QtQuick 2.0
-
+import QtGraphicalEffects 1.12
 // The collections view consists of two carousels, one for the collection logo bar
 // and one for the background images. They should have the same number of elements
 // to be kept in sync.
@@ -31,6 +31,64 @@ FocusScope {
         logoAxis.decrementCurrentIndex();
     }
 
+    // Generate Tiled Background....
+    // Todo: Figure out row/column count based on something.
+    // Todo: Make row/column render with out pop in (or animate...)
+    Item {
+      id: bgRect
+      anchors.top: parent.top
+      anchors.left: parent.left
+      Item {
+        width: root.width
+        height: root.height
+        id: bgBlock
+        opacity: 0.5
+        layer.enabled: true
+        Row {
+          Repeater {
+            model: 144
+            Column {
+              Repeater {
+                model: 78
+                Rectangle {
+                  width: 18
+                  height: 18
+                  color: "black"
+                  border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+                  border.width: 1
+                  radius: 1
+                }
+              }
+            }
+          }
+        }
+      }
+      // Gradient Yo!
+      Rectangle {
+        width: root.width
+        height: root.height
+        color: "transparent"
+        z: parent.z + 1
+        LinearGradient {
+          anchors.fill: parent
+          start: Qt.point(0, 0)
+          end: Qt.point(0, vpx(1024))
+          gradient: Gradient {
+              GradientStop {
+                 position: 0.000
+                 color: "transparent"
+              }
+              GradientStop {
+                 position: 0.666
+                 color: Qt.rgba(0, 0, 0.1, 0.9)
+              }
+          }
+        }
+      }
+    }
+
+    //bgBlock
+
     // The carousel of background images. This isn't the item we control with the keys,
     // however it reacts to mouse and so should still update the Index.
     Carousel {
@@ -56,7 +114,7 @@ FocusScope {
 
             Rectangle {
                 anchors.fill: parent
-                color: "#777"
+                color: "transparent"
                 visible: realBg.status != Image.Ready // optimization: only draw if the image did not load (yet)
             }
             Image {

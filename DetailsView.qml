@@ -1,4 +1,5 @@
-import QtQuick 2.7 // note the version: Text padding is used below and that was added in 2.7 as per docs
+import QtQuick 2.8 // note the version: Text padding is used below and that was added in 2.7 as per docs
+import QtQuick.Layouts 1.11
 import QtGraphicalEffects 1.12
 import "utils.js" as Utils // some helper functions
 
@@ -52,19 +53,107 @@ FocusScope {
         }
     }
 
-    Image {
-      id: tiled_background
-      // TODO: Make Tile Betterer so it scales nicer...
-      source: 'bg/tile_bg.png'
-      fillMode: Image.Tile
-      horizontalAlignment: Image.AlignLeft
-      verticalAlignment: Image.AlignTop
-          anchors {
-              left: root.left;
-              top: root.top;
-              bottom: root.bottom;
-              right: root.right;
+    // Generate Tiled Background....
+    // Todo: Figure out row/column count based on something.
+    // Todo: Make row/column render with out pop in (or animate...)
+    Item {
+      id: bgRect
+      anchors.top: parent.top
+      anchors.left: parent.left
+      Item {
+        width: root.width
+        height: root.height
+        id: bgBlock
+        opacity: 0.5
+        layer.enabled: true
+        Row {
+          Repeater {
+            model: 144
+            Column {
+              Repeater {
+                model: 78
+                Rectangle {
+                  width: 18
+                  height: 18
+                  color: "black"
+                  border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+                  border.width: 1
+                  radius: 1
+                }
+              }
+            }
           }
+        }
+      }
+      // Gradient Yo!
+      Rectangle {
+        id: bgRectGradient
+        width: root.width
+        height: root.height
+        color: "transparent"
+        layer.enabled: true
+        //z: parent.z + 1
+        LinearGradient {
+          anchors.fill: parent
+          start: Qt.point(0, 0)
+          end: Qt.point(0, vpx(1024))
+          gradient: Gradient {
+              GradientStop {
+                 position: 0.000
+                 color: Qt.rgba(0.0, 0, 0.1, 0.9)
+              }
+              GradientStop {
+                 position: 0.999
+                 color: Qt.rgba(0.0, 0, 0, 0)
+              }
+          }
+        }
+      }
+    }
+
+    Rectangle {
+      id: rightMenuBG
+      width: parent.width * 0.26
+      height: root.height
+      color: "transparent"
+      anchors {
+        top: root.top
+        right: parent.right
+        bottom: root.bottom
+        }
+
+      LinearGradient {
+        anchors.fill: parent
+        start: Qt.point(0, 0)
+        end: Qt.point(100, 0)
+        gradient: Gradient {
+          GradientStop {
+             position: 0.000
+             color: "transparent"
+          }
+          GradientStop {
+             position: 0.02
+             color: Qt.rgba(0.0, 0.0, 0.0, 0.9)
+          }
+          GradientStop {
+             position: 0.05
+             color: Qt.rgba(0.3, 0.3, 0.3, 0.9)
+          }
+        }
+      }
+      // Image {
+      //   id: systemLogo
+      //   source: currentCollection.shortName ? "logo/%1.svg".arg(currentCollection.shortName) : ""
+      //   width: vpx(216)
+      //     anchors {
+      //       horizontalCenter: rightMenuBG.horizontalCenter
+      //       topMargin: vpx(30)
+      //       top: parent.top
+      //     }
+      //     fillMode: Image.PreserveAspectFit
+      //     horizontalAlignment: Image.AlignLeft
+      //     asynchronous: true
+      // }
     }
 
     // The header ba on the top, with the collection's logo and name
@@ -78,41 +167,8 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         height: vpx(115)
+        width: root.width * 0.74
         color: "transparent"
-
-        // anchors.fill: parent
-        // asynchronous: true
-        // source: currentGame.assets.boxFront || currentGame.assets.logo
-        // sourceSize { width: 256; height: 256 } // optimization (max size)
-        // fillMode: Image.PreserveAspectFit
-        // horizontalAlignment: Image.AlignLeft
-
-        // TODO: Use this else where once things have "settled"
-        Rectangle {
-          // Draw a semi-opaque rectangle to wrap the text
-          id: systemLogoBG
-          height: systemLogo.height + vpx(20)
-          width: systemLogo.width + vpx(20)
-          color: "#393a3b"
-          anchors.verticalCenter: parent.verticalCenter
-          anchors.left: parent.left;
-          anchors.leftMargin: header.paddingH
-          opacity: 0
-        }
-
-        Image {
-          id: systemLogo
-          source: currentCollection.shortName ? "logo/%1.svg".arg(currentCollection.shortName) : ""
-          width: vpx(216)
-          //width: Math.max(vpx(120))
-            anchors {
-              verticalCenter: systemLogoBG.verticalCenter
-              horizontalCenter: systemLogoBG.horizontalCenter
-            }
-            fillMode: Image.PreserveAspectFit
-            horizontalAlignment: Image.AlignLeft
-            asynchronous: true
-        }
 
         TextMetrics {
           // Define current game text information
@@ -125,16 +181,14 @@ FocusScope {
         }
 
         Rectangle {
-          // Draw a semi-opaque rectangle to wrap the text
           id: header_box
           width: textMetrics.width + vpx(20)
           height: textMetrics.height + vpx(20)
           color: "#393a3b"
-          anchors.right: parent.right
-          anchors.rightMargin: content.paddingH
+          anchors.left: parent.left
+          anchors.leftMargin: content.paddingH
           anchors.verticalCenter: parent.verticalCenter
           opacity: 0.6
-          //rotation: 2
         }
 
         Text {
@@ -149,14 +203,50 @@ FocusScope {
             }
         }
 
+        Rectangle {
+          id: metadataRect1
+          anchors {
+            top: header_box.bottom; topMargin: vpx(8)
+          }
+          width: root.width * 0.74
+          height: metadataRow1.height
+          clip: true
+          color: "transparent"
+          RowLayout {
+            id: metadataRow1
+            anchors { left: parent.left; leftMargin: content.paddingH }
+            spacing: vpx(6)
+            GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
+            GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
+            GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
+            GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
+          }
+        }
+        Rectangle {
+          id: metadataRect2
+          anchors {
+            top: metadataRect1.bottom; topMargin: vpx(8)
+          }
+          width: root.width * 0.74
+          height: metadataRow2.height
+          clip: true
+          color: "transparent"
+          RowLayout {
+            id: metadataRow2
+            anchors { left: parent.left; leftMargin: content.paddingH }
+            GameDetailsText { metatext: 'Developer: ' + currentGame.developer || "unknown" }
+            GameDetailsText { metatext: 'Publisher: ' + currentGame.publisher || "unknown" }
+            GameDetailsText { metatext: 'Genre: ' + currentGame.genre || "unknown" }
+            }
+        }
     }
 
     Rectangle {
         id: content
-        anchors.top: header.bottom
+        anchors.top: root.top//header.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: footer.top
+        anchors.bottom: root.bottom
         color: "transparent"
 
         readonly property int paddingH: vpx(30)
@@ -168,7 +258,7 @@ FocusScope {
             height: vpx(218)
             width: Math.max(vpx(160), Math.min(height * boxartImage.aspectRatio, vpx(320)))
             anchors {
-                top: parent.top; topMargin: content.paddingV
+                top: parent.top; topMargin: vpx(150)
                 left: parent.left; leftMargin: content.paddingH
             }
 
@@ -184,45 +274,6 @@ FocusScope {
                 fillMode: Image.PreserveAspectFit
                 horizontalAlignment: Image.AlignLeft
             }
-        }
-
-        // While the game details could be a grid, I've separated them to two
-        // separate columns to manually control thw width of the second one below.
-        Column {
-            id: gameLabels
-            anchors {
-                top: boxart.top
-                left: boxart.right; leftMargin: content.paddingH
-            }
-
-            GameInfoText { text: "Rating:" }
-            GameInfoText { text: "Released:" }
-            GameInfoText { text: "Developer:" }
-            GameInfoText { text: "Publisher:" }
-            GameInfoText { text: "Genre:" }
-            GameInfoText { text: "Players:" }
-            GameInfoText { text: "Last played:" }
-            GameInfoText { text: "Play time:" }
-        }
-
-        Column {
-            id: gameDetails
-            anchors {
-                top: gameLabels.top
-                left: gameLabels.right; leftMargin: content.paddingH
-                right: gameList.left; rightMargin: content.paddingH
-            }
-
-            // 'width' is set so if the text is too long it will be cut. I also use some
-            // JavaScript code to make some text pretty.
-            RatingBar { percentage: currentGame.rating }
-            GameInfoText { width: parent.width; text: Utils.formatDate(currentGame.release) || "unknown" }
-            GameInfoText { width: parent.width; text: currentGame.developer || "unknown" }
-            GameInfoText { width: parent.width; text: currentGame.publisher || "unknown" }
-            GameInfoText { width: parent.width; text: currentGame.genre || "unknown" }
-            GameInfoText { width: parent.width; text: Utils.formatPlayers(currentGame.players) }
-            GameInfoText { width: parent.width; text: Utils.formatLastPlayed(currentGame.lastPlayed) }
-            GameInfoText { width: parent.width; text: Utils.formatPlayTime(currentGame.playTime) }
         }
 
         GameInfoText {
@@ -241,11 +292,12 @@ FocusScope {
 
         ListView {
             id: gameList
-            width: parent.width * 0.35
+            width: parent.width * 0.26
             anchors {
-                top: parent.top; topMargin: content.paddingV
-                right: parent.right; rightMargin: content.paddingH
-                bottom: parent.bottom; bottomMargin: content.paddingV
+                top: parent.top; //topMargin: content.paddingV
+                right: parent.right; //rightMargin: content.paddingH
+                bottom: parent.bottom; bottomMargin: vpx(20)
+                topMargin: vpx(20)
             }
             //clip: true
 
@@ -255,54 +307,23 @@ FocusScope {
             delegate: Rectangle {
                 readonly property bool selected: ListView.isCurrentItem
                 readonly property color clrDark: "#393a3b"
+                readonly property color clrDarkBG: Qt.rgba(1, 1, 1, 0.1)
                 readonly property color clrLight: "#97999b"
+                readonly property color clrLightBG: Qt.rgba(0.5, 0.5, 0.5, 0.1)
                 readonly property color transparent: "transparent"
 
                 width: ListView.view.width
                 height: gameTitle.height
-                color: transparent
-                // color: selected ? transparent : clrLight
-                LinearGradient {
-                anchors.fill: parent
-                start: Qt.point(0, 0)
-                end: Qt.point(100, 100)
-                gradient: Gradient {
-                    GradientStop {
-                       position: 0.000
-                       color: Qt.rgba(0.5, 0.5, 0.5, 0.2)
-                      }
-                      // GradientStop {
-                      //    position: 0.167
-                      //    color: Qt.rgba(1, 1, 0, 1)
-                      // }
-                      // GradientStop {
-                      //    position: 0.333
-                      //    color: Qt.rgba(0, 1, 0, 1)
-                      // }
-                      // GradientStop {
-                      //    position: 0.500
-                      //    color: Qt.rgba(0, 1, 1, 1)
-                      // }
-                      // GradientStop {
-                      //    position: 0.667
-                      //    color: Qt.rgba(0, 0, 1, 1)
-                      // }
-                      // GradientStop {
-                      //    position: 0.833
-                      //    color: Qt.rgba(1, 0, 1, 1)
-                      // }
-                    GradientStop {
-                       position: 0.666
-                       color: transparent
-                    }
-                  }
-                }
+                //color: transparent
+                opacity: 1
+                color: selected ? clrLight : transparent
+
                 Text {
                     id: gameTitle
                     text: modelData.title
-                    color: selected ? parent.clrLight : parent.clrDark
+                    color: selected ? parent.clrDark : parent.clrLight
 
-                    font.pixelSize: parent.selected ? vpx(20) : vpx(20)
+                    font.pixelSize: parent.selected ? vpx(16) : vpx(16)
                     font.capitalization: Font.AllUppercase
                     font.family: "Open Sans"
 
