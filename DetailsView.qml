@@ -119,7 +119,7 @@ FocusScope {
       color: "#393a3b"
       opacity: 0.6
       anchors {
-        top: root.top; topMargin: vpx(20)
+        top: root.top; //topMargin: vpx(20)
         right: parent.right; rightMargin: vpx(20)
         bottom: root.bottom;
       }
@@ -329,9 +329,9 @@ FocusScope {
                     lineHeight: 1.2
                     verticalAlignment: Text.AlignVCenter
 
-                    width: parent.width
+                    width: parent.width - vpx(32)
                     elide: Text.ElideRight
-                    leftPadding: vpx(10)
+                    leftPadding: vpx(15)
                     rightPadding: leftPadding
                 }
             }

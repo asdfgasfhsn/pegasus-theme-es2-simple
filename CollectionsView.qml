@@ -117,13 +117,13 @@ FocusScope {
                 color: "transparent"
                 visible: realBg.status != Image.Ready // optimization: only draw if the image did not load (yet)
             }
-            Image {
-                id: realBg
-                anchors.fill: parent
-                fillMode: Image.PreserveAspectCrop // fill the screen without black bars
-                source: modelData.shortName ? "bg/%1_art_blur.png".arg(modelData.shortName) : ""
-                asynchronous: true
-            }
+            // Image {
+            //     id: realBg
+            //     anchors.fill: parent
+            //     fillMode: Image.PreserveAspectCrop // fill the screen without black bars
+            //     source: modelData.shortName ? "bg/%1_art_blur.png".arg(modelData.shortName) : ""
+            //     asynchronous: true
+            // }
         }
     }
 
@@ -132,16 +132,23 @@ FocusScope {
     // with a color that has alpha value.
     Item {
         id: logoBar
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.bottom: parent.bottom
         height: vpx(170)
+        //width:
 
         // Background
         Rectangle {
-            anchors.fill: parent
+          anchors.fill: parent
+            // anchors.verticalCenter: parent.verticalCenter
+            // anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.bottom: logoBar.bottom
+            //width: logoAxis.itemWidth + vpx(16)
+            //height: vpx(170)
             color: "#fff"
-            opacity: 0.85
+            opacity: 0.01
         }
         // The main carousel that we actually control
         Carousel {
@@ -178,15 +185,19 @@ FocusScope {
 
     // Game count bar -- like above, I've put it in an Item to separately control opacity
     Item {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: logoBar.bottom
+        //anchors.left: parent.left
+        anchors.right: parent.right; anchors.rightMargin: vpx(20)
+        //anchors.top: logoBar.bottom
+        anchors.bottom: root.bottom
         height: label.height * 1.5
+        width: parent.width * 0.24
 
         Rectangle {
             anchors.fill: parent
             color: "#ddd"
-            opacity: 0.85
+            //opacity: 0.85
+            opacity: 0.6
+
         }
 
         Text {
@@ -194,7 +205,7 @@ FocusScope {
             anchors.centerIn: parent
             text: "%1 GAMES AVAILABLE".arg(currentCollection.games.count)
             color: "#333"
-            font.pixelSize: vpx(25)
+            font.pixelSize: vpx(18)
             font.family: "Open Sans"
         }
     }
