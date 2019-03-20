@@ -96,16 +96,17 @@ FocusScope {
         LinearGradient {
           anchors.fill: parent
           start: Qt.point(0, 0)
-          end: Qt.point(0, vpx(1024))
+          end: Qt.point(0, vpx(720))
           gradient: Gradient {
-              GradientStop {
-                 position: 0.000
-                 color: Qt.rgba(0.0, 0, 0.1, 0.9)
-              }
-              GradientStop {
-                 position: 0.999
-                 color: Qt.rgba(0.0, 0, 0, 0)
-              }
+            GradientStop {
+               position: 0.000
+               color: Qt.rgba(0, 0, 0.1, 0.9)
+            }
+            GradientStop {
+               position: 0.666
+               //color: "transparent"
+               color: Qt.rgba(0, 0, 0.2, 0.9)
+            }
           }
         }
       }
@@ -113,34 +114,35 @@ FocusScope {
 
     Rectangle {
       id: rightMenuBG
-      width: parent.width * 0.26
+      width: parent.width * 0.240
       height: root.height
-      color: "transparent"
+      color: "#393a3b"
+      opacity: 0.6
       anchors {
-        top: root.top
-        right: parent.right
-        bottom: root.bottom
-        }
-
-      LinearGradient {
-        anchors.fill: parent
-        start: Qt.point(0, 0)
-        end: Qt.point(100, 0)
-        gradient: Gradient {
-          GradientStop {
-             position: 0.000
-             color: "transparent"
-          }
-          GradientStop {
-             position: 0.02
-             color: Qt.rgba(0.0, 0.0, 0.0, 0.9)
-          }
-          GradientStop {
-             position: 0.05
-             color: Qt.rgba(0.3, 0.3, 0.3, 0.9)
-          }
-        }
+        top: root.top; topMargin: vpx(20)
+        right: parent.right; rightMargin: vpx(20)
+        bottom: root.bottom;
       }
+
+      // LinearGradient {
+      //   anchors.fill: parent
+      //   start: Qt.point(0, 0)
+      //   end: Qt.point(100, 0)
+      //   gradient: Gradient {
+      //     GradientStop {
+      //        position: 0.000
+      //        color: "transparent"
+      //     }
+      //     GradientStop {
+      //        position: 0.02
+      //        color: Qt.rgba(0.0, 0.0, 0.0, 0.9)
+      //     }
+      //     GradientStop {
+      //        position: 0.05
+      //        color: Qt.rgba(0.57, 0.58, 0.59, 0.9)//Qt.rgba(0.3, 0.3, 0.3, 0.9)
+      //     }
+      // }
+      //}
       // Image {
       //   id: systemLogo
       //   source: currentCollection.shortName ? "logo/%1.svg".arg(currentCollection.shortName) : ""
@@ -294,7 +296,7 @@ FocusScope {
             id: gameList
             width: parent.width * 0.26
             anchors {
-                top: parent.top; //topMargin: content.paddingV
+                top: parent.top; //topMargin: vpx(30)
                 right: parent.right; //rightMargin: content.paddingH
                 bottom: parent.bottom; bottomMargin: vpx(20)
                 topMargin: vpx(20)
@@ -307,14 +309,11 @@ FocusScope {
             delegate: Rectangle {
                 readonly property bool selected: ListView.isCurrentItem
                 readonly property color clrDark: "#393a3b"
-                readonly property color clrDarkBG: Qt.rgba(1, 1, 1, 0.1)
                 readonly property color clrLight: "#97999b"
-                readonly property color clrLightBG: Qt.rgba(0.5, 0.5, 0.5, 0.1)
                 readonly property color transparent: "transparent"
 
                 width: ListView.view.width
                 height: gameTitle.height
-                //color: transparent
                 opacity: 1
                 color: selected ? clrLight : transparent
 
@@ -344,6 +343,7 @@ FocusScope {
         }
     }
 
+    // TODO: Add nice artwork or something in footer
     Rectangle {
         id: footer
         anchors.bottom: parent.bottom

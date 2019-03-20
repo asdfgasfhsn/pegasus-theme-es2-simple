@@ -56,7 +56,7 @@ FocusScope {
                   color: "black"
                   border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
                   border.width: 1
-                  radius: 1
+                  radius: 0
                 }
               }
             }
@@ -72,7 +72,7 @@ FocusScope {
         LinearGradient {
           anchors.fill: parent
           start: Qt.point(0, 0)
-          end: Qt.point(0, vpx(1024))
+          end: Qt.point(0, vpx(720))
           gradient: Gradient {
               GradientStop {
                  position: 0.000
