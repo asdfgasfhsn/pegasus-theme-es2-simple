@@ -6,7 +6,7 @@ import QtQuick 2.0
 Text {
     font.pixelSize: vpx(16)
     font.family: "Open Sans"
-    //font.weight: Font.Light
+    font.weight: Font.Light
     color: "#393a3b"
     elide: Text.ElideRight
 }

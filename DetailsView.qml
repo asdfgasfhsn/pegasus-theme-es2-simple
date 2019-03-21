@@ -54,75 +54,41 @@ FocusScope {
     }
 
 // Background Start
-// Todo: Figure out row/column count based on something.
-// Todo: Make row/column render with out pop in (or animate...)
-    Item {
-      id: bgRect
-      anchors.top: parent.top
-      anchors.left: parent.left
-      Item {
-        width: root.width
-        height: root.height
-        id: bgBlock
-        opacity: 0.5
-        layer.enabled: true
-        Row {
-          Repeater {
-            model: 144
-            Column {
-              Repeater {
-                model: 78
-                Rectangle {
-                  width: 18
-                  height: 18
-                  color: "black"
-                  border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
-                  border.width: 1
-                  radius: 1
-                }
-              }
-            }
-          }
+// Gradient Yo!
+  Rectangle {
+    id: bgRectGradient
+    width: root.width
+    height: root.height
+    color: "transparent"
+    layer.enabled: true
+    LinearGradient {
+      anchors.fill: parent
+      start: Qt.point(0, 0)
+      end: Qt.point(0, vpx(720))
+      gradient: Gradient {
+        GradientStop {
+           position: 0.000
+           color: "transparent"
+           //color: Qt.rgba(0, 0, 0.1, 1)
         }
-      }
-
-      // Gradient Yo!
-      Rectangle {
-        id: bgRectGradient
-        width: root.width
-        height: root.height
-        color: "transparent"
-        layer.enabled: true
-        //z: parent.z + 1
-        LinearGradient {
-          anchors.fill: parent
-          start: Qt.point(0, 0)
-          end: Qt.point(0, vpx(720))
-          gradient: Gradient {
-            GradientStop {
-               position: 0.000
-               color: Qt.rgba(0, 0, 0.1, 0.9)
-            }
-            GradientStop {
-               position: 0.666
-               //color: "transparent"
-               color: Qt.rgba(0, 0, 0.2, 0.9)
-            }
-          }
+        GradientStop {
+           position: 0.666
+           color: Qt.rgba(0, 0, 0.1, 0.9)
         }
       }
     }
+  }
 // Background End
 
 // Right Menu Backround Start
     Rectangle {
       id: rightMenuBG
-      width: parent.width * 0.240
+      width: vpx(312)
       height: root.height
       color: "#393a3b"
       opacity: 0.6
       anchors {
-        top: root.top; //topMargin: vpx(20)
+        top: root.top;
         right: parent.right; rightMargin: vpx(20)
         bottom: root.bottom;
       }
@@ -141,7 +107,7 @@ FocusScope {
           left: parent.left; leftMargin: paddingV
         }
 
-        width: root.width * 0.74
+        width: vpx(968)
         height: gameTitleRow.height
         clip: true
         color: "transparent"
@@ -161,7 +127,7 @@ FocusScope {
         top: headerGameTitle.bottom; topMargin: vpx(8)
         left: parent.left; leftMargin: vpx(22)
       }
-      width: vpx(920)
+      width: vpx(968)
       height: metadataRow1.height
       clip: true
       color: "transparent"
@@ -181,7 +147,7 @@ FocusScope {
         top: metadataRect1.bottom; topMargin: vpx(8)
         left: parent.left; leftMargin: vpx(22)
       }
-      width: vpx(920)
+      width: vpx(968)
       height: metadataRow2.height
       clip: true
       color: "transparent"
@@ -211,29 +177,28 @@ FocusScope {
         Item {
             id: boxart
 
-            height: vpx(218)
-            width: Math.max(vpx(160), Math.min(height * boxartImage.aspectRatio, vpx(320)))
+            height: vpx(256)
+            width: Math.max(vpx(256), Math.min(height * boxartImage.aspectRatio, vpx(320)))
             anchors {
-                top: parent.top; topMargin: vpx(160)
+                top: parent.top; topMargin: vpx(120)
                 left: parent.left; leftMargin: content.paddingH
             }
 
             Image {
                 id: boxartImage
-
                 readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
-
                 anchors.fill: parent
                 asynchronous: true
-                source: currentGame.assets.boxFront || currentGame.assets.logo
-                sourceSize { width: 256; height: 256 } // optimization (max size)
+                source: currentGame.assets.screenshot || currentGame.assets.boxFront || currentGame.assets.logo
+                //sourceSize { width: 512; height: 512 } // optimization (max size)
                 fillMode: Image.PreserveAspectFit
-                horizontalAlignment: Image.AlignLeft
+                horizontalAlignment: Image.AlignCenter
             }
         }
+        // Gameinfo Start
         Rectangle {
           id: gameDescriptionRect
-          color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+          color: Qt.rgba(1, 1, 1, 0.0)
           anchors {
               top: boxart.bottom; topMargin: content.paddingV
               left: boxart.left
@@ -249,16 +214,16 @@ FocusScope {
               elide: Text.ElideRight
           }
         }
+        // Gameinfo End
         ListView {
             id: gameList
-            width: parent.width * 0.26
+            width: vpx(338)
             anchors {
-                top: parent.top; //topMargin: vpx(30)
-                right: parent.right; //rightMargin: content.paddingH
+                top: parent.top;
+                right: parent.right;
                 bottom: parent.bottom; bottomMargin: vpx(20)
                 topMargin: vpx(20)
             }
-            //clip: true
 
             focus: true
 
@@ -286,10 +251,9 @@ FocusScope {
                     lineHeight: 1.2
                     verticalAlignment: Text.AlignVCenter
 
-                    width: parent.width - vpx(32)
+                    width: parent.width - vpx(22)
                     elide: Text.ElideRight
                     leftPadding: vpx(15)
-                    rightPadding: leftPadding
                 }
             }
 
@@ -307,6 +271,6 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         height: vpx(25) * 1.5
-        color: "pink"
+        color: "transparent"
     }
 }

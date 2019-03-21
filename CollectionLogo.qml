@@ -8,8 +8,8 @@ Item {
     property string shortName: "" // set on the PathView side
     readonly property bool selected: PathView.isCurrentItem
 
-    width: vpx(720)
-    height: vpx(720)
+    width: vpx(256)
+    height: vpx(256)
     visible: PathView.onPath // optimization: do not draw if not visible
 
     opacity: selected ? 1.0 : 0.5
@@ -22,19 +22,33 @@ Item {
         fillMode: Image.PreserveAspectFit
         smooth: true
         source: shortName ? "assets/controllers/%1.png".arg(shortName) : "" //| "assets/logos/%1.svg".arg(shortName) // : ""
-        //source: shortName ? "assets/logos/%1.svg".arg(shortName) : ""
         asynchronous: true
-        //sourceSize { width: 960; height: 240 } // optimization: render SVGs in at most 256x256
 
         scale: selected ? 1.0 : 0.66
         Behavior on scale { NumberAnimation { duration: 600 } }
     }
-    // ColorOverlay {
-    //   anchors.fill: image
-    //   source: image
-    //   // TODO revist this...
-    //   color: "grey"
-    // }
+
+    Image {
+        id: systemLogo
+        anchors.left: image.right
+        width: vpx(256)
+        height: vpx(256)
+        fillMode: Image.PreserveAspectFit
+        smooth: true
+        source: shortName ? "assets/logos/%1.svg".arg(shortName) : ""
+        asynchronous: true
+        sourceSize { width: vpx(256); height: vpx(256) } // optimization: render SVGs in at most 256x256
+        scale: selected ? 1.0 : 0.66
+        Behavior on scale { NumberAnimation { duration: 600 } }
+        visible: false
+    }
+    ColorOverlay {
+      anchors.fill: systemLogo
+      source: systemLogo
+      color: "grey"
+      scale: selected ? 1.0 : 0.66
+      Behavior on scale { NumberAnimation { duration: 600 } }
+    }
 
     Text {
         id: label
