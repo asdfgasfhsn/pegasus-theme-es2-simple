@@ -111,19 +111,6 @@ FocusScope {
             width: root.width
             height: root.height
             visible: PathView.onPath // optimization: do not draw if not visible
-
-            Rectangle {
-                anchors.fill: parent
-                color: "transparent"
-                visible: realBg.status != Image.Ready // optimization: only draw if the image did not load (yet)
-            }
-            // Image {
-            //     id: realBg
-            //     anchors.fill: parent
-            //     fillMode: Image.PreserveAspectCrop // fill the screen without black bars
-            //     source: modelData.shortName ? "bg/%1_art_blur.png".arg(modelData.shortName) : ""
-            //     asynchronous: true
-            // }
         }
     }
 
@@ -136,14 +123,14 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        height: vpx(170)
+        //height: vpx(170)
         //width:
 
         // Background
         Rectangle {
           anchors.fill: parent
-            // anchors.verticalCenter: parent.verticalCenter
-            // anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
             //anchors.bottom: logoBar.bottom
             //width: logoAxis.itemWidth + vpx(16)
             //height: vpx(170)

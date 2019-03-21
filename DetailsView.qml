@@ -53,9 +53,9 @@ FocusScope {
         }
     }
 
-    // Generate Tiled Background....
-    // Todo: Figure out row/column count based on something.
-    // Todo: Make row/column render with out pop in (or animate...)
+// Background Start
+// Todo: Figure out row/column count based on something.
+// Todo: Make row/column render with out pop in (or animate...)
     Item {
       id: bgRect
       anchors.top: parent.top
@@ -85,6 +85,7 @@ FocusScope {
           }
         }
       }
+
       // Gradient Yo!
       Rectangle {
         id: bgRectGradient
@@ -111,7 +112,9 @@ FocusScope {
         }
       }
     }
+// Background End
 
+// Right Menu Backround Start
     Rectangle {
       id: rightMenuBG
       width: parent.width * 0.240
@@ -123,129 +126,80 @@ FocusScope {
         right: parent.right; rightMargin: vpx(20)
         bottom: root.bottom;
       }
-
-      // LinearGradient {
-      //   anchors.fill: parent
-      //   start: Qt.point(0, 0)
-      //   end: Qt.point(100, 0)
-      //   gradient: Gradient {
-      //     GradientStop {
-      //        position: 0.000
-      //        color: "transparent"
-      //     }
-      //     GradientStop {
-      //        position: 0.02
-      //        color: Qt.rgba(0.0, 0.0, 0.0, 0.9)
-      //     }
-      //     GradientStop {
-      //        position: 0.05
-      //        color: Qt.rgba(0.57, 0.58, 0.59, 0.9)//Qt.rgba(0.3, 0.3, 0.3, 0.9)
-      //     }
-      // }
-      //}
-      // Image {
-      //   id: systemLogo
-      //   source: currentCollection.shortName ? "logo/%1.svg".arg(currentCollection.shortName) : ""
-      //   width: vpx(216)
-      //     anchors {
-      //       horizontalCenter: rightMenuBG.horizontalCenter
-      //       topMargin: vpx(30)
-      //       top: parent.top
-      //     }
-      //     fillMode: Image.PreserveAspectFit
-      //     horizontalAlignment: Image.AlignLeft
-      //     asynchronous: true
-      // }
     }
+// Right Menu Backround Stop
 
-    // The header ba on the top, with the collection's logo and name
-    Rectangle {
-        id: header
-
+// Header/Meta Start
+//// Game Title Start
+      Rectangle {
+        id: headerGameTitle
         readonly property int paddingH: vpx(30) // H as horizontal
         readonly property int paddingV: vpx(22) // V as vertical
 
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        height: vpx(115)
+        anchors {
+          top: parent.top; topMargin: paddingH
+          left: parent.left; leftMargin: paddingV
+        }
+
         width: root.width * 0.74
+        height: gameTitleRow.height
+        clip: true
         color: "transparent"
 
-        TextMetrics {
-          // Define current game text information
-          id: textMetrics
-          text: currentGame.title
-          font.family: "Open Sans"
-          font.weight: Font.Bold
-          font.pixelSize: vpx(42)
-          font.capitalization: Font.AllUppercase
+        RowLayout {
+          id: gameTitleRow
+          anchors { left: parent.left }
+          spacing: vpx(6)
+          HeaderText { titletext: currentGame.title }
         }
-
-        Rectangle {
-          id: header_box
-          width: textMetrics.width + vpx(20)
-          height: textMetrics.height + vpx(20)
-          color: "#393a3b"
-          anchors.left: parent.left
-          anchors.leftMargin: content.paddingH
-          anchors.verticalCenter: parent.verticalCenter
-          opacity: 0.6
-        }
-
-        Text {
-            // Render current game text
-            text: textMetrics.text
-            font: textMetrics.font
-            color: "#97999b"
-            anchors {
-                verticalCenter: header_box.verticalCenter
-                horizontalCenter: header_box.horizontalCenter
-                margins: vpx(10)
-            }
-        }
-
-        Rectangle {
-          id: metadataRect1
-          anchors {
-            top: header_box.bottom; topMargin: vpx(8)
-          }
-          width: root.width * 0.74
-          height: metadataRow1.height
-          clip: true
-          color: "transparent"
-          RowLayout {
-            id: metadataRow1
-            anchors { left: parent.left; leftMargin: content.paddingH }
-            spacing: vpx(6)
-            GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
-            GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-            GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
-            GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
-          }
-        }
-        Rectangle {
-          id: metadataRect2
-          anchors {
-            top: metadataRect1.bottom; topMargin: vpx(8)
-          }
-          width: root.width * 0.74
-          height: metadataRow2.height
-          clip: true
-          color: "transparent"
-          RowLayout {
-            id: metadataRow2
-            anchors { left: parent.left; leftMargin: content.paddingH }
-            GameDetailsText { metatext: 'Developer: ' + currentGame.developer || "unknown" }
-            GameDetailsText { metatext: 'Publisher: ' + currentGame.publisher || "unknown" }
-            GameDetailsText { metatext: 'Genre: ' + currentGame.genre || "unknown" }
-            }
+      }
+//// Game Title End
+//// Game Metadata Start
+    Rectangle {
+      id: metadataRect1
+      anchors {
+        top: headerGameTitle.bottom; topMargin: vpx(8)
+        left: parent.left; leftMargin: vpx(22)
+      }
+      width: vpx(920)
+      height: metadataRow1.height
+      clip: true
+      color: "transparent"
+      RowLayout {
+        id: metadataRow1
+        anchors { left: parent.left }
+        spacing: vpx(6)
+        GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
+        GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
+        GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
+        GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
+      }
+    }
+    Rectangle {
+      id: metadataRect2
+      anchors {
+        top: metadataRect1.bottom; topMargin: vpx(8)
+        left: parent.left; leftMargin: vpx(22)
+      }
+      width: vpx(920)
+      height: metadataRow2.height
+      clip: true
+      color: "transparent"
+      RowLayout {
+        id: metadataRow2
+        anchors { left: parent.left }
+        GameDetailsText { metatext: 'Developer: ' + currentGame.developer || "unknown" }
+        GameDetailsText { metatext: 'Publisher: ' + currentGame.publisher || "unknown" }
+        GameDetailsText { metatext: 'Genre: ' + currentGame.genre || "unknown" }
         }
     }
+//// Game Metadata End
+// Header/Meta End
 
+// Content Start
     Rectangle {
         id: content
-        anchors.top: root.top//header.bottom
+        anchors.top: root.top
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: root.bottom
@@ -260,7 +214,7 @@ FocusScope {
             height: vpx(218)
             width: Math.max(vpx(160), Math.min(height * boxartImage.aspectRatio, vpx(320)))
             anchors {
-                top: parent.top; topMargin: vpx(150)
+                top: parent.top; topMargin: vpx(160)
                 left: parent.left; leftMargin: content.paddingH
             }
 
@@ -277,21 +231,24 @@ FocusScope {
                 horizontalAlignment: Image.AlignLeft
             }
         }
+        Rectangle {
+          id: gameDescriptionRect
+          color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+          anchors {
+              top: boxart.bottom; topMargin: content.paddingV
+              left: boxart.left
+              right: gameList.left; rightMargin: content.paddingH
+              bottom: parent.bottom; bottomMargin: content.paddingV
+          }
 
-        GameInfoText {
-            id: gameDescription
-            anchors {
-                top: boxart.bottom; topMargin: content.paddingV
-                left: boxart.left
-                right: gameList.left; rightMargin: content.paddingH
-                bottom: parent.bottom; bottomMargin: content.paddingV
-            }
-
-            text: currentGame.description
-            wrapMode: Text.WordWrap
-            elide: Text.ElideRight
+          GameInfoText {
+              id: gameDescription
+              anchors.fill: parent
+              text: currentGame.description
+              wrapMode: Text.WordWrap
+              elide: Text.ElideRight
+          }
         }
-
         ListView {
             id: gameList
             width: parent.width * 0.26
@@ -350,6 +307,6 @@ FocusScope {
         anchors.left: parent.left
         anchors.right: parent.right
         height: vpx(25) * 1.5
-        color: header.color
+        color: "pink"
     }
 }

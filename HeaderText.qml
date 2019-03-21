@@ -3,9 +3,9 @@ import QtQuick.Layouts 1.11
 
   Rectangle {
     id: root
-    property string metatext
+    property string titletext
     Layout.minimumWidth: rowcontent.width + vpx(10);
-    Layout.maximumWidth: vpx(260);
+    Layout.maximumWidth: vpx(920);
     Layout.minimumHeight: rowcontent.height + vpx(6);
     Layout.alignment: Qt.AlignHCenter;
     color: "#393a3b"
@@ -16,14 +16,14 @@ import QtQuick.Layouts 1.11
     anchors.verticalCenter: root.verticalCenter
     anchors.horizontalCenter: root.horizontalCenter
       Text {
-          id: metaData
-          text: metatext
+          id: titleText
+          text: titletext
           font.weight: Font.Bold
-          font.pixelSize: vpx(12)
+          font.pixelSize: vpx(42)
           font.capitalization: Font.AllUppercase
           color: "#97999b"
           elide: Text.ElideRight
-          Layout.maximumWidth: vpx(250)
+          Layout.maximumWidth: vpx(900)
       }
     }
   }
