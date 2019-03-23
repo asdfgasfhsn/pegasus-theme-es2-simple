@@ -95,14 +95,14 @@ FocusScope {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: "#fff"
-            opacity: 0
+            opacity: 0.1//0.6
         }
         // The main carousel that we actually control
         Carousel {
             id: logoAxis
 
             anchors.fill: parent
-            itemWidth: vpx(480)
+            itemWidth: vpx(440)
 
             model: api.collections
             delegate: CollectionLogo {
@@ -131,11 +131,12 @@ FocusScope {
     }
 
     // Game count bar -- like above, I've put it in an Item to separately control opacity
+    // Width of item is same width as gamelist in detailsview..
     Item {
         anchors.right: parent.right; anchors.rightMargin: vpx(20)
         anchors.bottom: root.bottom
         height: label.height * 1.5
-        width: vpx(312)
+        width: vpx(320)
 
         Rectangle {
             anchors.fill: parent

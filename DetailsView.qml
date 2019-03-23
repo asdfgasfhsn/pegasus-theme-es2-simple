@@ -62,40 +62,40 @@ BackgroundImage {
     left: parent.left; right: parent.right
     top: parent.top; bottom: parent.bottom
   }
-  opacity: 1 
+  opacity: 0.333
 }
 
 // Background Start
 // Gradient Yo!
-  // Rectangle {
-  //   id: bgRectGradient
-  //   width: root.width
-  //   height: root.height
-  //   color: "transparent"
-  //   layer.enabled: true
-  //   LinearGradient {
-  //     anchors.fill: parent
-  //     start: Qt.point(0, 0)
-  //     end: Qt.point(0, vpx(720))
-  //     gradient: Gradient {
-  //       GradientStop {
-  //          position: 0.000
-  //          color: "transparent"
-  //          //color: Qt.rgba(0, 0, 0.1, 1)
-  //       }
-  //       GradientStop {
-  //          position: 0.777
-  //          color: Qt.rgba(0, 0, 0, 0.9)
-  //       }
-  //     }
-  //   }
-  // }
+  Rectangle {
+    id: bgRectGradient
+    width: root.width
+    height: root.height
+    color: "transparent"
+    layer.enabled: true
+    LinearGradient {
+      anchors.fill: parent
+      start: Qt.point(0, 0)
+      end: Qt.point(0, vpx(720))
+      gradient: Gradient {
+        GradientStop {
+           position: 0.000
+           color: "transparent"
+           //color: Qt.rgba(0, 0, 0.1, 1)
+        }
+        GradientStop {
+           position: 0.999
+           color: Qt.rgba(0, 0, 0, 0.9)
+        }
+      }
+    }
+  }
 // Background End
 
 // Right Menu Backround Start
     Rectangle {
       id: rightMenuBG
-      width: vpx(312)
+      width: vpx(320)
       height: root.height
       color: "#393a3b"
       opacity: 0.6
@@ -112,7 +112,7 @@ BackgroundImage {
       Rectangle {
         id: headerGameTitle
         readonly property int paddingH: vpx(30) // H as horizontal
-        readonly property int paddingV: vpx(22) // V as vertical
+        readonly property int paddingV: vpx(20) // V as vertical
 
         anchors {
           top: parent.top; topMargin: paddingH
@@ -137,7 +137,7 @@ BackgroundImage {
       id: metadataRect1
       anchors {
         top: headerGameTitle.bottom; topMargin: vpx(8)
-        left: parent.left; leftMargin: vpx(22)
+        left: parent.left; leftMargin: vpx(20)
       }
       width: vpx(968)
       height: metadataRow1.height
@@ -149,7 +149,7 @@ BackgroundImage {
         spacing: vpx(6)
         GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
         GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-        // GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
+        GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
         GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
       }
     }
@@ -157,7 +157,7 @@ BackgroundImage {
       id: metadataRect2
       anchors {
         top: metadataRect1.bottom; topMargin: vpx(8)
-        left: parent.left; leftMargin: vpx(22)
+        left: parent.left; leftMargin: vpx(20)
       }
       width: vpx(968)
       height: metadataRow2.height
@@ -166,6 +166,7 @@ BackgroundImage {
       RowLayout {
         id: metadataRow2
         anchors { left: parent.left }
+        spacing: vpx(6)
         GameDetailsText { metatext: 'Developer: ' + currentGame.developer || "unknown" }
         GameDetailsText { metatext: 'Publisher: ' + currentGame.publisher || "unknown" }
         GameDetailsText { metatext: 'Genre: ' + currentGame.genre || "unknown" }
@@ -186,49 +187,39 @@ BackgroundImage {
         readonly property int paddingH: vpx(30)
         readonly property int paddingV: vpx(40)
 
-        Item {
-            id: boxart
-            height: vpx(256)
-            width: Math.max(vpx(256), Math.min(height * boxartImage.aspectRatio, vpx(320)))
-            anchors {
-                top: parent.top; topMargin: vpx(120)
-                left: parent.left; leftMargin: content.paddingH
-            }
-
-            Image {
-                id: boxartImage
-                readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
-                anchors.fill: parent
-                asynchronous: true
-                source: currentGame.assets.boxFront || currentGame.assets.logo
-                //sourceSize { width: 512; height: 512 } // optimization (max size)
-                fillMode: Image.PreserveAspectFit
-                horizontalAlignment: Image.AlignCenter
-            }
-        }
-        // Gameinfo Start
+       // Gameinfo Start
         Rectangle {
           id: gameDescriptionRect
-          color: Qt.rgba(1, 1, 1, 0.0)
+          //color: Qt.rgba(1, 1, 1, 0.1)
+          color: "#393a3b"
+          opacity: 0.6
+          height: vpx(64)
           anchors {
-              top: boxart.bottom; topMargin: content.paddingV
-              left: boxart.left
+              top: parent.top; topMargin: vpx(160)
+              left: parent.left; leftMargin: vpx(20)
               right: gameList.left; rightMargin: content.paddingH
-              bottom: parent.bottom; bottomMargin: content.paddingV
+              //bottom: footer.top; bottomMargin: content.paddingV
           }
 
           GameInfoText {
               id: gameDescription
-              anchors.fill: parent
+              anchors {
+                fill: parent
+                topMargin: vpx(12)
+                bottomMargin: vpx(12)
+                leftMargin: vpx(12)
+                rightMargin: vpx(12)
+              }
               text: currentGame.description
               wrapMode: Text.WordWrap
               elide: Text.ElideRight
+              color: "#97999b"
           }
         }
         // Gameinfo End
         ListView {
             id: gameList
-            width: vpx(338)
+            width: vpx(350)
             anchors {
                 top: parent.top;
                 right: parent.right;
@@ -255,23 +246,23 @@ BackgroundImage {
                     text: modelData.title
                     color: selected ? parent.clrDark : parent.clrLight
 
-                    font.pixelSize: parent.selected ? vpx(16) : vpx(16)
+                    font.pixelSize: parent.selected ? vpx(14) : vpx(14)
                     font.capitalization: Font.AllUppercase
                     font.family: "Open Sans"
 
                     lineHeight: 1.2
                     verticalAlignment: Text.AlignVCenter
 
-                    width: parent.width - vpx(22)
+                    width: parent.width - vpx(20)
                     elide: Text.ElideRight
-                    leftPadding: vpx(15)
+                    leftPadding: vpx(16)
                 }
             }
 
             highlightRangeMode: ListView.ApplyRange
             highlightMoveDuration: 0
-            preferredHighlightBegin: height * 0.5 - vpx(15)
-            preferredHighlightEnd: height * 0.5 + vpx(15)
+            preferredHighlightBegin: height * 0.5 - vpx(14)
+            preferredHighlightEnd: height * 0.5 + vpx(14)
         }
     }
 
@@ -281,7 +272,29 @@ BackgroundImage {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: vpx(25) * 1.5
+        height: vpx(196)
         color: "transparent"
+
+        Item {
+            id: cartridge
+            height: vpx(196)
+            width: Math.max(vpx(196), Math.min(height * cartridgeImage.aspectRatio, vpx(320)))
+            anchors {
+                top: parent.top; //topMargin: vpx(120)
+                left: parent.left; leftMargin: content.paddingH
+                bottom: parent.bottom; bottomMargin: content.paddingV
+            }
+
+            Image {
+                id: cartridgeImage
+                readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
+                anchors.fill: parent
+                asynchronous: true
+                source: currentGame.assets.cartridge || currentGame.assets.logo
+                sourceSize { width: 512; height: 512 } // optimization (max size)
+                fillMode: Image.PreserveAspectFit
+                //horizontalAlignment: Image.AlignCenter
+            }
+        }
     }
 }

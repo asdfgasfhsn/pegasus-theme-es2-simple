@@ -33,8 +33,8 @@ FocusScope {
               Repeater {
                 model: 78
                 Rectangle {
-                  width: 20
-                  height: 20
+                  width: vpx(20)
+                  height: vpx(20)
                   color: "black"
                   border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
                   border.width: 1

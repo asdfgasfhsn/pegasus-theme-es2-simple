@@ -4,7 +4,7 @@ import QtGraphicalEffects 1.0
 Item {
   id: root
   property var gameData//: currentCollection.games.get(gameList.currentIndex)
-  property real dimopacity: 0.96
+  property real dimopacity: 0.9
 
   property string bgSource: gameData ? gameData.assets.background || gameData.assets.screenshots[0] || "../assets/images/defaultbg.jpg" : ""
   property string bgImage1
@@ -80,22 +80,22 @@ Item {
     bg.state = bg.state == "fadeInRect2" ? "fadeOutRect2" : "fadeInRect2"
   }
 
-  LinearGradient {
-    z: parent.z + 1
-    width: parent.width
-    height: parent.height
-    anchors {
-      top: parent.top; topMargin: vpx(200)
-      right: parent.right
-      bottom: parent.bottom
-    }
-    start: Qt.point(0, 0)
-    end: Qt.point(0, height)
-    gradient: Gradient {
-      GradientStop { position: 0.0; color: "#00000000" }
-      GradientStop { position: 0.7; color: "#ff000000" }
-    }
-  }
+  // LinearGradient {
+  //   z: parent.z + 1
+  //   width: parent.width
+  //   height: parent.height
+  //   anchors {
+  //     top: parent.top; topMargin: vpx(200)
+  //     right: parent.right
+  //     bottom: parent.bottom
+  //   }
+  //   start: Qt.point(0, 0)
+  //   end: Qt.point(0, height)
+  //   gradient: Gradient {
+  //     GradientStop { position: 0.0; color: "#00000000" }
+  //     GradientStop { position: 0.7; color: "#ff000000" }
+  //   }
+  // }
 
   Rectangle {
     id: backgrounddim
@@ -104,7 +104,7 @@ Item {
 
     opacity: dimopacity
 
-    Behavior on opacity { NumberAnimation { duration: 100 } }
+    Behavior on opacity { NumberAnimation { duration: 1000 } }
   }
 
 

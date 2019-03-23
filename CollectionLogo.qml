@@ -12,25 +12,25 @@ Item {
     height: vpx(256)
     visible: PathView.onPath // optimization: do not draw if not visible
 
-    opacity: selected ? 1.0 : 0.5
-    Behavior on opacity { NumberAnimation { duration: 600 } }
-
+    opacity: 1.0 //selected ? 1.0 : 0.5
+    //Behavior on opacity { NumberAnimation { duration: 600 } }
 
     Image {
         id: image
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
         smooth: true
-        source: shortName ? "assets/controllers/%1.png".arg(shortName) : "" //| "assets/logos/%1.svg".arg(shortName) // : ""
+        source: shortName ? "assets/controllers/%1.png".arg(shortName) : ""
         asynchronous: true
-
         scale: selected ? 1.0 : 0.66
         Behavior on scale { NumberAnimation { duration: 600 } }
     }
 
     Image {
         id: systemLogo
-        anchors.left: image.right
+        anchors.left: image.right; anchors.leftMargin: vpx(10)
+        anchors.top: image.top; anchors.topMargin: vpx(32)
+        //anchors.horizontalCenter: parent.horizontalCenter
         width: vpx(256)
         height: vpx(256)
         fillMode: Image.PreserveAspectFit
@@ -46,21 +46,8 @@ Item {
       anchors.fill: systemLogo
       source: systemLogo
       color: "grey"
-      scale: selected ? 1.0 : 0.66
-      Behavior on scale { NumberAnimation { duration: 600 } }
-    }
-
-    Text {
-        id: label
-        anchors.centerIn: parent
-        color: "#000"
-        font.family: "Open Sans"
-        font.pixelSize: vpx(50)
-        text: shortName || longName
-
-        visible: image.status != Image.Ready
-
-        scale: selected ? 1.5 : 1.0
-        Behavior on scale { NumberAnimation { duration: 150 } }
+      smooth: true
+      scale: selected ? 1.0 : 0
+      Behavior on scale { NumberAnimation { duration: 1200 } }
     }
 }
