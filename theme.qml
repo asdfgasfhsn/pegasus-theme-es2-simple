@@ -20,10 +20,10 @@ FocusScope {
       id: bgRect
       anchors.top: parent.top
       anchors.left: parent.left
-      anchors.bottom: root.bottom
+      anchors.bottom: parent.bottom
       Item {
-        width: root.width
-        height: root.height
+        width: parent.width
+        height: parent.height
         id: bgBlock
         opacity: 0.5
         Row {

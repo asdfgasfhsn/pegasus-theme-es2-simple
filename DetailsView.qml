@@ -52,32 +52,44 @@ FocusScope {
             return;
         }
     }
+// TODO: Figure out Nice way of Rendering asset.background
+// TODO: Determine "default background for each system..."
+
+BackgroundImage {
+  id: backgroundimage
+  gameData: currentGame
+  anchors {
+    left: parent.left; right: parent.right
+    top: parent.top; bottom: parent.bottom
+  }
+  opacity: 1 
+}
 
 // Background Start
 // Gradient Yo!
-  Rectangle {
-    id: bgRectGradient
-    width: root.width
-    height: root.height
-    color: "transparent"
-    layer.enabled: true
-    LinearGradient {
-      anchors.fill: parent
-      start: Qt.point(0, 0)
-      end: Qt.point(0, vpx(720))
-      gradient: Gradient {
-        GradientStop {
-           position: 0.000
-           color: "transparent"
-           //color: Qt.rgba(0, 0, 0.1, 1)
-        }
-        GradientStop {
-           position: 0.666
-           color: Qt.rgba(0, 0, 0.1, 0.9)
-        }
-      }
-    }
-  }
+  // Rectangle {
+  //   id: bgRectGradient
+  //   width: root.width
+  //   height: root.height
+  //   color: "transparent"
+  //   layer.enabled: true
+  //   LinearGradient {
+  //     anchors.fill: parent
+  //     start: Qt.point(0, 0)
+  //     end: Qt.point(0, vpx(720))
+  //     gradient: Gradient {
+  //       GradientStop {
+  //          position: 0.000
+  //          color: "transparent"
+  //          //color: Qt.rgba(0, 0, 0.1, 1)
+  //       }
+  //       GradientStop {
+  //          position: 0.777
+  //          color: Qt.rgba(0, 0, 0, 0.9)
+  //       }
+  //     }
+  //   }
+  // }
 // Background End
 
 // Right Menu Backround Start
@@ -137,7 +149,7 @@ FocusScope {
         spacing: vpx(6)
         GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
         GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-        GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
+        // GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
         GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
       }
     }
@@ -176,7 +188,6 @@ FocusScope {
 
         Item {
             id: boxart
-
             height: vpx(256)
             width: Math.max(vpx(256), Math.min(height * boxartImage.aspectRatio, vpx(320)))
             anchors {
@@ -189,7 +200,7 @@ FocusScope {
                 readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
                 anchors.fill: parent
                 asynchronous: true
-                source: currentGame.assets.screenshot || currentGame.assets.boxFront || currentGame.assets.logo
+                source: currentGame.assets.boxFront || currentGame.assets.logo
                 //sourceSize { width: 512; height: 512 } // optimization (max size)
                 fillMode: Image.PreserveAspectFit
                 horizontalAlignment: Image.AlignCenter
