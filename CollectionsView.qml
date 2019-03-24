@@ -95,7 +95,7 @@ FocusScope {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: "#fff"
-            opacity: 0.1//0.6
+            opacity: 0.6//0.1//0.6
         }
         // The main carousel that we actually control
         Carousel {

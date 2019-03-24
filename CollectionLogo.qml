@@ -38,8 +38,8 @@ Item {
         source: shortName ? "assets/logos/%1.svg".arg(shortName) : ""
         asynchronous: true
         sourceSize { width: vpx(256); height: vpx(256) } // optimization: render SVGs in at most 256x256
-        scale: selected ? 1.0 : 0.66
-        Behavior on scale { NumberAnimation { duration: 600 } }
+        // scale: selected ? 1.0 : 0.66
+        // Behavior on scale { NumberAnimation { duration: 600 } }
         visible: false
     }
     ColorOverlay {
