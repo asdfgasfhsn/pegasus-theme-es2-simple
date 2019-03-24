@@ -31,8 +31,8 @@ Item {
         anchors.left: image.right; anchors.leftMargin: vpx(10)
         anchors.top: image.top; anchors.topMargin: vpx(32)
         //anchors.horizontalCenter: parent.horizontalCenter
-        width: vpx(256)
-        height: vpx(256)
+        width: vpx(196)
+        height: vpx(196)
         fillMode: Image.PreserveAspectFit
         smooth: true
         source: shortName ? "assets/logos/%1.svg".arg(shortName) : ""
