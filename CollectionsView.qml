@@ -102,7 +102,7 @@ FocusScope {
             id: logoAxis
 
             anchors.fill: parent
-            itemWidth: vpx(440)
+            itemWidth: vpx(480)
 
             model: api.collections
             delegate: CollectionLogo {
