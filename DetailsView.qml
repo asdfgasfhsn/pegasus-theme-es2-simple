@@ -132,14 +132,43 @@ BackgroundImage {
         }
       }
 //// Game Title End
+
+Item {
+    id: cartridge
+    height: vpx(128)
+    width: Math.max(vpx(128), Math.min(height * cartridgeImage.aspectRatio, vpx(128)))
+    anchors {
+        top: headerGameTitle.bottom; topMargin: vpx(8)
+        left: parent.left; leftMargin: vpx(20)
+        //bottom: parent.bottom; //bottomMargin: content.paddingV
+    }
+
+    Image {
+        id: cartridgeImage
+        readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
+        anchors {
+          top: parent.top
+          left: parent.left
+          right: parent.right
+          //bottom: parent.bottom
+        }
+        //anchors.fill: parent
+        asynchronous: true
+        source: currentGame.assets.cartridge || currentGame.assets.logo
+        sourceSize { width: vpx(128); height: vpx(128) } // optimization (max size)
+        fillMode: Image.PreserveAspectFit
+        //horizontalAlignment: Image.AlignCenter
+    }
+}
+
 //// Game Metadata Start
     Rectangle {
       id: metadataRect1
       anchors {
         top: headerGameTitle.bottom; topMargin: vpx(8)
-        left: parent.left; leftMargin: vpx(20)
+        left: cartridge.right; leftMargin: vpx(12)
       }
-      width: vpx(968)
+      width: vpx(800)
       height: metadataRow1.height
       clip: true
       color: "transparent"
@@ -153,13 +182,14 @@ BackgroundImage {
         GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
       }
     }
+
     Rectangle {
       id: metadataRect2
       anchors {
         top: metadataRect1.bottom; topMargin: vpx(8)
-        left: parent.left; leftMargin: vpx(20)
+        left: cartridge.right; leftMargin: vpx(12)
       }
-      width: vpx(968)
+      width: vpx(800)
       height: metadataRow2.height
       clip: true
       color: "transparent"
@@ -179,7 +209,7 @@ BackgroundImage {
     Rectangle {
         id: content
         anchors.top: root.top
-        anchors.left: parent.left
+        anchors.left: cartridge.right
         anchors.right: parent.right
         anchors.bottom: root.bottom
         color: "transparent"
@@ -196,7 +226,7 @@ BackgroundImage {
           height: vpx(64)
           anchors {
               top: parent.top; topMargin: vpx(160)
-              left: parent.left; leftMargin: vpx(20)
+              left: parent.left; leftMargin: vpx(12)
               right: gameList.left; rightMargin: content.paddingH
               //bottom: footer.top; bottomMargin: content.paddingV
           }
@@ -274,27 +304,5 @@ BackgroundImage {
         anchors.right: parent.right
         height: vpx(196)
         color: "transparent"
-
-        Item {
-            id: cartridge
-            height: vpx(196)
-            width: Math.max(vpx(196), Math.min(height * cartridgeImage.aspectRatio, vpx(320)))
-            anchors {
-                top: parent.top; //topMargin: vpx(120)
-                left: parent.left; leftMargin: content.paddingH
-                bottom: parent.bottom; bottomMargin: content.paddingV
-            }
-
-            Image {
-                id: cartridgeImage
-                readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
-                anchors.fill: parent
-                asynchronous: true
-                source: currentGame.assets.cartridge || currentGame.assets.logo
-                sourceSize { width: 512; height: 512 } // optimization (max size)
-                fillMode: Image.PreserveAspectFit
-                //horizontalAlignment: Image.AlignCenter
-            }
-        }
-    }
+  }
 }

@@ -63,15 +63,15 @@ Item {
         id: rect
         anchors.fill: rectImg
         source: rectImg
-        radius: vpx(12)
-        samples: 8
+        radius: vpx(20)
+        samples: 16
     }
     GaussianBlur {
         id: rect2
-        anchors.fill: rectImg
-        source: rectImg
-        radius: vpx(12)
-        samples: 8
+        anchors.fill: rect2Img
+        source: rect2Img
+        radius: vpx(20)
+        samples: 16
     }
 
     state: "fadeInRect2"
