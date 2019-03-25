@@ -4,9 +4,9 @@ import QtQuick 2.0
 // so I've moved them into a new QML type.
 
 Text {
-    font.pixelSize: vpx(16)
+    font.pixelSize: vpx(12)
     font.family: "Open Sans"
-    font.weight: Font.Light
+    font.weight: Font.Bold
     color: "#393a3b"
     elide: Text.ElideRight
 }

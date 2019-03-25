@@ -135,14 +135,13 @@ FocusScope {
     Item {
         anchors.right: parent.right; anchors.rightMargin: vpx(20)
         anchors.bottom: root.bottom
-        height: label.height * 1.5
+        height: vpx(40)
         width: vpx(320)
 
         Rectangle {
             anchors.fill: parent
             color: "#ddd"
-            //opacity: 0.85
-            opacity: 0.6
+            opacity: 0.444
 
         }
 

@@ -11,9 +11,32 @@ Item {
     width: vpx(256)
     height: vpx(256)
     visible: PathView.onPath // optimization: do not draw if not visible
+    opacity: selected ? 1.0 : 0.777
 
-    opacity: 1.0 //selected ? 1.0 : 0.5
-    //Behavior on opacity { NumberAnimation { duration: 600 } }
+    Image {
+        id: systemLogo
+        //anchors.left: image.right; anchors.leftMargin: vpx(10)
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        width: root.width - vpx(72)
+        height: root.height
+        fillMode: Image.PreserveAspectFit
+        smooth: true
+        source: shortName ? "assets/logos/%1.svg".arg(shortName) : ""
+        asynchronous: true
+        sourceSize { width: vpx(512); height: vpx(512) }
+        visible: false
+    }
+    ColorOverlay {
+      anchors.fill: systemLogo
+      source: systemLogo
+      color: "white"
+      smooth: true
+      scale: selected ? 1.0 : 0
+      opacity: selected ? 0.111 : 0
+      Behavior on opacity { NumberAnimation { duration: 6000 } }
+    }
 
     Image {
         id: image
@@ -26,28 +49,5 @@ Item {
         Behavior on scale { NumberAnimation { duration: 600 } }
     }
 
-    Image {
-        id: systemLogo
-        anchors.left: image.right; anchors.leftMargin: vpx(10)
-        anchors.top: image.top; anchors.topMargin: vpx(32)
-        //anchors.horizontalCenter: parent.horizontalCenter
-        width: vpx(196)
-        height: vpx(196)
-        fillMode: Image.PreserveAspectFit
-        smooth: true
-        source: shortName ? "assets/logos/%1.svg".arg(shortName) : ""
-        asynchronous: true
-        sourceSize { width: vpx(256); height: vpx(256) } // optimization: render SVGs in at most 256x256
-        // scale: selected ? 1.0 : 0.66
-        // Behavior on scale { NumberAnimation { duration: 600 } }
-        visible: false
-    }
-    ColorOverlay {
-      anchors.fill: systemLogo
-      source: systemLogo
-      color: "grey"
-      smooth: true
-      scale: selected ? 1.0 : 0
-      Behavior on scale { NumberAnimation { duration: 1200 } }
-    }
+
 }

@@ -133,42 +133,14 @@ BackgroundImage {
       }
 //// Game Title End
 
-Item {
-    id: cartridge
-    height: vpx(128)
-    width: Math.max(vpx(128), Math.min(height * cartridgeImage.aspectRatio, vpx(128)))
-    anchors {
-        top: headerGameTitle.bottom; topMargin: vpx(8)
-        left: parent.left; leftMargin: vpx(20)
-        //bottom: parent.bottom; //bottomMargin: content.paddingV
-    }
-
-    Image {
-        id: cartridgeImage
-        readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
-        anchors {
-          top: parent.top
-          left: parent.left
-          right: parent.right
-          //bottom: parent.bottom
-        }
-        //anchors.fill: parent
-        asynchronous: true
-        source: currentGame.assets.cartridge || currentGame.assets.logo
-        sourceSize { width: vpx(128); height: vpx(128) } // optimization (max size)
-        fillMode: Image.PreserveAspectFit
-        //horizontalAlignment: Image.AlignCenter
-    }
-}
-
 //// Game Metadata Start
     Rectangle {
       id: metadataRect1
       anchors {
         top: headerGameTitle.bottom; topMargin: vpx(8)
-        left: cartridge.right; leftMargin: vpx(12)
+        left: parent.left; leftMargin: vpx(20)
       }
-      width: vpx(800)
+      width: vpx(880)
       height: metadataRow1.height
       clip: true
       color: "transparent"
@@ -187,9 +159,9 @@ Item {
       id: metadataRect2
       anchors {
         top: metadataRect1.bottom; topMargin: vpx(8)
-        left: cartridge.right; leftMargin: vpx(12)
+        left: parent.left; leftMargin: vpx(20)
       }
-      width: vpx(800)
+      width: vpx(880)
       height: metadataRow2.height
       clip: true
       color: "transparent"
@@ -205,6 +177,93 @@ Item {
 //// Game Metadata End
 // Header/Meta End
 
+// Gameinfo Start
+ Rectangle {
+   id: gameDescriptionRect
+   //color: Qt.rgba(1, 1, 1, 0.1)
+   color: "#393a3b"
+   opacity: 0.6
+   height: vpx(120)
+   width: vpx(880)
+   anchors {
+       top: metadataRect2.bottom; topMargin: vpx(8)
+       left: parent.left; leftMargin: vpx(20)
+       //right: gameList.left; rightMargin: content.paddingH
+       //bottom: footer.top; bottomMargin: content.paddingV
+   }
+
+   GameInfoText {
+       id: gameDescription
+       anchors {
+         fill: parent
+         topMargin: vpx(12)
+         bottomMargin: vpx(12)
+         leftMargin: vpx(12)
+         rightMargin: vpx(12)
+       }
+       text: currentGame.description
+       wrapMode: Text.WordWrap
+       elide: Text.ElideRight
+       color: "#97999b"
+   }
+ }
+ // Gameinfo End
+
+ // Artwork Time!
+ Item {
+     id: screenshot
+     height: vpx(384)
+     width: vpx(880)
+     anchors {
+         top: gameDescriptionRect.bottom; topMargin: vpx(8)
+         left: parent.left; //leftMargin: vpx(20)
+         right: gameList.left
+         bottom: parent.bottom; //bottomMargin: content.paddingV
+     }
+
+     Image {
+         id: screenshotImage
+         readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
+         anchors {
+           centerIn: parent
+         }
+         //anchors.fill: parent
+         asynchronous: true
+         source: currentGame.assets.screenshots[0] || currentGame.assets.logo
+         //source: currentGame.assets.cartridge || currentGame.assets.logo
+         sourceSize { width: vpx(384); height: vpx(384) } // optimization (max size)
+         fillMode: Image.PreserveAspectFit
+         //horizontalAlignment: Image.AlignCenter
+     }
+ }
+
+ Item {
+     id: cartridge
+     height: vpx(128)
+     width: vpx(128)
+     anchors {
+         //top: gameDescriptionRect.bottom; topMargin: vpx(8)
+         left: parent.left; leftMargin: vpx(20)
+         right: gameList.left;
+         bottom: parent.bottom;
+     }
+
+     Image {
+         id: cartridgeImage
+         readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
+         anchors {
+           fill: parent
+           centerIn: parent
+         }
+         //anchors.fill: parent
+         asynchronous: true
+         source: currentGame.assets.cartridge || ""
+         sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
+         fillMode: Image.PreserveAspectFit
+         //horizontalAlignment: Image.AlignCenter
+     }
+ }
+// End Artwork Time!
 // Content Start
     Rectangle {
         id: content
@@ -217,36 +276,6 @@ Item {
         readonly property int paddingH: vpx(30)
         readonly property int paddingV: vpx(40)
 
-       // Gameinfo Start
-        Rectangle {
-          id: gameDescriptionRect
-          //color: Qt.rgba(1, 1, 1, 0.1)
-          color: "#393a3b"
-          opacity: 0.6
-          height: vpx(64)
-          anchors {
-              top: parent.top; topMargin: vpx(160)
-              left: parent.left; leftMargin: vpx(12)
-              right: gameList.left; rightMargin: content.paddingH
-              //bottom: footer.top; bottomMargin: content.paddingV
-          }
-
-          GameInfoText {
-              id: gameDescription
-              anchors {
-                fill: parent
-                topMargin: vpx(12)
-                bottomMargin: vpx(12)
-                leftMargin: vpx(12)
-                rightMargin: vpx(12)
-              }
-              text: currentGame.description
-              wrapMode: Text.WordWrap
-              elide: Text.ElideRight
-              color: "#97999b"
-          }
-        }
-        // Gameinfo End
         ListView {
             id: gameList
             width: vpx(350)
