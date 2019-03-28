@@ -8,7 +8,7 @@ FocusScope {
     // values will be undefined, which is why there are zeroes as fallback
     Component.onCompleted: {
         collectionsView.currentCollectionIndex = api.memory.get('collectionIndex') || 0;
-        detailsView.currentGameIndex = api.memory.get('gameIndex') || 0;
+        detailsView.currentGameIndex = api.memory.get('gameIndex' + collectionsView.currentCollectionIndex) || 0;
     }
 
     // Loading the fonts here makes them usable in the rest of the theme
@@ -69,7 +69,7 @@ FocusScope {
         onPrevCollection: collectionsView.selectPrev()
         onLaunchGame: {
             api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
-            api.memory.set('gameIndex', currentGameIndex);
+            api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
             currentGame.launch();
         }
     }
