@@ -8,7 +8,7 @@ FocusScope {
     // values will be undefined, which is why there are zeroes as fallback
     Component.onCompleted: {
         collectionsView.currentCollectionIndex = api.memory.get('collectionIndex') || 0;
-        detailsView.currentGameIndex = api.memory.get('gameIndex' + collectionsView.currentCollectionIndex) || 0;
+        detailsView.currentGameIndex = api.memory.get(currentCollection.shortName + 'GameIndex') || 0;
     }
 
     // Loading the fonts here makes them usable in the rest of the theme
@@ -57,7 +57,7 @@ FocusScope {
 
         focus: true
         onCollectionSelected: {
-          detailsView.currentGameIndex = api.memory.get('gameIndex' + collectionsView.currentCollectionIndex) || 0;
+          detailsView.currentGameIndex = api.memory.get(currentCollection.shortName + 'GameIndex') || 0;
           detailsView.focus = true
         }
     }
@@ -69,24 +69,24 @@ FocusScope {
 
         onCancel: {
           api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
-          api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
+          api.memory.set(currentCollection.shortName + 'GameIndex', currentGameIndex);
           collectionsView.focus = true
         }
         onNextCollection: {
           api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
-          api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
+          api.memory.set(currentCollection.shortName + 'GameIndex', currentGameIndex);
           collectionsView.selectNext()
-          detailsView.currentGameIndex = api.memory.get('gameIndex' + collectionsView.currentCollectionIndex) || 0;
+          detailsView.currentGameIndex = api.memory.get(currentCollection.shortName + 'GameIndex') || 0;
         }
         onPrevCollection: {
           api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
-          api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
+          api.memory.set(currentCollection.shortName + 'GameIndex', currentGameIndex);
           collectionsView.selectPrev()
-          detailsView.currentGameIndex = api.memory.get('gameIndex' + collectionsView.currentCollectionIndex) || 0;
+          detailsView.currentGameIndex = api.memory.get(currentCollection.shortName + 'GameIndex') || 0;
         }
         onLaunchGame: {
             api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
-            api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
+            api.memory.set(currentCollection.shortName + 'GameIndex', currentGameIndex);
             currentGame.launch();
         }
     }
