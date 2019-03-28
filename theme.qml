@@ -56,7 +56,10 @@ FocusScope {
         anchors.bottom: parent.bottom
 
         focus: true
-        onCollectionSelected: detailsView.focus = true
+        onCollectionSelected: {
+          detailsView.currentGameIndex = api.memory.get('gameIndex' + collectionsView.currentCollectionIndex) || 0;
+          detailsView.focus = true
+        }
     }
     DetailsView {
         id: detailsView
@@ -64,9 +67,23 @@ FocusScope {
 
         currentCollection: collectionsView.currentCollection
 
-        onCancel: collectionsView.focus = true
-        onNextCollection: collectionsView.selectNext()
-        onPrevCollection: collectionsView.selectPrev()
+        onCancel: {
+          api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
+          api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
+          collectionsView.focus = true
+        }
+        onNextCollection: {
+          api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
+          api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
+          collectionsView.selectNext()
+          detailsView.currentGameIndex = api.memory.get('gameIndex' + collectionsView.currentCollectionIndex) || 0;
+        }
+        onPrevCollection: {
+          api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
+          api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
+          collectionsView.selectPrev()
+          detailsView.currentGameIndex = api.memory.get('gameIndex' + collectionsView.currentCollectionIndex) || 0;
+        }
         onLaunchGame: {
             api.memory.set('collectionIndex', collectionsView.currentCollectionIndex);
             api.memory.set('gameIndex' + collectionsView.currentCollectionIndex, currentGameIndex);
