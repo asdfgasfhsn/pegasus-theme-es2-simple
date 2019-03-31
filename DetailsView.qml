@@ -227,13 +227,10 @@ BackgroundImage {
          anchors {
            centerIn: parent
          }
-         //anchors.fill: parent
          asynchronous: true
-         source: currentGame.assets.screenshots[0] || currentGame.assets.logo
-         //source: currentGame.assets.cartridge || currentGame.assets.logo
+         source: currentGame.assets.screenshots[0] || currentGame.assets.boxFront
          sourceSize { width: vpx(384); height: vpx(384) } // optimization (max size)
          fillMode: Image.PreserveAspectFit
-         //horizontalAlignment: Image.AlignCenter
      }
  }
 
@@ -321,7 +318,7 @@ BackgroundImage {
                     anchors.fill: parent
                     anchors.centerIn: parent
                     asynchronous: true
-                    source: modelData.assets.screenshots[0]
+                    source: modelData.assets.screenshots[0] || modelData.assets.boxFront
                     sourceSize { width: vpx(512); height: vpx(512) } // optimization (max size)
                     fillMode: Image.PreserveAspectCrop
                     clip: true
@@ -337,7 +334,7 @@ BackgroundImage {
                     anchors.margins: vpx(6)
                     anchors.centerIn: parent
                     asynchronous: true
-                    source: modelData.assets.logo || modelData.assets.screenshots[0]
+                    source: modelData.assets.logo || ""
                     sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
                     fillMode: Image.PreserveAspectFit
                     //clip: true
