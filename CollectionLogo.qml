@@ -39,14 +39,14 @@ Item {
 
       layer.enabled: true
       layer.effect: DropShadow {
-      horizontalOffset: 0
-      verticalOffset: 0
-      radius: 10.0
-      samples: 17
-      color: "#80000000"
-      transparentBorder: true
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 10.0
+        samples: 17
+        color: "#80000000"
+        transparentBorder: true
+      }
     }
-  }
 
     Image {
         id: controllerImage
