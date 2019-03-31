@@ -36,7 +36,17 @@ Item {
       scale: selected ? 1.0 : 0
       opacity: selected ? 0.111 : 0
       Behavior on opacity { NumberAnimation { duration: 6000 } }
+
+      layer.enabled: true
+      layer.effect: DropShadow {
+      horizontalOffset: 0
+      verticalOffset: 0
+      radius: 10.0
+      samples: 17
+      color: "#80000000"
+      transparentBorder: true
     }
+  }
 
     Image {
         id: controllerImage
