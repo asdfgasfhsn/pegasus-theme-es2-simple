@@ -287,7 +287,7 @@ BackgroundImage {
             }
 
             cellWidth: vpx(200)
-            cellHeight: vpx(100)
+            cellHeight: vpx(128)
             focus: true
 
             model: currentCollection.games
