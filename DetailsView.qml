@@ -184,11 +184,11 @@ BackgroundImage {
    color: "#393a3b"
    opacity: 0.6
    height: vpx(120)
-   width: vpx(880)
+   width: vpx(600)
    anchors {
        top: metadataRect2.bottom; topMargin: vpx(8)
        left: parent.left; leftMargin: vpx(20)
-       //right: gameGrid.left; rightMargin: content.paddingH
+       right: gameGrid.left; // rightMargin: content.paddingH
        //bottom: footer.top; bottomMargin: content.paddingV
    }
 
@@ -213,7 +213,7 @@ BackgroundImage {
  Item {
      id: screenshot
      height: vpx(384)
-     width: vpx(880)
+     width: vpx(600)
      anchors {
          top: gameDescriptionRect.bottom; topMargin: vpx(8)
          left: parent.left; //leftMargin: vpx(20)
@@ -275,7 +275,7 @@ BackgroundImage {
 
         readonly property int paddingH: vpx(30)
         readonly property int paddingV: vpx(40)
-
+        clip: true
         GridView {
             id: gameGrid
             width: vpx(600)
@@ -297,15 +297,40 @@ BackgroundImage {
                 readonly property color clrLight: "#97999b"
                 readonly property color transparent: "transparent"
                 width: vpx(200)
-                height: vpx(100)
-                opacity: selected ? 1 : 0.111
-                color: selected ? clrLight : transparent
-                //border
+                height: vpx(128)
+                opacity: selected ? 1 : 0.5
+                color: transparent
+                scale: selected ? 1.666 : 1
+                z: selected ? 100 : 1
+                //Behavior on opacity { NumberAnimation { duration: 600 } }
+                Behavior on scale { NumberAnimation { duration: 600 } }
 
+                layer.enabled: true
+                layer.effect: DropShadow {
+                  horizontalOffset: 0
+                  verticalOffset: 0
+                  radius: selected ? 30 : 0
+                  samples: selected ? 20 : 0
+                  color: selected ? "black" : "transparent"//"#80000000"
+                  transparentBorder: true //true
+                }
+                Image {
+                    id: gameGridBG
+                    //readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
+                    anchors.fill: parent
+                    anchors.centerIn: parent
+                    asynchronous: true
+                    source: modelData.assets.screenshots[0]
+                    sourceSize { width: vpx(512); height: vpx(512) } // optimization (max size)
+                    fillMode: Image.PreserveAspectCrop
+                    clip: true
+                    horizontalAlignment: Image.AlignCenter
+                    opacity: selected ? 1 : 0.5
+                }
 
 
                 Image {
-                    id: cartridgeImage
+                    id: gameGridLogo
                     //readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
                     anchors.fill: parent
                     anchors.margins: vpx(6)
@@ -316,6 +341,15 @@ BackgroundImage {
                     fillMode: Image.PreserveAspectFit
                     clip: true
                     horizontalAlignment: Image.AlignCenter
+                    layer.enabled: true
+                    layer.effect: DropShadow {
+                      horizontalOffset: 0
+                      verticalOffset: 0
+                      radius: 30
+                      samples: 30
+                      color: "black"
+                      transparentBorder: true
+                    }
                 }
                 // Text {
                 //     id: gameTitle
