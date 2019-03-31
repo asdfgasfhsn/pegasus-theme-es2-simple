@@ -309,8 +309,9 @@ BackgroundImage {
                 layer.effect: DropShadow {
                   horizontalOffset: 0
                   verticalOffset: 0
-                  radius: selected ? 30 : 0
-                  samples: selected ? 20 : 0
+                  spread: 0.222
+                  radius: selected ? 20 : 0
+                  samples: selected ? 18 : 0
                   color: selected ? "black" : "transparent"//"#80000000"
                   transparentBorder: true //true
                 }
@@ -324,7 +325,7 @@ BackgroundImage {
                     sourceSize { width: vpx(512); height: vpx(512) } // optimization (max size)
                     fillMode: Image.PreserveAspectCrop
                     clip: true
-                    horizontalAlignment: Image.AlignCenter
+                    //horizontalAlignment: Image.AlignCenter
                     opacity: selected ? 1 : 0.5
                 }
 
@@ -339,15 +340,16 @@ BackgroundImage {
                     source: modelData.assets.logo || modelData.assets.screenshots[0]
                     sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
                     fillMode: Image.PreserveAspectFit
-                    clip: true
+                    //clip: true
                     horizontalAlignment: Image.AlignCenter
                     layer.enabled: true
                     layer.effect: DropShadow {
+                      spread: 0.1
                       horizontalOffset: 0
                       verticalOffset: 0
-                      radius: 30
-                      samples: 30
-                      color: "black"
+                      radius: 20
+                      samples: 18
+                      color: "#80000000"
                       transparentBorder: true
                     }
                 }
