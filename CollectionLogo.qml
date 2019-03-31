@@ -8,14 +8,14 @@ Item {
     property string shortName: "" // set on the PathView side
     readonly property bool selected: PathView.isCurrentItem
 
-    width: vpx(256)
-    height: vpx(256)
+    width: root.width
+    height: parent.width
     visible: PathView.onPath // optimization: do not draw if not visible
-    opacity: selected ? 1.0 : 0.777
+    opacity: selected ? 1.0 : 0.666
+
 
     Image {
         id: systemLogo
-        //anchors.left: image.right; anchors.leftMargin: vpx(10)
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
@@ -39,8 +39,11 @@ Item {
     }
 
     Image {
-        id: image
-        anchors.fill: parent
+        id: controllerImage
+        width: vpx(386)
+        height: vpx(386)
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
         fillMode: Image.PreserveAspectFit
         smooth: true
         source: shortName ? "assets/controllers/%1.png".arg(shortName) : ""
@@ -48,6 +51,5 @@ Item {
         scale: selected ? 1.0 : 0.66
         Behavior on scale { NumberAnimation { duration: 600 } }
     }
-
 
 }
