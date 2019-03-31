@@ -314,31 +314,26 @@ BackgroundImage {
                 }
                 Image {
                     id: gameGridBG
-                    //readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
                     anchors.fill: parent
                     anchors.centerIn: parent
                     asynchronous: true
                     source: modelData.assets.screenshots[0] || modelData.assets.boxFront
-                    sourceSize { width: vpx(512); height: vpx(512) } // optimization (max size)
+                    sourceSize { width: vpx(512); height: vpx(512) }
                     fillMode: Image.PreserveAspectCrop
                     clip: true
-                    //horizontalAlignment: Image.AlignCenter
                     opacity: selected ? 1 : 0.5
                 }
 
 
                 Image {
                     id: gameGridLogo
-                    //readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
                     anchors.fill: parent
                     anchors.margins: vpx(6)
                     anchors.centerIn: parent
                     asynchronous: true
                     source: modelData.assets.logo || ""
-                    sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
+                    sourceSize { width: vpx(256); height: vpx(256) }
                     fillMode: Image.PreserveAspectFit
-                    //clip: true
-                    horizontalAlignment: Image.AlignCenter
                     layer.enabled: true
                     layer.effect: DropShadow {
                       spread: 0.1
