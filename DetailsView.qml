@@ -10,7 +10,7 @@ FocusScope {
     // This will be set in the main theme file
     property var currentCollection
     // Shortcuts for the game list's currently selected game
-    property alias currentGameIndex: gameList.currentIndex
+    property alias currentGameIndex: gameGrid.currentIndex
     readonly property var currentGame: currentCollection.games.get(currentGameIndex)
 
     // Nothing particularly interesting, see CollectionsView for more comments
@@ -95,13 +95,13 @@ BackgroundImage {
 // Right Menu Backround Start
     Rectangle {
       id: rightMenuBG
-      width: vpx(320)
+      width: vpx(600)
       height: root.height
       color: "#393a3b"
       opacity: 0.6
       anchors {
         top: root.top;
-        right: parent.right; rightMargin: vpx(20)
+        right: parent.right; //rightMargin: vpx(20)
         bottom: root.bottom;
       }
     }
@@ -188,7 +188,7 @@ BackgroundImage {
    anchors {
        top: metadataRect2.bottom; topMargin: vpx(8)
        left: parent.left; leftMargin: vpx(20)
-       //right: gameList.left; rightMargin: content.paddingH
+       //right: gameGrid.left; rightMargin: content.paddingH
        //bottom: footer.top; bottomMargin: content.paddingV
    }
 
@@ -217,7 +217,7 @@ BackgroundImage {
      anchors {
          top: gameDescriptionRect.bottom; topMargin: vpx(8)
          left: parent.left; //leftMargin: vpx(20)
-         right: gameList.left
+         right: gameGrid.left
          bottom: parent.bottom; //bottomMargin: content.paddingV
      }
 
@@ -244,7 +244,7 @@ BackgroundImage {
      anchors {
          //top: gameDescriptionRect.bottom; topMargin: vpx(8)
          left: parent.left; leftMargin: vpx(20)
-         right: gameList.left;
+         right: gameGrid.left;
          bottom: parent.bottom;
      }
 
@@ -276,52 +276,69 @@ BackgroundImage {
         readonly property int paddingH: vpx(30)
         readonly property int paddingV: vpx(40)
 
-        ListView {
-            id: gameList
-            width: vpx(350)
+        GridView {
+            id: gameGrid
+            width: vpx(600)
             anchors {
                 top: parent.top;
                 right: parent.right;
-                bottom: parent.bottom; bottomMargin: vpx(20)
-                topMargin: vpx(20)
+                bottom: parent.bottom; // bottomMargin: vpx(20)
+                //topMargin: vpx(20)
             }
 
+            cellWidth: vpx(200)
+            cellHeight: vpx(100)
             focus: true
 
             model: currentCollection.games
             delegate: Rectangle {
-                readonly property bool selected: ListView.isCurrentItem
+                readonly property bool selected: GridView.isCurrentItem
                 readonly property color clrDark: "#393a3b"
                 readonly property color clrLight: "#97999b"
                 readonly property color transparent: "transparent"
-
-                width: ListView.view.width
-                height: gameTitle.height
-                opacity: 1
+                width: vpx(200)
+                height: vpx(100)
+                opacity: selected ? 1 : 0.111
                 color: selected ? clrLight : transparent
+                //border
 
-                Text {
-                    id: gameTitle
-                    text: modelData.title
-                    color: selected ? parent.clrDark : parent.clrLight
 
-                    font.pixelSize: parent.selected ? vpx(14) : vpx(14)
-                    font.capitalization: Font.AllUppercase
-                    font.family: "Open Sans"
 
-                    lineHeight: 1.2
-                    verticalAlignment: Text.AlignVCenter
-
-                    width: parent.width - vpx(20)
-                    elide: Text.ElideRight
-                    leftPadding: vpx(16)
+                Image {
+                    id: cartridgeImage
+                    //readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
+                    anchors.fill: parent
+                    anchors.margins: vpx(6)
+                    anchors.centerIn: parent
+                    asynchronous: true
+                    source: modelData.assets.logo || modelData.assets.screenshots[0]
+                    sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
+                    fillMode: Image.PreserveAspectFit
+                    clip: true
+                    horizontalAlignment: Image.AlignCenter
                 }
+                // Text {
+                //     id: gameTitle
+                //     text: modelData.assets.boxFront
+                //     color: selected ? parent.clrDark : parent.clrLight
+                //
+                //     font.pixelSize: parent.selected ? vpx(14) : vpx(14)
+                //     font.capitalization: Font.AllUppercase
+                //     font.family: "Open Sans"
+                //
+                //     lineHeight: 1.2
+                //     verticalAlignment: Text.AlignVCenter
+                //
+                //     width: parent.width - vpx(20)
+                //     elide: Text.ElideRight
+                //     leftPadding: vpx(16)
+                // }
             }
 
-            highlightRangeMode: ListView.ApplyRange
+            highlightRangeMode: GridView.ApplyRange
             highlightMoveDuration: 0
-            preferredHighlightBegin: height * 0.5 - vpx(14)
-            preferredHighlightEnd: height * 0.5 + vpx(14)
+            preferredHighlightBegin: height * 0.5 //- vpx(14)
+            preferredHighlightEnd: height * 0.5 //+ vpx(14)
         }
     }
 
