@@ -284,7 +284,7 @@ BackgroundImage {
             }
 
             cellWidth: vpx(200)
-            cellHeight: vpx(128)
+            cellHeight: vpx(120)
             focus: true
 
             model: currentCollection.games
@@ -294,7 +294,7 @@ BackgroundImage {
                 readonly property color clrLight: "#97999b"
                 readonly property color transparent: "transparent"
                 width: vpx(200)
-                height: vpx(128)
+                height: vpx(120)
                 opacity: selected ? 1 : 0.5
                 color: transparent
                 scale: selected ? 1.666 : 1
