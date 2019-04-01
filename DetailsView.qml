@@ -206,18 +206,31 @@ BackgroundImage {
          bottom: parent.bottom; //bottomMargin: content.paddingV
      }
 
-     Image {
-         id: screenshotImage
-         readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
-         anchors {
-           centerIn: parent
-         }
-         asynchronous: true
-         source: currentGame.assets.screenshots[0] || currentGame.assets.boxFront
-         sourceSize { width: vpx(384); height: vpx(384) } // optimization (max size)
-         fillMode: Image.PreserveAspectFit
+ //     Image {
+ //         id: screenshotImage
+ //         readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
+ //         anchors {
+ //           centerIn: parent
+ //         }
+ //         asynchronous: true
+ //         source: currentGame.assets.screenshots[0] || currentGame.assets.boxFront
+ //         sourceSize { width: vpx(384); height: vpx(384) } // optimization (max size)
+ //         fillMode: Image.PreserveAspectFit
+ //     }
+ // }
+
+ GameVideoItem {
+     id: screenshotImage
+     anchors {
+         // left: parent.horizontalCenter; leftMargin: vpx(20)
+         // right: parent.right; rightMargin: vpx(20)
+         // top: parent.top; topMargin: vpx(40)
+         // bottom: parent.bottom; bottomMargin: vpx(8)
+         centerIn: parent
      }
- }
+
+     game: currentGame
+ }}
 
  Item {
      id: cartridge
@@ -242,7 +255,6 @@ BackgroundImage {
          source: currentGame.assets.cartridge || ""
          sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
          fillMode: Image.PreserveAspectFit
-         //horizontalAlignment: Image.AlignCenter
      }
  }
 // End Artwork Time!
@@ -313,8 +325,6 @@ BackgroundImage {
             displaced: Transition {
                 NumberAnimation { properties: "x,y"; duration: 400; easing.type: Easing.OutBounce }
 
-                // ensure opacity and scale values return to 1.0
-                //NumberAnimation { property: "opacity"; to: 1.0 }
                 NumberAnimation { property: "scale"; to: 1.0 }
             }
             remove: Transition {
