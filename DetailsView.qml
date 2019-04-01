@@ -10,7 +10,7 @@ FocusScope {
     // This will be set in the main theme file
     property var currentCollection
     // Shortcuts for the game list's currently selected game
-    property alias currentGameIndex: gameGrid.currentIndex
+    property alias currentGameIndex: grid.currentIndex
     readonly property var currentGame: currentCollection.games.get(currentGameIndex)
 
     // Nothing particularly interesting, see CollectionsView for more comments
@@ -92,21 +92,6 @@ BackgroundImage {
   }
 // Background End
 
-// Right Menu Backround Start
-    Rectangle {
-      id: rightMenuBG
-      width: vpx(600)
-      height: root.height
-      color: "#393a3b"
-      opacity: 0.6
-      anchors {
-        top: root.top;
-        right: parent.right; //rightMargin: vpx(20)
-        bottom: root.bottom;
-      }
-    }
-// Right Menu Backround Stop
-
 // Header/Meta Start
 //// Game Title Start
       Rectangle {
@@ -119,7 +104,7 @@ BackgroundImage {
           left: parent.left; leftMargin: paddingV
         }
 
-        width: vpx(968)
+        width: vpx(500)
         height: gameTitleRow.height
         clip: true
         color: "transparent"
@@ -140,7 +125,7 @@ BackgroundImage {
         top: headerGameTitle.bottom; topMargin: vpx(8)
         left: parent.left; leftMargin: vpx(20)
       }
-      width: vpx(880)
+      width: vpx(500)
       height: metadataRow1.height
       clip: true
       color: "transparent"
@@ -150,7 +135,7 @@ BackgroundImage {
         spacing: vpx(6)
         GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
         GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-        GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
+        //GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
         GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
       }
     }
@@ -161,7 +146,7 @@ BackgroundImage {
         top: metadataRect1.bottom; topMargin: vpx(8)
         left: parent.left; leftMargin: vpx(20)
       }
-      width: vpx(880)
+      width: vpx(500)
       height: metadataRow2.height
       clip: true
       color: "transparent"
@@ -184,11 +169,11 @@ BackgroundImage {
    color: "#393a3b"
    opacity: 0.6
    height: vpx(120)
-   width: vpx(600)
+   width: vpx(500)
    anchors {
        top: metadataRect2.bottom; topMargin: vpx(8)
        left: parent.left; leftMargin: vpx(20)
-       right: gameGrid.left; // rightMargin: content.paddingH
+       right: grid.left; // rightMargin: content.paddingH
        //bottom: footer.top; bottomMargin: content.paddingV
    }
 
@@ -213,11 +198,11 @@ BackgroundImage {
  Item {
      id: screenshot
      height: vpx(384)
-     width: vpx(600)
+     width: vpx(500)
      anchors {
          top: gameDescriptionRect.bottom; topMargin: vpx(8)
-         left: parent.left; //leftMargin: vpx(20)
-         right: gameGrid.left
+         left: parent.left; leftMargin: vpx(20)
+         right: grid.left
          bottom: parent.bottom; //bottomMargin: content.paddingV
      }
 
@@ -241,7 +226,7 @@ BackgroundImage {
      anchors {
          //top: gameDescriptionRect.bottom; topMargin: vpx(8)
          left: parent.left; leftMargin: vpx(20)
-         right: gameGrid.left;
+         right: grid.left;
          bottom: parent.bottom;
      }
 
@@ -265,118 +250,89 @@ BackgroundImage {
     Rectangle {
         id: content
         anchors.top: root.top
+        //anchors.topMargin: vpx(32)
         anchors.left: cartridge.right
         anchors.right: parent.right
-        anchors.bottom: root.bottom
+        anchors.bottom: parent.bottom // footer.top
+        //anchors.bottomMargin: vpx(32)
         color: "transparent"
-
         readonly property int paddingH: vpx(30)
         readonly property int paddingV: vpx(40)
         clip: true
+
         GridView {
-            id: gameGrid
-            width: vpx(600)
+            id: grid
+            width: vpx(680)
+            height: vpx(700)
             anchors {
                 top: parent.top;
                 right: parent.right;
-                bottom: parent.bottom; // bottomMargin: vpx(20)
-                //topMargin: vpx(20)
+                margins: vpx(32)
+                topMargin: vpx(50)
+            }
+            property bool firstImageLoaded: false
+            property real cellHeightRatio: 0.5
+
+            function cells_need_recalc() {
+                firstImageLoaded = false;
+                cellHeightRatio = 0.5;
             }
 
-            cellWidth: vpx(200)
-            cellHeight: vpx(120)
             focus: true
+            snapMode: GridView.SnapToRow
+            highlightFollowsCurrentItem: true
+            highlightRangeMode: GridView.StrictlyEnforceRange
 
             model: currentCollection.games
-            delegate: Rectangle {
-                readonly property bool selected: GridView.isCurrentItem
-                readonly property color clrDark: "#393a3b"
-                readonly property color clrLight: "#97999b"
-                readonly property color transparent: "transparent"
-                width: vpx(200)
-                height: vpx(120)
-                opacity: selected ? 1 : 0.5
-                color: transparent
-                scale: selected ? 1.666 : 1
-                z: selected ? 100 : 1
-                //Behavior on opacity { NumberAnimation { duration: 600 } }
-                Behavior on scale { NumberAnimation { duration: 600 } }
+            onModelChanged: cells_need_recalc()
+            onCountChanged: cells_need_recalc()
 
-                layer.enabled: true
-                layer.effect: DropShadow {
-                  horizontalOffset: 0
-                  verticalOffset: 0
-                  spread: 0.222
-                  radius: selected ? 20 : 0
-                  samples: selected ? 18 : 0
-                  color: selected ? "black" : "transparent"//"#80000000"
-                  transparentBorder: true //true
-                }
-                Image {
-                    id: gameGridBG
-                    anchors.fill: parent
-                    anchors.centerIn: parent
-                    asynchronous: true
-                    source: modelData.assets.screenshots[0] || modelData.assets.boxFront
-                    sourceSize { width: vpx(512); height: vpx(512) }
-                    fillMode: Image.PreserveAspectCrop
-                    clip: true
-                    opacity: selected ? 1 : 0.5
-                }
-
-
-                Image {
-                    id: gameGridLogo
-                    anchors.fill: parent
-                    anchors.margins: vpx(6)
-                    anchors.centerIn: parent
-                    asynchronous: true
-                    source: modelData.assets.logo || ""
-                    sourceSize { width: vpx(256); height: vpx(256) }
-                    fillMode: Image.PreserveAspectFit
-                    layer.enabled: true
-                    layer.effect: DropShadow {
-                      spread: 0.1
-                      horizontalOffset: 0
-                      verticalOffset: 0
-                      radius: 20
-                      samples: 18
-                      color: "#80000000"
-                      transparentBorder: true
-                    }
-                }
-                // Text {
-                //     id: gameTitle
-                //     text: modelData.assets.boxFront
-                //     color: selected ? parent.clrDark : parent.clrLight
-                //
-                //     font.pixelSize: parent.selected ? vpx(14) : vpx(14)
-                //     font.capitalization: Font.AllUppercase
-                //     font.family: "Open Sans"
-                //
-                //     lineHeight: 1.2
-                //     verticalAlignment: Text.AlignVCenter
-                //
-                //     width: parent.width - vpx(20)
-                //     elide: Text.ElideRight
-                //     leftPadding: vpx(16)
-                // }
+            property real columnCount: {
+                if (cellHeightRatio > 1.2) return 5;
+                if (cellHeightRatio > 0.6) return 4;
+                return 3;
             }
 
-            highlightRangeMode: GridView.ApplyRange
-            highlightMoveDuration: 0
-            preferredHighlightBegin: height * 0.5 //- vpx(14)
-            preferredHighlightEnd: height * 0.5 //+ vpx(14)
+            function calcHeightRatio(imageW, imageH) {
+                cellHeightRatio = 0.5;
+
+                if (imageW > 0 && imageH > 0)
+                    cellHeightRatio = imageH / imageW;
+            }
+
+            cellWidth: width / columnCount
+            cellHeight: cellWidth * cellHeightRatio;
+
+            displayMarginBeginning: anchors.topMargin
+
+            delegate: GameGridItem {
+                width: GridView.view.cellWidth
+                selected: GridView.isCurrentItem
+
+                game: modelData
+
+                imageHeightRatio: {
+                    if (grid.firstImageLoaded) return grid.cellHeightRatio;
+                    return 0.5;
+                }
+                onImageLoaded: {
+                    // NOTE: because images are loaded asynchronously,
+                    // firstImageLoaded may appear false multiple times!
+                    if (!grid.firstImageLoaded) {
+                        grid.firstImageLoaded = true;
+                        grid.calcHeightRatio(imageWidth, imageHeight);
+                    }
+              }
         }
     }
-
+}
     // TODO: Add nice artwork or something in footer
     Rectangle {
         id: footer
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        height: vpx(196)
+        height: vpx(10)
         color: "transparent"
   }
 }
