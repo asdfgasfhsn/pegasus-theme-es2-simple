@@ -262,7 +262,7 @@ BackgroundImage {
 
         GridView {
             id: grid
-            width: vpx(680)
+            width: vpx(620)
             height: vpx(700)
             anchors {
                 top: parent.top;
@@ -304,6 +304,24 @@ BackgroundImage {
             cellHeight: cellWidth * cellHeightRatio;
 
             displayMarginBeginning: anchors.topMargin
+
+            add: Transition {
+                //NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 1000 }
+                NumberAnimation { property: "scale"; from: 0; to: 1.0; duration: 1000 }
+            }
+
+            displaced: Transition {
+                NumberAnimation { properties: "x,y"; duration: 400; easing.type: Easing.OutBounce }
+
+                // ensure opacity and scale values return to 1.0
+                //NumberAnimation { property: "opacity"; to: 1.0 }
+                NumberAnimation { property: "scale"; to: 1.0 }
+            }
+            remove: Transition {
+                NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: 1000 }
+                NumberAnimation { property: "scale"; from: 1.0; to: 0; duration: 1000 }
+            }
+
 
             delegate: GameGridItem {
                 width: GridView.view.cellWidth
