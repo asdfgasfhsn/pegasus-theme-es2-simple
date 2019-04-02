@@ -222,11 +222,11 @@ BackgroundImage {
  GameVideoItem {
      id: screenshotImage
      anchors {
-         // left: parent.horizontalCenter; leftMargin: vpx(20)
-         // right: parent.right; rightMargin: vpx(20)
-         // top: parent.top; topMargin: vpx(40)
-         // bottom: parent.bottom; bottomMargin: vpx(8)
-         centerIn: parent
+         left: parent.horizontalCenter; leftMargin: vpx(20)
+         right: parent.right; rightMargin: vpx(20)
+         top: parent.top; topMargin: vpx(40)
+         bottom: parent.bottom; bottomMargin: vpx(8)
+         //centerIn: parent
      }
 
      game: currentGame

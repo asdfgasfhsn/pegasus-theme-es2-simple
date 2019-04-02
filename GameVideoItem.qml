@@ -45,7 +45,7 @@ Item {
     Item {
       id: gameDebug
       function gameDebug(game) {
-        console.warn("game is ", game.assets.logo);
+        console.warn("video count: ", game.assets.videos.length);
         }
     }
 
