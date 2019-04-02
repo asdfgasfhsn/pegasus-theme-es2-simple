@@ -230,7 +230,7 @@ BackgroundImage {
      }
 
      game: currentGame
- }}
+ }
 }
  Item {
      id: cartridge
@@ -291,13 +291,13 @@ BackgroundImage {
             }
 
             // TODO: Make this "skew to provide lazy 3D look"
-            transform: Matrix4x4 {
-                property real a: Math.PI / 2
-                matrix: Qt.matrix4x4(a, 0.1, 0, 0,
-                                     0,   1, 0, 0,
-                                     0,   0, 1, 0,
-                                     0,   0, 0, 1)
-            }
+            // transform: Matrix4x4 {
+            //     property real a: Math.PI / 3
+            //     matrix: Qt.matrix4x4(a, 0.01, a, 0,
+            //                          0,   1, 0, 0,
+            //                          0,   0, 1, 0,
+            //                          0,   0, 0, 1)
+            // }
 
             focus: true
             snapMode: GridView.SnapToRow
