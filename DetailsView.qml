@@ -231,7 +231,7 @@ BackgroundImage {
 
      game: currentGame
  }}
-
+}
  Item {
      id: cartridge
      height: vpx(128)
@@ -288,6 +288,15 @@ BackgroundImage {
             function cells_need_recalc() {
                 firstImageLoaded = false;
                 cellHeightRatio = 0.5;
+            }
+
+            // TODO: Make this "skew to provide lazy 3D look"
+            transform: Matrix4x4 {
+                property real a: Math.PI / 2
+                matrix: Qt.matrix4x4(a, 0.1, 0, 0,
+                                     0,   1, 0, 0,
+                                     0,   0, 1, 0,
+                                     0,   0, 0, 1)
             }
 
             focus: true
