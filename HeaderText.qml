@@ -4,17 +4,29 @@ import QtQuick.Layouts 1.11
   Rectangle {
     id: root
     property string titletext
-    Layout.minimumWidth: rowcontent.width + vpx(10);
-    Layout.maximumWidth: vpx(500);
-    Layout.minimumHeight: rowcontent.height + vpx(6);
-    Layout.alignment: Qt.AlignHCenter;
-    color: "#393a3b"
-    opacity: 0.6
+    property var game
 
-  RowLayout {
-    id: rowcontent
-    anchors.verticalCenter: root.verticalCenter
-    anchors.horizontalCenter: root.horizontalCenter
+    color: "transparent"
+
+    width: parent.width
+    height: parent.height
+    clip: true
+
+    Image {
+        id: logo
+        asynchronous: true
+        width: parent.width - vpx(12)
+        height: parent.height - vpx(12)
+        source: (game && game.assets.logo) || ""
+        sourceSize { width: 512; height: 192 }
+        fillMode: Image.PreserveAspectFit
+        smooth: true
+
+        anchors {
+          verticalCenter: parent.verticalCenter
+          horizontalCenter: parent.horizontalCenter
+        }
+
       Text {
           id: titleText
           text: titletext
@@ -24,7 +36,7 @@ import QtQuick.Layouts 1.11
           color: "#97999b"
           elide: Text.ElideRight
           Layout.maximumWidth: vpx(500)
-      }
-    }
+          visible: parent.status != Image.Ready && parent.status != Image.Loading
+        }
+     }
   }
-//}

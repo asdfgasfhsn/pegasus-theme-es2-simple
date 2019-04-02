@@ -19,7 +19,7 @@ import QtQuick.Layouts 1.11
           id: metaData
           text: metatext
           font.weight: Font.Bold
-          font.pixelSize: vpx(12)
+          font.pixelSize: vpx(8)
           font.capitalization: Font.AllUppercase
           color: "#97999b"
           elide: Text.ElideRight

@@ -49,107 +49,18 @@ Item {
         }
     }
 
-    Image {
-        id: logo
-        width: parent.width
-        height: width * 0.35
-
-        asynchronous: true
-        source: (game && game.assets.logo) || ""
-        sourceSize { width: 512; height: 192 }
-        fillMode: Image.PreserveAspectFit
-
-        // title
-        Text {
-            color: "#eee"
-            text: (game && game.title) || ""
-
-            width: parent.width * 0.8
-            anchors.centerIn: parent
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-
-            font {
-                bold: true
-                pixelSize: vpx(30)
-                capitalization: Font.SmallCaps
-                family: globalFonts.sans
-            }
-
-            visible: parent.status != Image.Ready && parent.status != Image.Loading
-        }
-    }
-
-    // year -- developer / publisher -- players
-    Text {
-        id: releaseDetails
-        width: parent.width
-        wrapMode: Text.WordWrap
-        horizontalAlignment: Text.AlignHCenter
-
-        anchors.top: logo.bottom
-        topPadding: vpx(16)
-        bottomPadding: vpx(16)
-
-        text: {
-            var text_tmp = "";
-
-            if (!game)
-                return text_tmp;
-
-            if (game.year > 0)
-                text_tmp += game.year;
-            if (game.developer) {
-                if (text_tmp)
-                    text_tmp += " \u2014 ";
-
-                text_tmp += game.developer;
-                if (game.publisher && game.developer !== game.publisher)
-                    text_tmp += " / " + game.publisher;
-            }
-            return text_tmp;
-        }
-        color: "#eee"
-        font {
-            pixelSize: vpx(18)
-            family: globalFonts.sans
-        }
-
-        visible: text
-    }
-
-    Text {
-        id: summary
-        width: parent.width
-        wrapMode: Text.WordWrap
-
-        anchors.top: releaseDetails.bottom
-        topPadding: vpx(20)
-        bottomPadding: vpx(40)
-
-        text: game ? (game.summary || game.description) : ""
-        color: "#eee"
-        font {
-            pixelSize: vpx(16)
-            family: globalFonts.sans
-        }
-        maximumLineCount: 4
-        elide: Text.ElideRight
-
-        visible: text
-    }
-
     Rectangle {
         id: videoBox
-        color: "#000"
-        border { color: "#444"; width: 1 }
+        color: "transparent"
 
-        anchors.top: summary.bottom
-        anchors.bottom: parent.bottom
-
-        width: parent.width
-        radius: vpx(4)
-
+        // anchors.top: logo.bottom
+        // anchors.bottom: parent.bottom
+        anchors.fill: parent
+        //border { color: "#444"; width: 1 }
+        width: Image.width //vpx(512)
+        height: Image.height
+        //radius: vpx(4)
+        clip: true
         visible: (game && (game.assets.videos.length || game.assets.screenshots.length)) || false
 
         Video {

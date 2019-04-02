@@ -94,28 +94,28 @@ BackgroundImage {
 
 // Header/Meta Start
 //// Game Title Start
-      Rectangle {
-        id: headerGameTitle
-        readonly property int paddingH: vpx(30) // H as horizontal
-        readonly property int paddingV: vpx(20) // V as vertical
+  Rectangle {
+    id: headerGameTitle
+    readonly property int paddingH: vpx(20) // H as horizontal
+    readonly property int paddingV: vpx(20) // V as vertical
+    //border { color: "#444"; width: 1 }
+    width: vpx(600)
+    height: vpx(128)
+    color: "transparent"
 
-        anchors {
-          top: parent.top; topMargin: paddingH
-          left: parent.left; leftMargin: paddingV
-        }
+    anchors {
+      top: root.top; topMargin: paddingH
+      left: root.left; leftMargin: paddingV
+    }
 
-        width: vpx(500)
-        height: gameTitleRow.height
-        clip: true
-        color: "transparent"
-
-        RowLayout {
-          id: gameTitleRow
-          anchors { left: parent.left }
-          spacing: vpx(6)
-          HeaderText { titletext: currentGame.title }
-        }
+    HeaderText {
+      titletext: currentGame.title;
+      game: currentGame
+      anchors {
+        verticalCenter: headerGameTitle.verticalCenter
       }
+    }
+  }
 //// Game Title End
 
 //// Game Metadata Start
@@ -125,7 +125,7 @@ BackgroundImage {
         top: headerGameTitle.bottom; topMargin: vpx(8)
         left: parent.left; leftMargin: vpx(20)
       }
-      width: vpx(500)
+      width: vpx(580)
       height: metadataRow1.height
       clip: true
       color: "transparent"
@@ -135,7 +135,7 @@ BackgroundImage {
         spacing: vpx(6)
         GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
         GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-        //GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
+        GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
         GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
       }
     }
@@ -146,7 +146,7 @@ BackgroundImage {
         top: metadataRect1.bottom; topMargin: vpx(8)
         left: parent.left; leftMargin: vpx(20)
       }
-      width: vpx(500)
+      width: vpx(580)
       height: metadataRow2.height
       clip: true
       color: "transparent"
@@ -169,12 +169,11 @@ BackgroundImage {
    color: "#393a3b"
    opacity: 0.6
    height: vpx(120)
-   width: vpx(500)
+   width: vpx(580)
    anchors {
        top: metadataRect2.bottom; topMargin: vpx(8)
        left: parent.left; leftMargin: vpx(20)
-       right: grid.left; // rightMargin: content.paddingH
-       //bottom: footer.top; bottomMargin: content.paddingV
+       right: grid.left;
    }
 
    GameInfoText {
@@ -201,36 +200,16 @@ BackgroundImage {
      width: vpx(500)
      anchors {
          top: gameDescriptionRect.bottom; topMargin: vpx(8)
-         left: parent.left; leftMargin: vpx(20)
+         left: parent.left; leftMargin: vpx(30)
          right: grid.left
-         bottom: parent.bottom; //bottomMargin: content.paddingV
+         bottom: parent.bottom; bottomMargin: vpx(30)
      }
-
- //     Image {
- //         id: screenshotImage
- //         readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
- //         anchors {
- //           centerIn: parent
- //         }
- //         asynchronous: true
- //         source: currentGame.assets.screenshots[0] || currentGame.assets.boxFront
- //         sourceSize { width: vpx(384); height: vpx(384) } // optimization (max size)
- //         fillMode: Image.PreserveAspectFit
- //     }
- // }
 
  GameVideoItem {
      id: screenshotImage
-     anchors {
-         left: parent.horizontalCenter; leftMargin: vpx(20)
-         right: parent.right; rightMargin: vpx(20)
-         top: parent.top; topMargin: vpx(40)
-         bottom: parent.bottom; bottomMargin: vpx(8)
-         //centerIn: parent
-     }
-
+     anchors { fill: parent }
      game: currentGame
- }
+  }
 }
  Item {
      id: cartridge
@@ -240,7 +219,7 @@ BackgroundImage {
          //top: gameDescriptionRect.bottom; topMargin: vpx(8)
          left: parent.left; leftMargin: vpx(20)
          right: grid.left;
-         bottom: parent.bottom;
+         bottom: root.bottom; bottomMargin: vpx(20)
      }
 
      Image {
@@ -250,26 +229,27 @@ BackgroundImage {
            fill: parent
            centerIn: parent
          }
-         //anchors.fill: parent
          asynchronous: true
          source: currentGame.assets.cartridge || ""
          sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
          fillMode: Image.PreserveAspectFit
      }
  }
+
 // End Artwork Time!
 // Content Start
     Rectangle {
         id: content
-        anchors.top: root.top
-        //anchors.topMargin: vpx(32)
-        anchors.left: cartridge.right
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom // footer.top
-        //anchors.bottomMargin: vpx(32)
+        anchors {
+          top: root.top
+          left: cartridge.right
+          right: parent.right
+          bottom: parent.bottom
+        }
+
         color: "transparent"
-        readonly property int paddingH: vpx(30)
-        readonly property int paddingV: vpx(40)
+        // readonly property int paddingH: vpx(30)
+        // readonly property int paddingV: vpx(40)
         clip: true
 
         GridView {
@@ -327,13 +307,11 @@ BackgroundImage {
             displayMarginBeginning: anchors.topMargin
 
             add: Transition {
-                //NumberAnimation { property: "opacity"; from: 0; to: 1.0; duration: 1000 }
                 NumberAnimation { property: "scale"; from: 0; to: 1.0; duration: 1000 }
             }
 
             displaced: Transition {
                 NumberAnimation { properties: "x,y"; duration: 400; easing.type: Easing.OutBounce }
-
                 NumberAnimation { property: "scale"; to: 1.0 }
             }
             remove: Transition {
