@@ -304,15 +304,6 @@ FocusScope {
                 cellHeightRatio = 0.5;
             }
 
-            // TODO: Make this "skew to provide lazy 3D look"
-            // transform: Matrix4x4 {
-            //     property real a: Math.PI / 3
-            //     matrix: Qt.matrix4x4(a, 0.01, a, 0,
-            //                          0,   1, 0, 0,
-            //                          0,   0, 1, 0,
-            //                          0,   0, 0, 1)
-            // }
-
             focus: true
             snapMode: GridView.SnapToRow
             highlightFollowsCurrentItem: true
@@ -340,22 +331,9 @@ FocusScope {
 
             displayMarginBeginning: anchors.topMargin
 
-            add: Transition {
-                NumberAnimation { property: "scale"; from: 0; to: 1.0; duration: 1000 }
-            }
-
-            displaced: Transition {
-                NumberAnimation { properties: "x,y"; duration: 400; easing.type: Easing.OutBounce }
-                NumberAnimation { property: "scale"; to: 1.0 }
-            }
-            remove: Transition {
-                NumberAnimation { property: "opacity"; from: 1.0; to: 0; duration: 1000 }
-                NumberAnimation { property: "scale"; from: 1.0; to: 0; duration: 1000 }
-            }
-
-
             delegate: GameGridItem {
                 width: GridView.view.cellWidth
+                height: GridView.view.cellHeight
                 selected: GridView.isCurrentItem
 
                 game: modelData
@@ -370,8 +348,8 @@ FocusScope {
                     if (!grid.firstImageLoaded) {
                         grid.firstImageLoaded = true;
                         grid.calcHeightRatio(imageWidth, imageHeight);
-                    }
-              }
+                      }
+                }
         }
     }
 }

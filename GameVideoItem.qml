@@ -67,6 +67,9 @@ Item {
             id: videoPreview
             visible: playlist.itemCount > 0
 
+            width: metaData.resolution ? metaData.resolution.width : 0
+            height: metaData.resolution ? metaData.resolution.height : 0
+
             anchors { fill: parent; margins: 1 }
             fillMode: VideoOutput.PreserveAspectFit
 
@@ -76,6 +79,7 @@ Item {
         }
 
         Image {
+            id: videoPreviewImage
             visible: !videoPreview.visible
 
             anchors { fill: parent; margins: 1 }
@@ -85,5 +89,11 @@ Item {
             sourceSize { width: 512; height: 512 }
             asynchronous: true
         }
+    }
+    Rectangle {
+      id: videoBoxBorder
+      width: videoPreview.visible ? VideoOutput.width : videoPreview.width
+      height: videoPreview.visible ? VideoOutput.height : videoPreview.height
+      opacity: 0.5
     }
 }
