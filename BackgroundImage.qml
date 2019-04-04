@@ -6,7 +6,7 @@ Item {
   property var gameData//: currentCollection.games.get(gameList.currentIndex)
   property real dimopacity: 0.666 //0.9
 
-  property string bgSource: gameData ? gameData.assets.background || gameData.assets.screenshots[0] || "../assets/images/defaultbg.jpg" : ""
+  property string bgSource: gameData ? gameData.assets.screenshots[0] || gameData.assets.background || "../assets/images/defaultbg.jpg" : ""
   property string bgImage1
   property string bgImage2
   property bool firstBG: true
@@ -33,7 +33,7 @@ Item {
 
     transitions: [
         Transition {
-            NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration: 300  }
+            NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration: 1000  }
         }
     ]
 
@@ -116,10 +116,8 @@ Item {
     id: backgrounddim
     anchors.fill: parent
     color: "#15181e"
-
     opacity: dimopacity
-
-    Behavior on opacity { NumberAnimation { duration: 1000 } }
+    Behavior on opacity { NumberAnimation { duration: 2000 } }
   }
 
 

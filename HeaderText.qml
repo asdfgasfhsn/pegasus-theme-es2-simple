@@ -15,8 +15,8 @@ import QtQuick.Layouts 1.11
     Image {
         id: logo
         asynchronous: true
-        width: parent.width - vpx(20)
-        height: parent.height - vpx(12)
+        width: parent.width - vpx(60)
+        height: parent.height - vpx(20)
         source: (game && game.assets.logo) || ""
         sourceSize { width: 580; height: 256 }
         fillMode: Image.PreserveAspectFit

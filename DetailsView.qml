@@ -293,7 +293,7 @@ FocusScope {
             anchors {
                 top: parent.top;
                 right: parent.right;
-                margins: vpx(32)
+                margins: vpx(50)
                 topMargin: vpx(50)
             }
             property bool firstImageLoaded: false

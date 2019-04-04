@@ -21,7 +21,9 @@ import QtGraphicalEffects 1.12
 Rectangle {
     id: root
 
-    color: "transparent"
+    border.color: "#99FFFFFF"
+    border.width: selected ? vpx(3) : 0
+    color: selected ? "#000000" : "transparent"
 
     property bool selected: false
     property var game
@@ -37,18 +39,29 @@ Rectangle {
     signal imageLoaded(int imgWidth, int imgHeight)
 
     scale: selected ? 1.5 : 1.0
-    opacity: selected ? 1 : 0.5
+    opacity: selected ? 1 : 0.666
     z: selected ? 3 : 1
 
-    Behavior on scale { PropertyAnimation { duration: 300 } }
-    Behavior on opacity { PropertyAnimation { duration: 300 } }
+    Behavior on scale { PropertyAnimation { duration: 666 } }
+    Behavior on opacity { PropertyAnimation { duration: 333 } }
+
+    layer.enabled: selected ? true : false
+    layer.effect: DropShadow {
+      spread: 0.666
+      horizontalOffset: 0
+      verticalOffset: 0
+      radius: 15
+      samples: 20
+      color:  "#80000000"
+      transparentBorder: true
+    }
 
     Image {
         id: boxFront
         anchors { fill: parent; margins: vpx(6) }
 
         asynchronous: true
-        visible: false //game.assets.boxFront
+        visible: false // game.assets.boxFront
 
         source: game.assets.boxFront || ""
         sourceSize { width: 256; height: 256 }
@@ -61,20 +74,10 @@ Rectangle {
           }
       }
 
-    Desaturate {
+      Desaturate {
         anchors { fill: parent; margins: vpx(6) }
         source: boxFront
-        desaturation: selected ? 0 : 0.9
-        layer.enabled: true
-        layer.effect: DropShadow {
-          spread: 0.666
-          horizontalOffset: 0
-          verticalOffset: 0
-          radius: selected ? 15 : 0
-          samples: selected ? 18 : 0
-          color: "#80000000"
-          transparentBorder: true
-        }
+        desaturation: selected ? 0 : 0.666
     }
 
     Image {

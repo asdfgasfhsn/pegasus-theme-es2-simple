@@ -90,10 +90,10 @@ Item {
             asynchronous: true
         }
     }
-    Rectangle {
-      id: videoBoxBorder
-      width: videoPreview.visible ? VideoOutput.width : videoPreview.width
-      height: videoPreview.visible ? VideoOutput.height : videoPreview.height
-      opacity: 0.5
-    }
+    // Rectangle {
+    //   id: videoBoxBorder
+    //   width: videoPreview.visible ? VideoOutput.width : videoPreview.width
+    //   height: videoPreview.visible ? VideoOutput.height : videoPreview.height
+    //   opacity: 0.5
+    // }
 }
