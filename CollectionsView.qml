@@ -31,6 +31,38 @@ FocusScope {
         logoAxis.decrementCurrentIndex();
     }
 
+    // Draw grid background for all views
+    Item {
+      id: bgRect
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
+      Item {
+        width: parent.width
+        height: parent.height
+        id: bgBlock
+        opacity: 0.5
+        Row {
+          Repeater {
+            model: 144
+            Column {
+              Repeater {
+                model: 78
+                Rectangle {
+                  width: vpx(20)
+                  height: vpx(20)
+                  color: "black"
+                  border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+                  border.width: 1
+                  radius: 0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     // Gradient Yo!
     Rectangle {
       width: root.width
@@ -53,6 +85,9 @@ FocusScope {
         }
       }
     }
+
+
+
     //bgBlock
     // The carousel of background images. This isn't the item we control with the keys,
     // however it reacts to mouse and so should still update the Index.
@@ -95,7 +130,7 @@ FocusScope {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: "#fff"
-            opacity: 0.6//0.1//0.6
+            opacity: 0.6
         }
         // The main carousel that we actually control
         Carousel {

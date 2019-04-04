@@ -45,7 +45,7 @@ Rectangle {
 
     Image {
         id: boxFront
-        anchors { fill: parent; margins: vpx(2) }
+        anchors { fill: parent; margins: vpx(6) }
 
         asynchronous: true
         visible: false //game.assets.boxFront
@@ -62,7 +62,7 @@ Rectangle {
       }
 
     Desaturate {
-        anchors { fill: parent; margins: vpx(2) }
+        anchors { fill: parent; margins: vpx(6) }
         source: boxFront
         desaturation: selected ? 0 : 0.9
         layer.enabled: true

@@ -52,18 +52,48 @@ FocusScope {
             return;
         }
     }
-// TODO: Figure out Nice way of Rendering asset.background
-// TODO: Determine "default background for each system..."
 
-BackgroundImage {
-  id: backgroundimage
-  gameData: currentGame
-  anchors {
-    left: parent.left; right: parent.right
-    top: parent.top; bottom: parent.bottom
+  // Draw grid background for all views
+  Item {
+    id: bgRect
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    Item {
+      width: parent.width
+      height: parent.height
+      id: bgBlock
+      opacity: 0.5
+      Row {
+        Repeater {
+          model: 144
+          Column {
+            Repeater {
+              model: 78
+              Rectangle {
+                width: vpx(20)
+                height: vpx(20)
+                color: "black"
+                border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+                border.width: 1
+                radius: 0
+              }
+            }
+          }
+        }
+      }
+    }
   }
-  opacity: 0.333
-}
+
+  BackgroundImage {
+    id: backgroundimage
+    gameData: currentGame
+    anchors {
+      left: parent.left; right: parent.right
+      top: parent.top; bottom: parent.bottom
+    }
+    opacity: 0.555
+  }
 
 // Background Start
 // Gradient Yo!

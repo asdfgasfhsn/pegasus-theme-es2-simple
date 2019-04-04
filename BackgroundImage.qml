@@ -4,7 +4,7 @@ import QtGraphicalEffects 1.0
 Item {
   id: root
   property var gameData//: currentCollection.games.get(gameList.currentIndex)
-  property real dimopacity: 0.9
+  property real dimopacity: 0.666 //0.9
 
   property string bgSource: gameData ? gameData.assets.background || gameData.assets.screenshots[0] || "../assets/images/defaultbg.jpg" : ""
   property string bgImage1
