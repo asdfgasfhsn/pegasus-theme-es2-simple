@@ -8,7 +8,7 @@ import QtQuick.Layouts 1.11
     Layout.maximumWidth: vpx(260);
     Layout.minimumHeight: rowcontent.height + vpx(6);
     Layout.alignment: Qt.AlignHCenter;
-    color: "#393a3b"
+    color: "transparent"//"#393a3b"
     opacity: 0.6
 
   RowLayout {

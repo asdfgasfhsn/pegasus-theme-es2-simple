@@ -18,8 +18,10 @@
 import QtQuick 2.2
 import QtGraphicalEffects 1.12
 
-Item {
+Rectangle {
     id: root
+
+    color: "transparent"
 
     property bool selected: false
     property var game
@@ -28,7 +30,6 @@ Item {
     property alias imageHeight: boxFront.paintedHeight
     property real imageHeightRatio: 0.5
 
-
     height: width * imageHeightRatio
 
     signal clicked()
@@ -36,9 +37,8 @@ Item {
     signal imageLoaded(int imgWidth, int imgHeight)
 
     scale: selected ? 1.5 : 1.0
-    opacity: selected ? 1 : 0.333
+    opacity: selected ? 1 : 0.5
     z: selected ? 3 : 1
-
 
     Behavior on scale { PropertyAnimation { duration: 300 } }
     Behavior on opacity { PropertyAnimation { duration: 300 } }
@@ -48,16 +48,23 @@ Item {
         anchors { fill: parent; margins: vpx(2) }
 
         asynchronous: true
-        visible: game.assets.boxFront
+        visible: false //game.assets.boxFront
 
         source: game.assets.boxFront || ""
         sourceSize { width: 256; height: 256 }
         fillMode: Image.PreserveAspectFit
+        smooth: true
 
         onStatusChanged: if (status === Image.Ready) {
             imageHeightRatio = paintedHeight / paintedWidth;
             root.imageLoaded(paintedWidth, paintedHeight);
           }
+      }
+
+    Desaturate {
+        anchors { fill: parent; margins: vpx(2) }
+        source: boxFront
+        desaturation: selected ? 0 : 0.9
         layer.enabled: true
         layer.effect: DropShadow {
           spread: 0.666
@@ -67,7 +74,6 @@ Item {
           samples: selected ? 18 : 0
           color: "#80000000"
           transparentBorder: true
-
         }
     }
 

@@ -99,13 +99,15 @@ BackgroundImage {
     readonly property int paddingH: vpx(20) // H as horizontal
     readonly property int paddingV: vpx(20) // V as vertical
     //border { color: "#444"; width: 1 }
-    width: vpx(600)
-    height: vpx(128)
+    width: vpx(580)
+    height: vpx(196)
     color: "transparent"
 
     anchors {
       top: root.top; topMargin: paddingH
       left: root.left; leftMargin: paddingV
+      rightMargin: paddingV
+
     }
 
     HeaderText {
@@ -131,7 +133,7 @@ BackgroundImage {
       color: "transparent"
       RowLayout {
         id: metadataRow1
-        anchors { left: parent.left }
+        anchors { horizontalCenter: parent.horizontalCenter } //left: parent.left }
         spacing: vpx(6)
         GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
         GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
@@ -152,7 +154,7 @@ BackgroundImage {
       color: "transparent"
       RowLayout {
         id: metadataRow2
-        anchors { left: parent.left }
+        anchors { horizontalCenter: parent.horizontalCenter }
         spacing: vpx(6)
         GameDetailsText { metatext: 'Developer: ' + currentGame.developer || "unknown" }
         GameDetailsText { metatext: 'Publisher: ' + currentGame.publisher || "unknown" }
@@ -166,7 +168,7 @@ BackgroundImage {
  Rectangle {
    id: gameDescriptionRect
    //color: Qt.rgba(1, 1, 1, 0.1)
-   color: "#393a3b"
+   color: "transparent"//"#393a3b"
    opacity: 0.6
    height: vpx(120)
    width: vpx(580)
@@ -184,6 +186,7 @@ BackgroundImage {
          bottomMargin: vpx(12)
          leftMargin: vpx(12)
          rightMargin: vpx(12)
+         horizontalCenter: parent.horizontalCenter
        }
        text: currentGame.description
        wrapMode: Text.WordWrap
@@ -200,9 +203,10 @@ BackgroundImage {
      width: vpx(500)
      anchors {
          top: gameDescriptionRect.bottom; topMargin: vpx(8)
-         left: parent.left; leftMargin: vpx(30)
-         right: grid.left
+         //left: parent.left; leftMargin: vpx(30)
+         right: grid.left; rightMargin: vpx(30)
          bottom: parent.bottom; bottomMargin: vpx(30)
+         horizontalCenter: gameDescriptionRect.horizontalCenter
      }
 
  GameVideoItem {
