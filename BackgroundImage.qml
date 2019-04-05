@@ -1,12 +1,12 @@
 import QtQuick 2.8
-import QtGraphicalEffects 1.0
+import QtGraphicalEffects 1.12
 
 Item {
   id: root
   property var gameData//: currentCollection.games.get(gameList.currentIndex)
   property real dimopacity: 0.666 //0.9
 
-  property string bgSource: gameData ? gameData.assets.screenshots[0] || gameData.assets.background || "../assets/images/defaultbg.jpg" : ""
+  property string bgSource: gameData ? gameData.assets.screenshots[0] || gameData.assets.background : ""
   property string bgImage1
   property string bgImage2
   property bool firstBG: true
@@ -33,7 +33,7 @@ Item {
 
     transitions: [
         Transition {
-            NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration: 1000  }
+            NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration: 1000 }
         }
     ]
 
@@ -119,7 +119,4 @@ Item {
     opacity: dimopacity
     Behavior on opacity { NumberAnimation { duration: 2000 } }
   }
-
-
-
 }

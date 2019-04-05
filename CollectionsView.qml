@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.8
 import QtGraphicalEffects 1.12
 // The collections view consists of two carousels, one for the collection logo bar
 // and one for the background images. They should have the same number of elements

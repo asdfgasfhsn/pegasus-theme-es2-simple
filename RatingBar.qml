@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.8
 
 // The rating bar is a 5-stars bar set to a percentage. It's actually
 // two images set on a repeating pattern.

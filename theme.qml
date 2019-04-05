@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.8
 import QtGraphicalEffects 1.12
 // Welcome! This is the entry point of the theme; it defines two "views"
 // and a way to move (and animate moving) between them.

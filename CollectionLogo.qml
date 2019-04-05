@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.8
 import QtGraphicalEffects 1.12
 
 // The collection logo on the collection carousel. Just an image that gets scaled

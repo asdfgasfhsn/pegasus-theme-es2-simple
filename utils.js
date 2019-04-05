@@ -46,4 +46,3 @@ function formatPlayTime(playTime) {
 
     return parseFloat((minutes / 60).toFixed(1)) + " hours"
 }
-
