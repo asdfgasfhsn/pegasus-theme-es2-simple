@@ -7,6 +7,5 @@ Text {
     font.pixelSize: vpx(10)
     font.family: "Open Sans"
     font.weight: Font.Bold
-    color: "#393a3b"
     elide: Text.ElideRight
 }

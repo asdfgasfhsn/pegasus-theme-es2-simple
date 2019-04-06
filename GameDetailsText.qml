@@ -4,12 +4,11 @@ import QtQuick.Layouts 1.11
   Rectangle {
     id: root
     property string metatext
-    Layout.minimumWidth: rowcontent.width + vpx(10);
+    Layout.minimumWidth: rowcontent.width + vpx(4);
     Layout.maximumWidth: vpx(260);
-    Layout.minimumHeight: rowcontent.height + vpx(6);
+    Layout.minimumHeight: rowcontent.height //+ vpx(6);
     Layout.alignment: Qt.AlignHCenter;
-    color: "transparent"//"#393a3b"
-    opacity: 0.6
+    color: "transparent"
 
   RowLayout {
     id: rowcontent
@@ -19,7 +18,7 @@ import QtQuick.Layouts 1.11
           id: metaData
           text: metatext
           font.weight: Font.Bold
-          font.pixelSize: vpx(8)
+          font.pixelSize: vpx(10)
           font.capitalization: Font.AllUppercase
           color: "#97999b"
           elide: Text.ElideRight

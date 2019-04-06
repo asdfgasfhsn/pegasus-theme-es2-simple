@@ -13,6 +13,9 @@ FocusScope {
     property alias currentGameIndex: grid.currentIndex
     readonly property var currentGame: currentCollection.games.get(currentGameIndex)
 
+    // property alias videoPreviewStop: videoPreview.stop
+    // property alias videoPreviewClear: videoPreview.playlist.clear
+
     // Nothing particularly interesting, see CollectionsView for more comments
     width: parent.width
     height: parent.height
@@ -146,6 +149,16 @@ FocusScope {
       anchors {
         verticalCenter: headerGameTitle.verticalCenter
       }
+      layer.enabled: true
+      layer.effect: DropShadow {
+        horizontalOffset: 0
+        verticalOffset: 0
+        spread: 0.02
+        radius: 30.0
+        samples: 50
+        color: "#99FFFFFF"
+        transparentBorder: true
+      }
     }
   }
 //// Game Title End
@@ -154,31 +167,30 @@ FocusScope {
     Rectangle {
       id: metadataRect1
       anchors {
-        top: headerGameTitle.bottom; topMargin: vpx(8)
-        left: parent.left; leftMargin: vpx(20)
+        top: headerGameTitle.bottom; topMargin: vpx(6)
+        horizontalCenter: headerGameTitle.horizontalCenter
       }
-      width: vpx(580)
+      width: vpx(520)
       height: metadataRow1.height
       clip: true
       color: "transparent"
       RowLayout {
         id: metadataRow1
-        anchors { horizontalCenter: parent.horizontalCenter } //left: parent.left }
+        anchors { horizontalCenter: parent.horizontalCenter }
         spacing: vpx(6)
         GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
-        GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-        GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
-        GameDetailsText { metatext: 'Release Date: ' + Utils.formatDate(currentGame.release) || "unknown" }
+        GameDetailsText { metatext: 'Genre: ' + ( currentGame.genre || "unknown" ) }
+        GameDetailsText { metatext: 'Release Date: ' + ( Utils.formatDate(currentGame.release) || "unknown" ) }
       }
     }
 
     Rectangle {
       id: metadataRect2
       anchors {
-        top: metadataRect1.bottom; topMargin: vpx(8)
-        left: parent.left; leftMargin: vpx(20)
+        top: metadataRect1.bottom; topMargin: vpx(6)
+        horizontalCenter: headerGameTitle.horizontalCenter
       }
-      width: vpx(580)
+      width: vpx(520)
       height: metadataRow2.height
       clip: true
       color: "transparent"
@@ -186,44 +198,73 @@ FocusScope {
         id: metadataRow2
         anchors { horizontalCenter: parent.horizontalCenter }
         spacing: vpx(6)
-        GameDetailsText { metatext: 'Developer: ' + currentGame.developer || "unknown" }
-        GameDetailsText { metatext: 'Publisher: ' + currentGame.publisher || "unknown" }
-        GameDetailsText { metatext: 'Genre: ' + currentGame.genre || "unknown" }
+        GameDetailsText { metatext: 'Developer: ' + ( currentGame.developer || "unknown" ) }
+        GameDetailsText { metatext: 'Publisher: ' + ( currentGame.publisher || "unknown" ) }
+        GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
+        GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
         }
     }
 //// Game Metadata End
 // Header/Meta End
 
 // Gameinfo Start
- Rectangle {
+ Item {
    id: gameDescriptionRect
    //color: Qt.rgba(1, 1, 1, 0.1)
-   color: "transparent"//"#393a3b"
-   opacity: 0.6
-   height: vpx(120)
-   width: vpx(580)
+   //color: "transparent"//"#393a3b"
+   //opacity: 1
+   height: vpx(80)
+   width: vpx(520)
    anchors {
-       top: metadataRect2.bottom; topMargin: vpx(8)
-       left: parent.left; leftMargin: vpx(20)
-       right: grid.left;
+       top: metadataRect2.bottom; topMargin: vpx(6)
+       horizontalCenter: headerGameTitle.horizontalCenter
    }
 
    GameInfoText {
        id: gameDescription
+       width: vpx(300)
        anchors {
          fill: parent
-         topMargin: vpx(12)
-         bottomMargin: vpx(12)
-         leftMargin: vpx(12)
-         rightMargin: vpx(12)
-         horizontalCenter: parent.horizontalCenter
+         //margins: vpx(6)
        }
        text: currentGame.description
        wrapMode: Text.WordWrap
        elide: Text.ElideRight
        color: "#97999b"
    }
- }
+
+  // TODO: Idea around have "open/close quote around description..."
+  // Text {
+  //   id: gameDescriptionLeftQuote
+  //   width: vpx(10)
+  //   height: vpx(12)
+  //   text: '"'
+  //   color: "#97999b"
+  //   font.pixelSize: vpx(50)
+  //   font.family: "Open Sans"
+  //   font.weight: Font.Bold
+  //   anchors {
+  //     bottom: gameDescription.top
+  //     right: gameDescription.left
+  //   }
+  //  }
+  //
+  //  Text {
+  //    id: gameDescriptionRightQuote
+  //    width: vpx(10)
+  //    height: vpx(12)
+  //    text: '"'
+  //    color: "#97999b"
+  //    font.pixelSize: vpx(50)
+  //    font.family: "Open Sans"
+  //    font.weight: Font.Bold
+  //    anchors {
+  //      top: gameDescription.bottom
+  //      left: gameDescription.right
+  //    }
+  //   }
+
+}
  // Gameinfo End
 
  // Artwork Time!

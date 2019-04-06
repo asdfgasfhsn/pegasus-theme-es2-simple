@@ -52,12 +52,8 @@ Item {
     Rectangle {
         id: videoBox
         color: "transparent"
-
-        // anchors.top: logo.bottom
-        // anchors.bottom: parent.bottom
         anchors.fill: parent
-        //border { color: "#444"; width: 1 }
-        width: Image.width //vpx(512)
+        width: Image.width //vpx(512
         height: Image.height
         //radius: vpx(4)
         clip: true
@@ -90,10 +86,11 @@ Item {
             asynchronous: true
         }
     }
-    // Rectangle {
-    //   id: videoBoxBorder
-    //   width: videoPreview.visible ? VideoOutput.width : videoPreview.width
-    //   height: videoPreview.visible ? VideoOutput.height : videoPreview.height
-    //   opacity: 0.5
-    // }
+    Rectangle {
+      z: 5
+      id: videoBoxBorder
+      width: videoPreview.visible ? VideoOutput.width : videoPreview.width
+      height: videoPreview.visible ? VideoOutput.height : videoPreview.height
+      opacity: 0.5
+    }
 }
