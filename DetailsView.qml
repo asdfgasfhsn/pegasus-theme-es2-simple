@@ -62,6 +62,7 @@ FocusScope {
     anchors.top: parent.top
     anchors.left: parent.left
     anchors.bottom: parent.bottom
+    clip: true
     Item {
       width: parent.width
       height: parent.height
@@ -232,38 +233,6 @@ FocusScope {
        elide: Text.ElideRight
        color: "#97999b"
    }
-
-  // TODO: Idea around have "open/close quote around description..."
-  // Text {
-  //   id: gameDescriptionLeftQuote
-  //   width: vpx(10)
-  //   height: vpx(12)
-  //   text: '"'
-  //   color: "#97999b"
-  //   font.pixelSize: vpx(50)
-  //   font.family: "Open Sans"
-  //   font.weight: Font.Bold
-  //   anchors {
-  //     bottom: gameDescription.top
-  //     right: gameDescription.left
-  //   }
-  //  }
-  //
-  //  Text {
-  //    id: gameDescriptionRightQuote
-  //    width: vpx(10)
-  //    height: vpx(12)
-  //    text: '"'
-  //    color: "#97999b"
-  //    font.pixelSize: vpx(50)
-  //    font.family: "Open Sans"
-  //    font.weight: Font.Bold
-  //    anchors {
-  //      top: gameDescription.bottom
-  //      left: gameDescription.right
-  //    }
-  //   }
-
 }
  // Gameinfo End
 
@@ -286,30 +255,73 @@ FocusScope {
      game: currentGame
   }
 }
- Item {
-     id: cartridge
-     height: vpx(128)
-     width: vpx(128)
-     anchors {
-         //top: gameDescriptionRect.bottom; topMargin: vpx(8)
-         left: parent.left; leftMargin: vpx(20)
-         right: grid.left;
-         bottom: root.bottom; bottomMargin: vpx(20)
-     }
 
-     Image {
-         id: cartridgeImage
-         readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
-         anchors {
-           fill: parent
-           centerIn: parent
-         }
-         asynchronous: true
-         source: currentGame.assets.cartridge || ""
-         sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
-         fillMode: Image.PreserveAspectFit
-     }
- }
+Rectangle {
+  id: detailsContainer
+  width: vpx(600)
+  height: vpx(300)
+  color: "transparent"//"pink"
+  // border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+  // border.width: 5
+  anchors {
+    left: root.left
+    leftMargin: vpx(20)
+    bottom: root.bottom
+    horizontalCenter: gameDescriptionRect.horizontalCenter
+  }
+  clip: true
+  Rectangle {
+    id: detailsRect
+    width: vpx(1280)
+    height: parent.height//vpx(200)
+    color: "grey"
+    anchors {
+      bottom: parent.bottom; bottomMargin: -height / 2
+      left: parent.left; leftMargin: -vpx(50)
+    }
+    transform: Rotation { origin.x: 200; origin.y: 200; angle: -8}
+    Text {
+        id: testText
+        text: currentGame.title
+        font.weight: Font.Bold
+        font.pixelSize: vpx(26)
+        font.capitalization: Font.AllUppercase
+        color: "black"
+        anchors {
+          top: parent.top
+          left: parent.left
+          leftMargin: vpx(70)
+      }
+      //transform: Rotation { origin.x: 200; origin.y: 200; angle: -8}
+    }
+  }
+}
+
+// cartridge image
+ // Item {
+ //     id: cartridge
+ //     height: vpx(128)
+ //     width: vpx(128)
+ //     anchors {
+ //         //top: gameDescriptionRect.bottom; topMargin: vpx(8)
+ //         left: parent.left; leftMargin: vpx(20)
+ //         right: grid.left;
+ //         bottom: root.bottom; bottomMargin: vpx(20)
+ //     }
+ //
+ //     Image {
+ //         id: cartridgeImage
+ //         readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
+ //         anchors {
+ //           fill: parent
+ //           centerIn: parent
+ //         }
+ //         asynchronous: true
+ //         source: currentGame.assets.cartridge || ""
+ //         sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
+ //         fillMode: Image.PreserveAspectFit
+ //     }
+ // }
 
 // End Artwork Time!
 // Content Start
@@ -317,7 +329,8 @@ FocusScope {
         id: content
         anchors {
           top: root.top
-          left: cartridge.right
+          left: screenshot.right
+          //left: cartridge.right
           right: parent.right
           bottom: parent.bottom
         }
@@ -332,10 +345,11 @@ FocusScope {
             width: vpx(620)
             height: vpx(700)
             anchors {
-                top: parent.top;
-                right: parent.right;
-                margins: vpx(50)
-                topMargin: vpx(50)
+              rightMargin: -vpx(48)
+              top: parent.top;
+              right: parent.right;
+              // margins: vpx(50)
+              topMargin: vpx(50)
             }
             property bool firstImageLoaded: false
             property real cellHeightRatio: 0.5
@@ -372,10 +386,16 @@ FocusScope {
 
             displayMarginBeginning: anchors.topMargin
 
+            transform: Rotation { origin.x: vpx(50); origin.y: vpx(50); axis { x: 0; y: 1; z: 0 } angle: 8 }
+
+
             delegate: GameGridItem {
                 width: GridView.view.cellWidth
                 height: GridView.view.cellHeight
                 selected: GridView.isCurrentItem
+
+                transform: Rotation { origin.x: vpx(50); origin.y: vpx(50); axis { x: 0; y: 1; z: 0 } angle: selected ? -8 : 0 }
+
 
                 game: modelData
 

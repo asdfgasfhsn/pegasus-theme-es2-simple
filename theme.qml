@@ -20,7 +20,7 @@ FocusScope {
     //   id: bgRect
     //   anchors.top: parent.top
     //   anchors.left: parent.left
-    //   anchors.bottom: parent.bottom
+    //   //anchors.bottom: parent.bottom
     //   Item {
     //     width: parent.width
     //     height: parent.height
@@ -46,6 +46,7 @@ FocusScope {
     //     }
     //   }
     // }
+
 
     // The actual views are defined in their own QML files. They activate
     // each other by setting the focus. The details view is glued to the bottom
@@ -106,8 +107,8 @@ FocusScope {
     // set a generic smooth anchor animation to get the job done.
     transitions: Transition {
         AnchorAnimation {
-            duration: 1500
-            easing.type: Easing.OutQuad
+            duration: 2500
+            easing.type: Easing.InOutBack
         }
     }
 }
