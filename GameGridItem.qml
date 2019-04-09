@@ -25,6 +25,12 @@ Rectangle {
     border.width: selected ? vpx(3) : 0
     color: selected ? "#000000" : "transparent"
 
+    SequentialAnimation on border.color {
+          loops: Animation.Infinite
+          ColorAnimation { from: "#99FFFFFF"; to: "#99437284"; duration: 5000 }
+          ColorAnimation { from: "#99437284"; to: "#99FFFFFF"; duration: 5000 }
+      }
+
     property bool selected: false
     property var game
 

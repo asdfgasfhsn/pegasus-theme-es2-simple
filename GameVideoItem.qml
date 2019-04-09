@@ -21,17 +21,19 @@ import QtMultimedia 5.9
 Item {
     property var game
 
-    onGameChanged: {
-        videoPreview.stop();
-        videoPreview.playlist.clear();
-        videoDelay.restart();
-        gameDebug.gameDebug(game);
+    Connections {
+      // TODO: https://doc.qt.io/qt-5/qtqml-syntax-signals.html
+      onGameChanged: {
+          videoPreview.stop();
+          videoPreview.playlist.clear();
+          videoDelay.restart();
+          gameDebug.gameDebug(game);
+      }
     }
-
     // a small delay to avoid loading videos during scrolling
     Timer {
         id: videoDelay
-        interval: 250
+        interval: 300
         onTriggered: {
             if (game && game.assets.videos.length > 0) {
                 for (var i = 0; i < game.assets.videos.length; i++)
@@ -86,11 +88,11 @@ Item {
             asynchronous: true
         }
     }
-    Rectangle {
-      z: 5
-      id: videoBoxBorder
-      width: videoPreview.visible ? VideoOutput.width : videoPreview.width
-      height: videoPreview.visible ? VideoOutput.height : videoPreview.height
-      opacity: 0.5
-    }
+    // Rectangle {
+    //   z: 5
+    //   id: videoBoxBorder
+    //   width: videoPreview.visible ? VideoOutput.width : videoPreview.width
+    //   height: videoPreview.visible ? VideoOutput.height : videoPreview.height
+    //   opacity: 0.5
+    // }
 }

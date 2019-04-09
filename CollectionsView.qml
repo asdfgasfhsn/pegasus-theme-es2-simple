@@ -31,38 +31,6 @@ FocusScope {
         logoAxis.decrementCurrentIndex();
     }
 
-    // Draw grid background for all views
-    Item {
-      id: bgRect
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.bottom: parent.bottom
-      Item {
-        width: parent.width
-        height: parent.height
-        id: bgBlock
-        opacity: 0.5
-        Row {
-          Repeater {
-            model: 144
-            Column {
-              Repeater {
-                model: 78
-                Rectangle {
-                  width: vpx(20)
-                  height: vpx(20)
-                  color: "black"
-                  border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
-                  border.width: 1
-                  radius: 0
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
     // Gradient Yo!
     Rectangle {
       width: root.width
@@ -75,7 +43,7 @@ FocusScope {
         end: Qt.point(0, vpx(720))
         gradient: Gradient {
             GradientStop {
-               position: 0.000
+               position: 0.200
                color: Qt.rgba(0, 0, 0.1, 1)
             }
             GradientStop {
@@ -86,6 +54,66 @@ FocusScope {
       }
     }
 
+    // Grey Background
+    Rectangle {
+      id: greyBg
+      anchors.fill: parent
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        color: "#fff"
+        opacity: 0.6
+    }
+
+    Rectangle {
+      id: collectionHeader
+      width: parent.width
+      height: vpx(180)
+      color: "black"
+      anchors {
+        top: parent.top
+        left: parent.left
+        right: parent.right
+      }
+
+      layer.enabled: true
+      layer.effect: DropShadow {
+        horizontalOffset: 0
+        verticalOffset: 0
+        spread: 0.4
+        radius: 16.0
+        samples: 20
+        color: "#000000"
+        transparentBorder: true
+      }
+
+      Image {
+        id: systemLogo
+        anchors {
+          left: parent.left; leftMargin: vpx(20)
+          topMargin: vpx(10)
+          bottom: parent.bottom; bottomMargin: vpx(12)
+          verticalCenter: parent.verticalCenter
+          }
+
+          width: vpx(512)
+          height: parent.height - vpx(20)
+          fillMode: Image.PreserveAspectFit
+          //smooth: true
+          source: "assets/logos/%1.svg".arg(currentCollection.shortName) || ""
+          asynchronous: false
+          sourceSize { width: vpx(512); height: vpx(512) }
+          visible: false
+      }
+
+      ColorOverlay {
+          id: systemLogoColor
+          anchors.fill: systemLogo
+          source: systemLogo
+          color: "#fff"
+          smooth: true
+          opacity: 0.5
+        }
+      }
 
 
     //bgBlock
@@ -124,20 +152,12 @@ FocusScope {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
 
-        // Background
-        Rectangle {
-          anchors.fill: parent
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: "#fff"
-            opacity: 0.6
-        }
         // The main carousel that we actually control
         Carousel {
             id: logoAxis
 
             anchors.fill: parent
-            itemWidth: vpx(480)
+            itemWidth: vpx(512)
 
             model: api.collections
             delegate: CollectionLogo {

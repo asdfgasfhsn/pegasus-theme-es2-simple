@@ -13,9 +13,6 @@ FocusScope {
     property alias currentGameIndex: grid.currentIndex
     readonly property var currentGame: currentCollection.games.get(currentGameIndex)
 
-    // property alias videoPreviewStop: videoPreview.stop
-    // property alias videoPreviewClear: videoPreview.playlist.clear
-
     // Nothing particularly interesting, see CollectionsView for more comments
     width: parent.width
     height: parent.height
@@ -57,6 +54,48 @@ FocusScope {
     }
 
   // Draw grid background for all views
+  // Item {
+  //   id: bgRect
+  //   anchors.top: parent.top
+  //   anchors.left: parent.left
+  //   anchors.bottom: parent.bottom
+  //   clip: true
+  //   Item {
+  //     width: parent.width
+  //     height: parent.height
+  //     id: bgBlock
+  //     opacity: 0.5
+  //     Row {
+  //       Repeater {
+  //         model: 144
+  //         Column {
+  //           Repeater {
+  //             model: 78
+  //             Rectangle {
+  //               width: vpx(20)
+  //               height: vpx(20)
+  //               color: "black"
+  //               border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+  //               border.width: 1
+  //               radius: 0
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  BackgroundImage {
+    id: backgroundimage
+    gameData: currentGame
+    anchors {
+      left: parent.left; right: parent.right
+      top: parent.top; bottom: parent.bottom
+    }
+    opacity: 0.555
+  }
+
   Item {
     id: bgRect
     anchors.top: parent.top
@@ -87,16 +126,6 @@ FocusScope {
         }
       }
     }
-  }
-
-  BackgroundImage {
-    id: backgroundimage
-    gameData: currentGame
-    anchors {
-      left: parent.left; right: parent.right
-      top: parent.top; bottom: parent.bottom
-    }
-    opacity: 0.555
   }
 
 // Background Start
@@ -243,8 +272,6 @@ FocusScope {
      width: vpx(500)
      anchors {
          top: gameDescriptionRect.bottom; topMargin: vpx(8)
-         //left: parent.left; leftMargin: vpx(30)
-         right: grid.left; rightMargin: vpx(30)
          bottom: parent.bottom; bottomMargin: vpx(30)
          horizontalCenter: gameDescriptionRect.horizontalCenter
      }
@@ -256,46 +283,46 @@ FocusScope {
   }
 }
 
-Rectangle {
-  id: detailsContainer
-  width: vpx(600)
-  height: vpx(300)
-  color: "transparent"//"pink"
-  // border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
-  // border.width: 5
-  anchors {
-    left: root.left
-    leftMargin: vpx(20)
-    bottom: root.bottom
-    horizontalCenter: gameDescriptionRect.horizontalCenter
-  }
-  clip: true
-  Rectangle {
-    id: detailsRect
-    width: vpx(1280)
-    height: parent.height//vpx(200)
-    color: "grey"
-    anchors {
-      bottom: parent.bottom; bottomMargin: -height / 2
-      left: parent.left; leftMargin: -vpx(50)
-    }
-    transform: Rotation { origin.x: 200; origin.y: 200; angle: -8}
-    Text {
-        id: testText
-        text: currentGame.title
-        font.weight: Font.Bold
-        font.pixelSize: vpx(26)
-        font.capitalization: Font.AllUppercase
-        color: "black"
-        anchors {
-          top: parent.top
-          left: parent.left
-          leftMargin: vpx(70)
-      }
-      //transform: Rotation { origin.x: 200; origin.y: 200; angle: -8}
-    }
-  }
-}
+// Rectangle {
+//   id: detailsContainer
+//   width: vpx(600)
+//   height: vpx(300)
+//   color: "transparent"//"pink"
+//   // border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
+//   // border.width: 5
+//   anchors {
+//     left: root.left
+//     leftMargin: vpx(20)
+//     bottom: root.bottom
+//     horizontalCenter: gameDescriptionRect.horizontalCenter
+//   }
+//   clip: true
+//   Rectangle {
+//     id: detailsRect
+//     width: vpx(1280)
+//     height: parent.height//vpx(200)
+//     color: "grey"
+//     anchors {
+//       bottom: parent.bottom; bottomMargin: -height / 2
+//       left: parent.left; leftMargin: -vpx(50)
+//     }
+//     transform: Rotation { origin.x: 200; origin.y: 200; angle: -8}
+//     Text {
+//         id: testText
+//         text: currentGame.title
+//         font.weight: Font.Bold
+//         font.pixelSize: vpx(26)
+//         font.capitalization: Font.AllUppercase
+//         color: "black"
+//         anchors {
+//           top: parent.top
+//           left: parent.left
+//           leftMargin: vpx(70)
+//       }
+//       //transform: Rotation { origin.x: 200; origin.y: 200; angle: -8}
+//     }
+//   }
+//}
 
 // cartridge image
  // Item {
@@ -336,14 +363,13 @@ Rectangle {
         }
 
         color: "transparent"
-        // readonly property int paddingH: vpx(30)
-        // readonly property int paddingV: vpx(40)
         clip: true
 
         GridView {
             id: grid
             width: vpx(620)
             height: vpx(700)
+
             anchors {
               rightMargin: -vpx(48)
               top: parent.top;
@@ -388,6 +414,18 @@ Rectangle {
 
             transform: Rotation { origin.x: vpx(50); origin.y: vpx(50); axis { x: 0; y: 1; z: 0 } angle: 8 }
 
+            // NumberAnimation on x {
+            //     loops: Animation.Infinite
+            //     to: vpx(1280) - vpx(620) - 40
+            //     duration: 10000
+            //     running: true
+            // }
+            // RotationAnimation on rotation {
+            //     loops: Animation.Infinite
+            //     to: 8
+            //     duration: 5000
+            //     running: true
+            // }
 
             delegate: GameGridItem {
                 width: GridView.view.cellWidth
