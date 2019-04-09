@@ -34,7 +34,11 @@ FocusScope {
     // Gradient Yo!
     Rectangle {
       width: root.width
-      height: root.height
+      height: parent.height - vpx(180)
+      anchors {
+        bottom: parent.bottom
+        left: parent.left
+        }
       color: "transparent"
       // z: parent.z + 1
       LinearGradient {
@@ -43,7 +47,7 @@ FocusScope {
         end: Qt.point(0, vpx(720))
         gradient: Gradient {
             GradientStop {
-               position: 0.200
+               position: 0.000
                color: Qt.rgba(0, 0, 0.1, 1)
             }
             GradientStop {
@@ -57,34 +61,45 @@ FocusScope {
     // Grey Background
     Rectangle {
       id: greyBg
-      anchors.fill: parent
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
+        //anchors.fill: parent
+        width: parent.width
+        height: parent.height - vpx(180)
+        // anchors.verticalCenter: parent.verticalCenter
+        // anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
         color: "#fff"
-        opacity: 0.6
+        opacity: 0.5
     }
 
     Rectangle {
       id: collectionHeader
       width: parent.width
       height: vpx(180)
-      color: "black"
+      color: "transparent"
       anchors {
         top: parent.top
+        //horizontalCenter: parent.horizontalCenter
         left: parent.left
         right: parent.right
       }
 
-      layer.enabled: true
-      layer.effect: DropShadow {
-        horizontalOffset: 0
-        verticalOffset: 0
-        spread: 0.4
-        radius: 16.0
-        samples: 20
-        color: "#000000"
-        transparentBorder: true
-      }
+      // Rectangle {
+      //   id: collectionHeaderBg
+      //   width: parent.width
+      //   height: parent.height
+      //   color: "black"
+      //   opacity: 0.333
+      // }
+      // layer.enabled: true
+      // layer.effect: DropShadow {
+      //   horizontalOffset: 0
+      //   verticalOffset: 0
+      //   spread: 0.4
+      //   radius: 16.0
+      //   samples: 20
+      //   color: "#000000"
+      //   transparentBorder: true
+      // }
 
       Image {
         id: systemLogo
@@ -111,7 +126,7 @@ FocusScope {
           source: systemLogo
           color: "#fff"
           smooth: true
-          opacity: 0.5
+          opacity: 0.666
         }
       }
 
