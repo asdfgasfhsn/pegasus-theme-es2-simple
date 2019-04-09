@@ -1,12 +1,11 @@
-![](screenshot.png)
+<!-- ![](screenshot.png) -->
+# Homage theme for Pegasus
 
-# ES2 Simple theme for Pegasus
-
-This is the port of the *Simple* theme of EmulationStation to the [Pegasus](http://pegasus-frontend.org) frontend, originally created by *Nils Bonenberger* <nilsbyte@nilsbyte.de>.
+This is theme for [Pegasus](http://pegasus-frontend.org) frontend.
 
 ## Installation
 
-[Download](https://github.com/mmatyas/pegasus-theme-es2-simple/archive/master.zip) and extract to your [theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes). You can then select the theme in the settings menu of Pegasus.
+[Download](https://github.com/asdfgasfhsn/pegasus-theme-es2-simple/archive/master.zip) and extract to your [theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes). You can then select the theme in the settings menu of Pegasus.
 
 ## License
 
