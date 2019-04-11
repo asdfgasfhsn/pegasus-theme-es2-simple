@@ -12,7 +12,7 @@ Item {
     width: root.width
     height: parent.width
     visible: PathView.onPath // optimization: do not draw if not visible
-    opacity: 1.0 // selected ? 1.0 : 0.666
+    opacity: 1.0
 
     Image {
         id: controllerImage
@@ -24,22 +24,22 @@ Item {
         smooth: true
         source: shortName ? "assets/controllers/%1.png".arg(shortName) : ""
         asynchronous: true
-        scale: selected ? 1.0 : 0.66
-        Behavior on scale { NumberAnimation { duration: 600 } }
+        scale: 1 //selected ? 1.0 : 0.66
+        //Behavior on scale { NumberAnimation { duration: 600 } }
     }
     layer.enabled: selected ? true : false
     layer.effect: DropShadow {
       horizontalOffset: 0
       verticalOffset: 0
       spread: 0.15
-      radius: vpx(196)
+      radius: vpx(172)
       samples: 32
       color: "purple"
       transparentBorder: true
       SequentialAnimation on color {
             loops: Animation.Infinite
-            ColorAnimation { from: "purple"; to: "blue"; duration: 6666 }
-            ColorAnimation { from: "blue"; to: "purple"; duration: 6666 }
+            ColorAnimation { from: "#809932CC"; to: "#800000FF"; duration: 6666 }
+            ColorAnimation { from: "#800000FF"; to: "#809932CC"; duration: 6666 }
         }
     }
 

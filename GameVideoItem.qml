@@ -55,7 +55,7 @@ Item {
         id: videoBox
         color: "transparent"
         anchors.fill: parent
-        width: Image.width //vpx(512
+        width: Image.width
         height: Image.height
         //radius: vpx(4)
         clip: true
@@ -84,7 +84,7 @@ Item {
             fillMode: Image.PreserveAspectFit
 
             source: (game && game.assets.screenshots.length && game.assets.screenshots[0]) || ""
-            sourceSize { width: vpx(512); height: vpx(512) }
+            sourceSize { width: vpx(256); height: vpx(256) }
             asynchronous: true
         }
     }

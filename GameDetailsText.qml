@@ -19,7 +19,7 @@ import QtQuick.Layouts 1.11
           text: metatext
           font.family: "coolvetica"
           font.weight: Font.Bold
-          font.pixelSize: vpx(10)
+          font.pixelSize: vpx(12)
           font.capitalization: Font.AllUppercase
           color: "#97999b"
           elide: Text.ElideRight

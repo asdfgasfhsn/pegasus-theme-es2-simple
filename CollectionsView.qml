@@ -103,7 +103,7 @@ FocusScope {
     Item {
       id: collectionHeader
       width: parent.width
-      height: vpx(180)
+      height: vpx(120)
       // color: "transparent"
       anchors {
         top: parent.top
@@ -117,35 +117,49 @@ FocusScope {
         width: parent.width
         height: parent.height
         color: "#f6f6f6"
-        //opacity: 0.333
+        visible: true
       }
 
-      Image {
-        id: systemLogo
+      Text {
+        id: systemNameHeader
         anchors {
           left: parent.left; leftMargin: vpx(20)
           topMargin: vpx(10)
           bottom: parent.bottom; bottomMargin: vpx(12)
           verticalCenter: parent.verticalCenter
           }
-
-          width: vpx(512)
-          height: parent.height - vpx(20)
-          fillMode: Image.PreserveAspectFit
-          //smooth: true
-          source: "assets/logos/%1.svg".arg(currentCollection.shortName) || ""
-          asynchronous: false
-          sourceSize { width: vpx(256); height: vpx(256) }
-          visible: true
+        text: "%1".arg(currentCollection.name) || "Not Found"
+        color: "black"
+        font.family: "coolvetica"
+        font.bold: true
+        fontSizeMode: Text.Fit; minimumPixelSize: vpx(10); font.pixelSize: vpx(48)
       }
-
-      ColorOverlay {
-          id: systemLogoColor
-          anchors.fill: systemLogo
-          source: systemLogo
-          color: "purple"//"#000"
-          opacity: 0.555
-        }
+      // Image {
+      //   id: systemLogo
+      //   anchors {
+      //     left: parent.left; leftMargin: vpx(20)
+      //     topMargin: vpx(10)
+      //     bottom: parent.bottom; bottomMargin: vpx(12)
+      //     verticalCenter: parent.verticalCenter
+      //     }
+      //
+      //     width: vpx(256)
+      //     height: parent.height - vpx(20)
+      //     fillMode: Image.PreserveAspectFit
+      //     smooth: true
+      //     source: "assets/logos/%1.svg".arg(currentCollection.shortName) || ""
+      //     asynchronous: false
+      //     //sourceSize { width: vpx(256); height: vpx(100) }
+      //     visible: false
+      // }
+      //
+      // ColorOverlay {
+      //     id: systemLogoColor
+      //     anchors.fill: systemLogo
+      //     source: systemLogo
+      //     color: "black"//"#000"
+      //     opacity: 1
+      //   }
       }
 
     // Game count bar -- like above, I've put it in an Item to separately control opacity

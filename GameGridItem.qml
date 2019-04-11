@@ -22,7 +22,7 @@ Rectangle {
     id: root
 
     border.color: "#99FFFFFF"
-    border.width: selected ? vpx(5) : 0
+    border.width: selected ? vpx(3) : 0
     color: selected ? "#000000" : "transparent"
 
     property bool selected: false
@@ -54,11 +54,6 @@ Rectangle {
       samples: 20
       color:  "#000000"
       transparentBorder: true
-      // SequentialAnimation on color {
-      //       loops: Animation.Infinite
-      //       ColorAnimation { from: "purple"; to: "blue"; duration: 6666 }
-      //       ColorAnimation { from: "blue"; to: "purple"; duration: 6666 }
-      //   }
     }
 
     Image {
