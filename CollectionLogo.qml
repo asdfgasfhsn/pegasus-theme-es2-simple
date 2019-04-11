@@ -29,6 +29,7 @@ Item {
     }
     layer.enabled: selected ? true : false
     layer.effect: DropShadow {
+      fast: true
       horizontalOffset: 0
       verticalOffset: 0
       spread: 0.15

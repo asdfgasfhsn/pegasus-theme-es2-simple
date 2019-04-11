@@ -102,8 +102,8 @@ FocusScope {
     // set a generic smooth anchor animation to get the job done.
     transitions: Transition {
         AnchorAnimation {
-            duration: 1000
-            easing.type: Easing.InOutBack
+            duration: 1200
+            easing.type: Easing.OutExpo
         }
     }
 }

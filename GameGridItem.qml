@@ -47,6 +47,7 @@ Rectangle {
 
     layer.enabled: selected ? true : false
     layer.effect: DropShadow {
+      fast: true
       spread: 0.1
       horizontalOffset: 0
       verticalOffset: 0

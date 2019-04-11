@@ -150,6 +150,7 @@ FocusScope {
       }
       layer.enabled: true
       layer.effect: DropShadow {
+        fast: true
         horizontalOffset: 0
         verticalOffset: 0
         spread: 0.02
