@@ -31,106 +31,6 @@ FocusScope {
         logoAxis.decrementCurrentIndex();
     }
 
-    // Gradient Yo!
-    Rectangle {
-      width: root.width
-      height: parent.height - vpx(180)
-      anchors {
-        bottom: parent.bottom
-        left: parent.left
-        }
-      color: "transparent"
-      // z: parent.z + 1
-      LinearGradient {
-        anchors.fill: parent
-        start: Qt.point(0, 0)
-        end: Qt.point(0, vpx(720))
-        gradient: Gradient {
-            GradientStop {
-               position: 0.000
-               color: Qt.rgba(0, 0, 0.1, 1)
-            }
-            GradientStop {
-               position: 0.666
-               color: "transparent"
-            }
-        }
-      }
-    }
-
-    // Grey Background
-    Rectangle {
-      id: greyBg
-        //anchors.fill: parent
-        width: parent.width
-        height: parent.height - vpx(180)
-        // anchors.verticalCenter: parent.verticalCenter
-        // anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        color: "#fff"
-        opacity: 0.5
-    }
-
-    Rectangle {
-      id: collectionHeader
-      width: parent.width
-      height: vpx(180)
-      color: "transparent"
-      anchors {
-        top: parent.top
-        //horizontalCenter: parent.horizontalCenter
-        left: parent.left
-        right: parent.right
-      }
-
-      // Rectangle {
-      //   id: collectionHeaderBg
-      //   width: parent.width
-      //   height: parent.height
-      //   color: "black"
-      //   opacity: 0.333
-      // }
-      // layer.enabled: true
-      // layer.effect: DropShadow {
-      //   horizontalOffset: 0
-      //   verticalOffset: 0
-      //   spread: 0.4
-      //   radius: 16.0
-      //   samples: 20
-      //   color: "#000000"
-      //   transparentBorder: true
-      // }
-
-      Image {
-        id: systemLogo
-        anchors {
-          left: parent.left; leftMargin: vpx(20)
-          topMargin: vpx(10)
-          bottom: parent.bottom; bottomMargin: vpx(12)
-          verticalCenter: parent.verticalCenter
-          }
-
-          width: vpx(512)
-          height: parent.height - vpx(20)
-          fillMode: Image.PreserveAspectFit
-          //smooth: true
-          source: "assets/logos/%1.svg".arg(currentCollection.shortName) || ""
-          asynchronous: false
-          sourceSize { width: vpx(512); height: vpx(512) }
-          visible: false
-      }
-
-      ColorOverlay {
-          id: systemLogoColor
-          anchors.fill: systemLogo
-          source: systemLogo
-          color: "#fff"
-          smooth: true
-          opacity: 0.666
-        }
-      }
-
-
     //bgBlock
     // The carousel of background images. This isn't the item we control with the keys,
     // however it reacts to mouse and so should still update the Index.
@@ -200,6 +100,54 @@ FocusScope {
         }
     }
 
+    Item {
+      id: collectionHeader
+      width: parent.width
+      height: vpx(180)
+      // color: "transparent"
+      anchors {
+        top: parent.top
+        //horizontalCenter: parent.horizontalCenter
+        left: parent.left
+        right: parent.right
+      }
+
+      Rectangle {
+        id: collectionHeaderBg
+        width: parent.width
+        height: parent.height
+        color: "#f6f6f6"
+        //opacity: 0.333
+      }
+
+      Image {
+        id: systemLogo
+        anchors {
+          left: parent.left; leftMargin: vpx(20)
+          topMargin: vpx(10)
+          bottom: parent.bottom; bottomMargin: vpx(12)
+          verticalCenter: parent.verticalCenter
+          }
+
+          width: vpx(512)
+          height: parent.height - vpx(20)
+          fillMode: Image.PreserveAspectFit
+          //smooth: true
+          source: "assets/logos/%1.svg".arg(currentCollection.shortName) || ""
+          asynchronous: false
+          sourceSize { width: vpx(256); height: vpx(256) }
+          visible: true
+      }
+
+      ColorOverlay {
+          id: systemLogoColor
+          anchors.fill: systemLogo
+          source: systemLogo
+          color: "purple"//"#000"
+          opacity: 0.555
+        }
+      }
+
     // Game count bar -- like above, I've put it in an Item to separately control opacity
     // Width of item is same width as gamelist in detailsview..
     Item {
@@ -210,8 +158,8 @@ FocusScope {
 
         Rectangle {
             anchors.fill: parent
-            color: "#ddd"
-            opacity: 0.444
+            color: "purple"//"#f6f6f6"
+            opacity: 0.333
 
         }
 
@@ -219,9 +167,9 @@ FocusScope {
             id: label
             anchors.centerIn: parent
             text: "%1 GAMES AVAILABLE".arg(currentCollection.games.count)
-            color: "#333"
+            color: "white"
             font.pixelSize: vpx(18)
-            font.family: "Open Sans"
+            font.family: "coolvetica"
         }
     }
 }

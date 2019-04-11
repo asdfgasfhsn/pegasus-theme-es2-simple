@@ -22,14 +22,8 @@ Rectangle {
     id: root
 
     border.color: "#99FFFFFF"
-    border.width: selected ? vpx(3) : 0
+    border.width: selected ? vpx(5) : 0
     color: selected ? "#000000" : "transparent"
-
-    SequentialAnimation on border.color {
-          loops: Animation.Infinite
-          ColorAnimation { from: "#99FFFFFF"; to: "#99437284"; duration: 5000 }
-          ColorAnimation { from: "#99437284"; to: "#99FFFFFF"; duration: 5000 }
-      }
 
     property bool selected: false
     property var game
@@ -53,13 +47,18 @@ Rectangle {
 
     layer.enabled: selected ? true : false
     layer.effect: DropShadow {
-      spread: 0.666
+      spread: 0.1
       horizontalOffset: 0
       verticalOffset: 0
-      radius: 15
+      radius: vpx(12)
       samples: 20
-      color:  "#80000000"
+      color:  "#000000"
       transparentBorder: true
+      // SequentialAnimation on color {
+      //       loops: Animation.Infinite
+      //       ColorAnimation { from: "purple"; to: "blue"; duration: 6666 }
+      //       ColorAnimation { from: "blue"; to: "purple"; duration: 6666 }
+      //   }
     }
 
     Image {
@@ -67,7 +66,7 @@ Rectangle {
         anchors { fill: parent; margins: vpx(6) }
 
         asynchronous: true
-        visible: false // game.assets.boxFront
+        visible: game.assets.boxFront
 
         source: game.assets.boxFront || ""
         sourceSize { width: 256; height: 256 }
@@ -79,12 +78,6 @@ Rectangle {
             root.imageLoaded(paintedWidth, paintedHeight);
           }
       }
-
-      Desaturate {
-        anchors { fill: parent; margins: vpx(6) }
-        source: boxFront
-        desaturation: selected ? 0 : 0.666
-    }
 
     Image {
         anchors.centerIn: parent

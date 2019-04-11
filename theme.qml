@@ -8,7 +8,6 @@ FocusScope {
     // values will be undefined, which is why there are zeroes as fallback
     Component.onCompleted: {
         collectionsView.currentCollectionIndex = api.memory.get('collectionIndex') || 0;
-        // detailsView.currentGameIndex = api.memory.get(currentCollection.shortName + 'GameIndex') || 0;
     }
 
     // Loading the fonts here makes them usable in the rest of the theme
@@ -17,37 +16,32 @@ FocusScope {
     FontLoader { source: "fonts/OPENSANS-LIGHT.TTF" }
     FontLoader { source: "fonts/coolvetica.regular.ttf"}
 
-    // // Draw grid background for all views
-    Item {
-      id: bgRect
-      anchors.top: parent.top
-      anchors.left: parent.left
-      //anchors.bottom: parent.bottom
-      Item {
-        width: parent.width
-        height: parent.height
-        id: bgBlock
-        opacity: 0.5
-        Row {
-          Repeater {
-            model: 144
-            Column {
-              Repeater {
-                model: 78
-                Rectangle {
-                  width: vpx(20)
-                  height: vpx(20)
-                  color: "black"
-                  border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
-                  border.width: 1
-                  radius: 0
-                }
-              }
+
+        GridView {
+          id: bgRect
+          width: parent.width
+          height: parent.height
+
+          anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+            //fill: parent
+          }
+          model: 2600
+
+          cellWidth: vpx(20)
+          cellHeight: vpx(20)
+
+          delegate: Rectangle {
+            width: vpx(20)
+            height: vpx(20)
+            color: "black"
+            border.color: Qt.rgba(0.5, 0.5, 0.5, 0.1)
+            border.width: 1
+            radius: 0
             }
           }
-        }
-      }
-    }
 
     // The actual views are defined in their own QML files. They activate
     // each other by setting the focus. The details view is glued to the bottom
@@ -108,7 +102,7 @@ FocusScope {
     // set a generic smooth anchor animation to get the job done.
     transitions: Transition {
         AnchorAnimation {
-            duration: 2500
+            duration: 1000
             easing.type: Easing.InOutBack
         }
     }

@@ -84,7 +84,7 @@ Item {
             fillMode: Image.PreserveAspectFit
 
             source: (game && game.assets.screenshots.length && game.assets.screenshots[0]) || ""
-            sourceSize { width: 512; height: 512 }
+            sourceSize { width: vpx(512); height: vpx(512) }
             asynchronous: true
         }
     }

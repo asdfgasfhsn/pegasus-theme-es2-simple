@@ -17,7 +17,9 @@ FocusScope {
     width: parent.width
     height: parent.height
     enabled: focus
-    visible: y < parent.height
+    //visible: y < parent.height
+
+    visible: y + height >= 0
 
     signal cancel
     signal nextCollection
@@ -52,39 +54,6 @@ FocusScope {
             return;
         }
     }
-
-  // Draw grid background for all views
-  // Item {
-  //   id: bgRect
-  //   anchors.top: parent.top
-  //   anchors.left: parent.left
-  //   anchors.bottom: parent.bottom
-  //   clip: true
-  //   Item {
-  //     width: parent.width
-  //     height: parent.height
-  //     id: bgBlock
-  //     opacity: 0.5
-  //     Row {
-  //       Repeater {
-  //         model: 144
-  //         Column {
-  //           Repeater {
-  //             model: 78
-  //             Rectangle {
-  //               width: vpx(20)
-  //               height: vpx(20)
-  //               color: "black"
-  //               border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
-  //               border.width: 1
-  //               radius: 0
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   BackgroundImage {
     id: backgroundimage
@@ -357,7 +326,6 @@ FocusScope {
         anchors {
           top: root.top
           left: screenshot.right
-          //left: cartridge.right
           right: parent.right
           bottom: parent.bottom
         }
@@ -413,19 +381,6 @@ FocusScope {
             displayMarginBeginning: anchors.topMargin
 
             transform: Rotation { origin.x: vpx(50); origin.y: vpx(50); axis { x: 0; y: 1; z: 0 } angle: 8 }
-
-            // NumberAnimation on x {
-            //     loops: Animation.Infinite
-            //     to: vpx(1280) - vpx(620) - 40
-            //     duration: 10000
-            //     running: true
-            // }
-            // RotationAnimation on rotation {
-            //     loops: Animation.Infinite
-            //     to: 8
-            //     duration: 5000
-            //     running: true
-            // }
 
             delegate: GameGridItem {
                 width: GridView.view.cellWidth
