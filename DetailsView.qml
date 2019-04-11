@@ -340,6 +340,7 @@ FocusScope {
             height: vpx(700)
 
             anchors {
+              rightMargin: vpx(48)
               top: parent.top;
               right: parent.right;
               // margins: vpx(50)
