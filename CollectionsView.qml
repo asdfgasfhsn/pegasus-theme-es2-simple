@@ -133,6 +133,7 @@ FocusScope {
         font.family: "coolvetica"
         font.bold: true
         fontSizeMode: Text.Fit; minimumPixelSize: vpx(10); font.pixelSize: vpx(48)
+        font.capitalization: Font.AllUppercase
       }
       // Image {
       //   id: systemLogo
