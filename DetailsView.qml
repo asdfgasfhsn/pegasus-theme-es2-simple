@@ -336,15 +336,14 @@ FocusScope {
 
         GridView {
             id: grid
-            width: vpx(620)
+            width: vpx(580)
             height: vpx(700)
 
             anchors {
-              rightMargin: -vpx(48)
               top: parent.top;
               right: parent.right;
               // margins: vpx(50)
-              topMargin: vpx(50)
+              topMargin: vpx(80)
             }
             property bool firstImageLoaded: false
             property real cellHeightRatio: 0.5
@@ -381,15 +380,15 @@ FocusScope {
 
             displayMarginBeginning: anchors.topMargin
 
-            transform: Rotation { origin.x: vpx(50); origin.y: vpx(50); axis { x: 0; y: 1; z: 0 } angle: 8 }
+            transform: Rotation { origin.x: grid.height/2; origin.y: grid.width/2; axis { x: 0; y: 1; z: 0 } angle: -5 }
 
             delegate: GameGridItem {
                 width: GridView.view.cellWidth
                 height: GridView.view.cellHeight
                 selected: GridView.isCurrentItem
 
-                transform: Rotation { origin.x: vpx(50); origin.y: vpx(50); axis { x: 0; y: 1; z: 0 } angle: selected ? -8 : 0 }
-
+                transform: Rotation { origin.x: parent.width/2; origin.y: parent.width/2; axis { x: 0; y: 1; z: 0 } angle: selected ? 5 : 0 }
+                //transform: Rotation { origin.x: 0; origin.y: 0; axis { x: 0; y: 1; z: 0 } angle: selected ? -8 : 0 }
 
                 game: modelData
 
