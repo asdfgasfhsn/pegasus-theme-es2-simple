@@ -130,8 +130,7 @@ FocusScope {
           }
         text: "%1".arg(currentCollection.name) || "Not Found"
         color: "black"
-        font.family: "coolvetica"
-        font.bold: true
+        font.family: coolvetica.name
         fontSizeMode: Text.Fit; minimumPixelSize: vpx(10); font.pixelSize: vpx(48)
         font.capitalization: Font.AllUppercase
       }
@@ -184,7 +183,7 @@ FocusScope {
             text: "%1 GAMES AVAILABLE".arg(currentCollection.games.count)
             color: "white"
             font.pixelSize: vpx(18)
-            font.family: "coolvetica"
+            font.family: coolvetica.name
         }
     }
 }

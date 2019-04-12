@@ -14,34 +14,36 @@ FocusScope {
     // and can be referred to using their name and weight.
     FontLoader { source: "fonts/OPENSANS.TTF" }
     FontLoader { source: "fonts/OPENSANS-LIGHT.TTF" }
-    FontLoader { source: "fonts/coolvetica.regular.ttf"}
+    FontLoader { id: archivoHeader; source: "fonts/ArchivoNarrow-Bold.otf" }
+    FontLoader { id: archivoRegular; source: "fonts/ArchivoNarrow-Regular.otf" }
+    FontLoader {id: coolvetica; source: "fonts/coolvetica.regular.ttf" }
 
+    // Generate the tiled background using gridview/rect delegates...
+    GridView {
+      id: bgRect
+      width: parent.width
+      height: parent.height
 
-        GridView {
-          id: bgRect
-          width: parent.width
-          height: parent.height
+      anchors {
+        top: parent.top
+        left: parent.left
+        right: parent.right
+        //fill: parent
+      }
+      model: 2600
 
-          anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            //fill: parent
-          }
-          model: 2600
+      cellWidth: vpx(20)
+      cellHeight: vpx(20)
 
-          cellWidth: vpx(20)
-          cellHeight: vpx(20)
-
-          delegate: Rectangle {
-            width: vpx(20)
-            height: vpx(20)
-            color: "black"
-            border.color: Qt.rgba(0.5, 0.5, 0.5, 0.1)
-            border.width: 1
-            radius: 0
-            }
-          }
+      delegate: Rectangle {
+        width: vpx(20)
+        height: vpx(20)
+        color: "black"
+        border.color: Qt.rgba(0.5, 0.5, 0.5, 0.1)
+        border.width: 1
+        radius: 0
+        }
+      }
 
     // The actual views are defined in their own QML files. They activate
     // each other by setting the focus. The details view is glued to the bottom
