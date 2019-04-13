@@ -179,9 +179,9 @@ FocusScope {
         id: metadataRow1
         //anchors { horizontalCenter: parent.horizontalCenter }
         //spacing: vpx(6)
-        GameDetailsText { metatext: '⬤ Players: ' + Utils.formatPlayers(currentGame.players) }
-        GameDetailsText { metatext: '⬤ Genre: ' + ( currentGame.genre || "unknown" ) }
-        GameDetailsText { metatext: '⬤ Release Date: ' + ( Utils.formatDate(currentGame.release) || "unknown" ) }
+        GameDetailsText { metatext: '• Players: ' + Utils.formatPlayers(currentGame.players) }
+        GameDetailsText { metatext: '• Genre: ' + ( currentGame.genre || "unknown" ) }
+        GameDetailsText { metatext: '• Release Date: ' + ( Utils.formatDate(currentGame.release) || "unknown" ) }
       }
     }
 
@@ -200,10 +200,10 @@ FocusScope {
         id: metadataRow2
         //anchors { horizontalCenter: parent.horizontalCenter }
         //spacing: vpx(6)
-        GameDetailsText { metatext: '⬤ Developer: ' + ( currentGame.developer || "unknown" ) }
-        GameDetailsText { metatext: '⬤ Publisher: ' + ( currentGame.publisher || "unknown" ) }
-        GameDetailsText { metatext: '⬤ Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-        GameDetailsText { metatext: '⬤ Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
+        GameDetailsText { metatext: '• Developer: ' + ( currentGame.developer || "unknown" ) }
+        GameDetailsText { metatext: '• Publisher: ' + ( currentGame.publisher || "unknown" ) }
+        GameDetailsText { metatext: '• Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
+        GameDetailsText { metatext: '• Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
         }
     }
 //// Game Metadata End
