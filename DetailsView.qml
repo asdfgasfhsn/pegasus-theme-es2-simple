@@ -168,7 +168,8 @@ FocusScope {
       id: metadataRect1
       anchors {
         top: headerGameTitle.bottom; topMargin: vpx(6)
-        horizontalCenter: headerGameTitle.horizontalCenter
+        left: parent.left; leftMargin: vpx(20)
+        //horizontalCenter: headerGameTitle.horizontalCenter
       }
       width: vpx(520)
       height: metadataRow1.height
@@ -176,11 +177,11 @@ FocusScope {
       color: "transparent"
       RowLayout {
         id: metadataRow1
-        anchors { horizontalCenter: parent.horizontalCenter }
-        spacing: vpx(6)
-        GameDetailsText { metatext: 'Players: ' + Utils.formatPlayers(currentGame.players) }
-        GameDetailsText { metatext: 'Genre: ' + ( currentGame.genre || "unknown" ) }
-        GameDetailsText { metatext: 'Release Date: ' + ( Utils.formatDate(currentGame.release) || "unknown" ) }
+        //anchors { horizontalCenter: parent.horizontalCenter }
+        //spacing: vpx(6)
+        GameDetailsText { metatext: '⬤ Players: ' + Utils.formatPlayers(currentGame.players) }
+        GameDetailsText { metatext: '⬤ Genre: ' + ( currentGame.genre || "unknown" ) }
+        GameDetailsText { metatext: '⬤ Release Date: ' + ( Utils.formatDate(currentGame.release) || "unknown" ) }
       }
     }
 
@@ -188,7 +189,8 @@ FocusScope {
       id: metadataRect2
       anchors {
         top: metadataRect1.bottom; topMargin: vpx(6)
-        horizontalCenter: headerGameTitle.horizontalCenter
+        left: parent.left; leftMargin: vpx(20)
+        //horizontalCenter: headerGameTitle.horizontalCenter
       }
       width: vpx(520)
       height: metadataRow2.height
@@ -196,12 +198,12 @@ FocusScope {
       color: "transparent"
       RowLayout {
         id: metadataRow2
-        anchors { horizontalCenter: parent.horizontalCenter }
-        spacing: vpx(6)
-        GameDetailsText { metatext: 'Developer: ' + ( currentGame.developer || "unknown" ) }
-        GameDetailsText { metatext: 'Publisher: ' + ( currentGame.publisher || "unknown" ) }
-        GameDetailsText { metatext: 'Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-        GameDetailsText { metatext: 'Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
+        //anchors { horizontalCenter: parent.horizontalCenter }
+        //spacing: vpx(6)
+        GameDetailsText { metatext: '⬤ Developer: ' + ( currentGame.developer || "unknown" ) }
+        GameDetailsText { metatext: '⬤ Publisher: ' + ( currentGame.publisher || "unknown" ) }
+        GameDetailsText { metatext: '⬤ Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
+        GameDetailsText { metatext: '⬤ Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
         }
     }
 //// Game Metadata End
@@ -389,7 +391,6 @@ FocusScope {
                 selected: GridView.isCurrentItem
 
                 transform: Rotation { origin.x: parent.width/2; origin.y: parent.width/2; axis { x: 0; y: 1; z: 0 } angle: selected ? 5 : 0 }
-                //transform: Rotation { origin.x: 0; origin.y: 0; axis { x: 0; y: 1; z: 0 } angle: selected ? -8 : 0 }
 
                 game: modelData
 

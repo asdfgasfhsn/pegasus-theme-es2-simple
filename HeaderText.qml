@@ -26,6 +26,11 @@ import QtQuick.Layouts 1.11
           verticalCenter: parent.verticalCenter
           horizontalCenter: parent.horizontalCenter
         }
+        Behavior on source {
+          FadeAnimation {
+              target: logo
+            }
+          }
 
       Text {
           id: titleText

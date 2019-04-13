@@ -18,7 +18,6 @@ import QtQuick.Layouts 1.11
           id: metaData
           text: metatext
           font.family: "coolvetica"
-          font.weight: Font.Bold
           font.pixelSize: vpx(12)
           font.capitalization: Font.AllUppercase
           color: "#97999b"

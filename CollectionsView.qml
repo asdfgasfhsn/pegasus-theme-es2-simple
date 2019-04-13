@@ -124,15 +124,34 @@ FocusScope {
         id: systemNameHeader
         anchors {
           left: parent.left; leftMargin: vpx(20)
-          topMargin: vpx(10)
-          bottom: parent.bottom; bottomMargin: vpx(12)
-          verticalCenter: parent.verticalCenter
+          top: parent.top; topMargin: vpx(12)
           }
         text: "%1".arg(currentCollection.name) || "Not Found"
         color: "black"
-        font.family: coolvetica.name
-        fontSizeMode: Text.Fit; minimumPixelSize: vpx(10); font.pixelSize: vpx(48)
+        font.family: "coolvetica" //coolvetica.name
+        fontSizeMode: Text.Fit; minimumPixelSize: vpx(30); font.pixelSize: vpx(48)
         font.capitalization: Font.AllUppercase
+        Behavior on text {
+          FadeAnimation {
+              target: systemNameHeader
+            }
+          }
+        }
+      Text {
+          id: systemItemCount
+          anchors {
+            left: parent.left; leftMargin: vpx(20)
+            top: systemNameHeader.bottom
+            }
+          text: "≡ %1 TITLES AVAILABLE".arg(currentCollection.games.count)
+          color: "black"
+          font.pixelSize: vpx(18)
+          font.family: "coolvetica"
+          Behavior on text {
+            FadeAnimation {
+                target: systemItemCount
+              }
+            }
       }
       // Image {
       //   id: systemLogo
@@ -164,26 +183,26 @@ FocusScope {
 
     // Game count bar -- like above, I've put it in an Item to separately control opacity
     // Width of item is same width as gamelist in detailsview..
-    Item {
-        anchors.right: parent.right; anchors.rightMargin: vpx(20)
-        anchors.bottom: root.bottom
-        height: vpx(40)
-        width: vpx(320)
-
-        Rectangle {
-            anchors.fill: parent
-            color: "purple"//"#f6f6f6"
-            opacity: 0.333
-
-        }
-
-        Text {
-            id: label
-            anchors.centerIn: parent
-            text: "%1 GAMES AVAILABLE".arg(currentCollection.games.count)
-            color: "white"
-            font.pixelSize: vpx(18)
-            font.family: coolvetica.name
-        }
-    }
+    // Item {
+    //     anchors.right: parent.right; anchors.rightMargin: vpx(20)
+    //     anchors.bottom: root.bottom
+    //     height: vpx(40)
+    //     width: vpx(320)
+    //
+    //     Rectangle {
+    //         anchors.fill: parent
+    //         color: "purple"//"#f6f6f6"
+    //         opacity: 0.333
+    //
+    //     }
+    //
+    //     Text {
+    //         id: label
+    //         anchors.centerIn: parent
+    //         text: "%1 GAMES AVAILABLE".arg(currentCollection.games.count)
+    //         color: "white"
+    //         font.pixelSize: vpx(18)
+    //         font.family: coolvetica.name
+    //     }
+    // }
 }
