@@ -27,8 +27,8 @@ FocusScope {
     signal launchGame
 
     // Key handling. In addition, pressing left/right also moves to the prev/next collection.
-    Keys.onLeftPressed: prevCollection()
-    Keys.onRightPressed: nextCollection()
+    // Keys.onLeftPressed: prevCollection()
+    // Keys.onRightPressed: nextCollection()
     Keys.onPressed: {
         if (event.isAutoRepeat)
             return;
@@ -65,72 +65,12 @@ FocusScope {
     opacity: 0.555
   }
 
-  Item {
-    id: bgRect
-    anchors.top: parent.top
-    anchors.left: parent.left
-    anchors.bottom: parent.bottom
-    clip: true
-    Item {
-      width: parent.width
-      height: parent.height
-      id: bgBlock
-      opacity: 0.5
-      Row {
-        Repeater {
-          model: 144
-          Column {
-            Repeater {
-              model: 78
-              Rectangle {
-                width: vpx(20)
-                height: vpx(20)
-                color: "black"
-                border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
-                border.width: 1
-                radius: 0
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-// Background Start
-// Gradient Yo!
-  Rectangle {
-    id: bgRectGradient
-    width: root.width
-    height: root.height
-    color: "transparent"
-    layer.enabled: true
-    LinearGradient {
-      anchors.fill: parent
-      start: Qt.point(0, 0)
-      end: Qt.point(0, vpx(720))
-      gradient: Gradient {
-        GradientStop {
-           position: 0.000
-           color: "transparent"
-           //color: Qt.rgba(0, 0, 0.1, 1)
-        }
-        GradientStop {
-           position: 0.999
-           color: Qt.rgba(0, 0, 0, 0.9)
-        }
-      }
-    }
-  }
-// Background End
-
 // Header/Meta Start
 //// Game Title Start
   Rectangle {
     id: headerGameTitle
     readonly property int paddingH: vpx(20) // H as horizontal
     readonly property int paddingV: vpx(20) // V as vertical
-    //border { color: "#444"; width: 1 }
     width: vpx(580)
     height: vpx(196)
     color: "transparent"
@@ -252,75 +192,10 @@ FocusScope {
      id: screenshotImage
      anchors { fill: parent }
      game: currentGame
+     collectionView: collectionsView.focus
+     detailView: detailsView.focus
   }
 }
-
-// Rectangle {
-//   id: detailsContainer
-//   width: vpx(600)
-//   height: vpx(300)
-//   color: "transparent"//"pink"
-//   // border.color: Qt.rgba(0.5, 0.5, 0.5, 0.3)
-//   // border.width: 5
-//   anchors {
-//     left: root.left
-//     leftMargin: vpx(20)
-//     bottom: root.bottom
-//     horizontalCenter: gameDescriptionRect.horizontalCenter
-//   }
-//   clip: true
-//   Rectangle {
-//     id: detailsRect
-//     width: vpx(1280)
-//     height: parent.height//vpx(200)
-//     color: "grey"
-//     anchors {
-//       bottom: parent.bottom; bottomMargin: -height / 2
-//       left: parent.left; leftMargin: -vpx(50)
-//     }
-//     transform: Rotation { origin.x: 200; origin.y: 200; angle: -8}
-//     Text {
-//         id: testText
-//         text: currentGame.title
-//         font.weight: Font.Bold
-//         font.pixelSize: vpx(26)
-//         font.capitalization: Font.AllUppercase
-//         color: "black"
-//         anchors {
-//           top: parent.top
-//           left: parent.left
-//           leftMargin: vpx(70)
-//       }
-//       //transform: Rotation { origin.x: 200; origin.y: 200; angle: -8}
-//     }
-//   }
-//}
-
-// cartridge image
- // Item {
- //     id: cartridge
- //     height: vpx(128)
- //     width: vpx(128)
- //     anchors {
- //         //top: gameDescriptionRect.bottom; topMargin: vpx(8)
- //         left: parent.left; leftMargin: vpx(20)
- //         right: grid.left;
- //         bottom: root.bottom; bottomMargin: vpx(20)
- //     }
- //
- //     Image {
- //         id: cartridgeImage
- //         readonly property double aspectRatio: (implicitWidth / implicitHeight) || 0
- //         anchors {
- //           fill: parent
- //           centerIn: parent
- //         }
- //         asynchronous: true
- //         source: currentGame.assets.cartridge || ""
- //         sourceSize { width: vpx(256); height: vpx(256) } // optimization (max size)
- //         fillMode: Image.PreserveAspectFit
- //     }
- // }
 
 // End Artwork Time!
 // Content Start

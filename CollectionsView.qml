@@ -72,7 +72,7 @@ FocusScope {
             id: logoAxis
 
             anchors.fill: parent
-            itemWidth: vpx(512)
+            itemWidth: vpx(500)
 
             model: api.collections
             delegate: CollectionLogo {
@@ -129,7 +129,7 @@ FocusScope {
         text: "%1".arg(currentCollection.name) || "Not Found"
         color: "black"
         font.family: "coolvetica" //coolvetica.name
-        fontSizeMode: Text.Fit; minimumPixelSize: vpx(30); font.pixelSize: vpx(48)
+        fontSizeMode: Text.Fit; minimumPixelSize: vpx(30); font.pixelSize: vpx(52)
         font.capitalization: Font.AllUppercase
         Behavior on text {
           FadeAnimation {
@@ -145,64 +145,13 @@ FocusScope {
             }
           text: "≡ %1 TITLES AVAILABLE".arg(currentCollection.games.count)
           color: "black"
-          font.pixelSize: vpx(18)
+          font.pixelSize: vpx(20)
           font.family: "coolvetica"
           Behavior on text {
             FadeAnimation {
                 target: systemItemCount
               }
             }
-      }
-      // Image {
-      //   id: systemLogo
-      //   anchors {
-      //     left: parent.left; leftMargin: vpx(20)
-      //     topMargin: vpx(10)
-      //     bottom: parent.bottom; bottomMargin: vpx(12)
-      //     verticalCenter: parent.verticalCenter
-      //     }
-      //
-      //     width: vpx(256)
-      //     height: parent.height - vpx(20)
-      //     fillMode: Image.PreserveAspectFit
-      //     smooth: true
-      //     source: "assets/logos/%1.svg".arg(currentCollection.shortName) || ""
-      //     asynchronous: false
-      //     //sourceSize { width: vpx(256); height: vpx(100) }
-      //     visible: false
-      // }
-      //
-      // ColorOverlay {
-      //     id: systemLogoColor
-      //     anchors.fill: systemLogo
-      //     source: systemLogo
-      //     color: "black"//"#000"
-      //     opacity: 1
-      //   }
-      }
-
-    // Game count bar -- like above, I've put it in an Item to separately control opacity
-    // Width of item is same width as gamelist in detailsview..
-    // Item {
-    //     anchors.right: parent.right; anchors.rightMargin: vpx(20)
-    //     anchors.bottom: root.bottom
-    //     height: vpx(40)
-    //     width: vpx(320)
-    //
-    //     Rectangle {
-    //         anchors.fill: parent
-    //         color: "purple"//"#f6f6f6"
-    //         opacity: 0.333
-    //
-    //     }
-    //
-    //     Text {
-    //         id: label
-    //         anchors.centerIn: parent
-    //         text: "%1 GAMES AVAILABLE".arg(currentCollection.games.count)
-    //         color: "white"
-    //         font.pixelSize: vpx(18)
-    //         font.family: coolvetica.name
-    //     }
-    // }
+        }
+    }
 }
