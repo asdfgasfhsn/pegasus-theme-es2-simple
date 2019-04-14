@@ -59,19 +59,17 @@ Item {
         smooth: false
     }
 
-    GaussianBlur {
+    FastBlur {
         id: rect
         anchors.fill: rectImg
         source: rectImg
         radius: vpx(20)
-        samples: 16
     }
-    GaussianBlur {
+    FastBlur {
         id: rect2
         anchors.fill: rect2Img
         source: rect2Img
         radius: vpx(20)
-        samples: 16
     }
 
     state: "fadeInRect2"

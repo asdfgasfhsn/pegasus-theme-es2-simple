@@ -26,11 +26,10 @@ import QtQuick.Layouts 1.11
           verticalCenter: parent.verticalCenter
           horizontalCenter: parent.horizontalCenter
         }
+
         Behavior on source {
-          FadeAnimation {
-              target: logo
-            }
-          }
+          FadeAnimation { target: logo }
+        }
 
       Text {
           id: titleText
@@ -42,6 +41,10 @@ import QtQuick.Layouts 1.11
           elide: Text.ElideRight
           Layout.maximumWidth: vpx(500)
           visible: parent.status != Image.Ready && parent.status != Image.Loading
+          Behavior on text {
+            FadeAnimation { target: titleText }
+          }
         }
+
      }
   }

@@ -16,16 +16,16 @@ Item {
 
     Image {
         id: controllerImage
-        width: vpx(386)
-        height: vpx(386)
+        width: vpx(480)
+        height: vpx(256)
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         fillMode: Image.PreserveAspectFit
         smooth: true
         source: shortName ? "assets/controllers/%1.png".arg(shortName) : ""
         asynchronous: true
-        scale: 1 //selected ? 1.0 : 0.66
-        //Behavior on scale { NumberAnimation { duration: 600 } }
+        scale: selected ? 1.0 : 0.555
+        Behavior on scale { NumberAnimation { duration: 600 } }
     }
     layer.enabled: selected ? true : false
     layer.effect: DropShadow {
