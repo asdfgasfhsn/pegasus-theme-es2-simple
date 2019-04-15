@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.11
     id: root
     property string titletext
     property var game
+    // border.color: 'red'
+    // border.width: vpx(5)
 
     color: "transparent"
 
@@ -34,17 +36,27 @@ import QtQuick.Layouts 1.11
       Text {
           id: titleText
           text: titletext
-          font.weight: Font.Bold
-          font.pixelSize: vpx(20)
+          color: "#f3f3f3"
+
+          width: parent.width
+          height: parent.height
+          horizontalAlignment: Text.AlignHCenter
+          verticalAlignment: Text.AlignVCenter
+
           font.capitalization: Font.AllUppercase
-          color: "#97999b"
-          elide: Text.ElideRight
+          font.family: "coolvetica"
+          font.pixelSize: vpx(78)
+          font.weight: Font.Bold
+          fontSizeMode: Text.Fit;
+          minimumPixelSize: vpx(40)
           Layout.maximumWidth: vpx(500)
+          elide: Text.ElideRight
+
           visible: parent.status != Image.Ready && parent.status != Image.Loading
+
           Behavior on text {
             FadeAnimation { target: titleText }
           }
         }
-
      }
   }

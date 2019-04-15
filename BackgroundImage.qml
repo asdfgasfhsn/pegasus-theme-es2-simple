@@ -6,7 +6,7 @@ Item {
   property var gameData//: currentCollection.games.get(gameList.currentIndex)
   property real dimopacity: 0.666 //0.9
 
-  property string bgSource: gameData ? gameData.assets.screenshots[0] || gameData.assets.background : ""
+  property string bgSource: gameData ? gameData.assets.background || gameData.assets.screenshots[0]: ""
   property string bgImage1
   property string bgImage2
   property bool firstBG: true

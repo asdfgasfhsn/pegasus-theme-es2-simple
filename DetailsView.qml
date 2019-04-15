@@ -202,7 +202,7 @@ FocusScope {
     Rectangle {
         id: content
         anchors {
-          top: root.top
+          top: parent.top
           left: screenshot.right
           right: parent.right
           bottom: parent.bottom
@@ -292,5 +292,17 @@ FocusScope {
         anchors.right: parent.right
         height: vpx(10)
         color: "transparent"
+        RatingDot {
+          id: ratings
+          width: vpx(100)
+          height: width
+          anchors {
+            bottom: parent.top
+            left: parent.left; leftMargin: vpx(20)
+          }
+          game: currentGame
+
+        }
+
   }
 }
