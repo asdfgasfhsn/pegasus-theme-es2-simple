@@ -5,14 +5,14 @@ import QtQuick.Layouts 1.11
     id: root
     property string metaTitle
     property string metaContent
-    width: vpx(80)
+    width: vpx(68)
     height: width
     color: "transparent"
 
   RowLayout {
     id: rowcontent
-    // anchors.verticalCenter: root.verticalCenter
-    // anchors.horizontalCenter: root.horizontalCenter
+    anchors.verticalCenter: root.verticalCenter
+    anchors.horizontalCenter: root.horizontalCenter
     Rectangle {
         id: ratingCircle
         width: root.width
@@ -24,12 +24,13 @@ import QtQuick.Layouts 1.11
       text: metaTitle
       width: parent.width
       font.family: "coolvetica" //coolvetica.name
-      fontSizeMode: Text.Fit; minimumPixelSize: vpx(6); font.pixelSize: vpx(10)
+      fontSizeMode: Text.Fit; minimumPixelSize: vpx(8); font.pixelSize: vpx(8)
       font.weight: Font.Bold
       font.capitalization: Font.AllUppercase
       horizontalAlignment: Text.AlignHCenter
+      padding: vpx(6)
       anchors {
-        top: parent.top; topMargin: vpx(10)
+        top: parent.top;
         left: parent.left; right: parent.right
       }
     }
@@ -40,13 +41,10 @@ import QtQuick.Layouts 1.11
       height: parent.height
       font.family: "coolvetica" //coolvetica.name
       font.capitalization: Font.AllUppercase
-      fontSizeMode: Text.Fit; minimumPixelSize: vpx(10); font.pixelSize: vpx(38)
+      fontSizeMode: Text.Fit; minimumPixelSize: vpx(12); font.pixelSize: vpx(44)
       horizontalAlignment: Text.AlignHCenter
       verticalAlignment: Text.AlignVCenter
-    //   anchors {
-    //     verticalCenter: parent.verticalCenter
-    //     horizontalCenter: parent.horizontalCenter
-    // }
+      padding: vpx(10)
     Behavior on text {
       FadeAnimation {
           target: ratingValue

@@ -22,15 +22,18 @@ Rectangle {
       RowLayout {
         id: metadataRow1
         anchors{
-          margins: vpx(6)
+          //margins: vpx(10)
           left: parent.left
         }
+        spacing: vpx(10)
         MetaBox { metaTitle: 'PLAYERS'; metaContent: game.players }
         MetaBox { metaTitle: 'RATING'; metaContent: (game.rating == "") ? "N/A" : Math.round(game.rating * 100) + '%'}
-        MetaBox { metaTitle: 'LAST PLAYED'; metaContent: Utils.formatLastPlayed(game.lastPlayed) }
-        MetaBox { metaTitle: 'RELEASED'; metaContent: ( Utils.formatDate(game.release) || "N/A" ) }
-        MetaBox { metaTitle: 'TIME PLAYED'; metaContent: Utils.formatPlayTime(game.playTime) }
+        MetaBox { metaTitle: 'YEAR RELEASED'; metaContent: ( Utils.formatDate(game.release) || "N/A" ) }
         MetaBox { metaTitle: 'GENRE'; metaContent: ( game.genre || "unknown" ) }
+        MetaBox { metaTitle: 'DEVELOPER'; metaContent: ( game.developer || "unknown" ) }
+        MetaBox { metaTitle: 'PUBLISHER'; metaContent: ( game.publisher || "unknown" ) }
+        MetaBox { metaTitle: 'LAST PLAYED'; metaContent: Utils.formatLastPlayed(game.lastPlayed) }
+        MetaBox { metaTitle: 'TIME PLAYED'; metaContent: Utils.formatPlayTime(game.playTime) }
       }
     }
 
@@ -54,7 +57,7 @@ Rectangle {
 
      GameInfoText {
          id: gameDescription
-         width: vpx(300)
+         //width: vpx(300)
          anchors {
            fill: parent
            margins: vpx(6)

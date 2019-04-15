@@ -71,8 +71,8 @@ FocusScope {
     id: headerGameTitle
     readonly property int paddingH: vpx(20) // H as horizontal
     readonly property int paddingV: vpx(20) // V as vertical
-    width: vpx(640)
-    height: vpx(196)
+    width: vpx(580)
+    height: vpx(180)
     color: "transparent"
 
     anchors {
@@ -107,10 +107,10 @@ FocusScope {
    game: currentGame
    color: "transparent"
    width: headerGameTitle.width
-   height: vpx(140)
+   height: vpx(160)
    anchors {
      top: headerGameTitle.bottom
-     left: headerGameTitle.left
+     left: headerGameTitle.left; //leftMargin: vpx(20)
    }
  }
 
