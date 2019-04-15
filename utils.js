@@ -12,7 +12,7 @@ function formatPlayers(playerCount) {
 
 // Show dates in Y-M-D format
 function formatDate(date) {
-    return Qt.formatDate(date, "yyyy-MM-dd");
+    return Qt.formatDate(date, "yyyy");
 }
 
 
@@ -20,7 +20,7 @@ function formatDate(date) {
 // Note to self: I should probably move this into the API.
 function formatLastPlayed(lastPlayed) {
     if (isNaN(lastPlayed))
-        return "never";
+        return "N/A";
 
     var now = new Date();
 
@@ -42,7 +42,7 @@ function formatLastPlayed(lastPlayed) {
 function formatPlayTime(playTime) {
     var minutes = Math.ceil(playTime / 60)
     if (minutes <= 90)
-        return Math.round(minutes) + " minutes";
+        return Math.round(minutes) + " M";
 
-    return parseFloat((minutes / 60).toFixed(1)) + " hours"
+    return parseFloat((minutes / 60).toFixed(1)) + " H"
 }

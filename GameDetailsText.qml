@@ -18,9 +18,9 @@ import QtQuick.Layouts 1.11
           id: metaData
           text: metatext
           font.family: "coolvetica"
-          font.pixelSize: vpx(12)
+          font.pixelSize: vpx(14)
           font.capitalization: Font.AllUppercase
-          color: "#97999b"
+          color: "#f3f3f3"
           elide: Text.ElideRight
           Layout.maximumWidth: vpx(250)
       }

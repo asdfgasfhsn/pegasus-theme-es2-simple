@@ -71,7 +71,7 @@ FocusScope {
     id: headerGameTitle
     readonly property int paddingH: vpx(20) // H as horizontal
     readonly property int paddingV: vpx(20) // V as vertical
-    width: vpx(580)
+    width: vpx(640)
     height: vpx(196)
     color: "transparent"
 
@@ -101,91 +101,31 @@ FocusScope {
       }
     }
   }
-//// Game Title End
 
-//// Game Metadata Start
-    Rectangle {
-      id: metadataRect1
-      anchors {
-        top: headerGameTitle.bottom; topMargin: vpx(6)
-        left: parent.left; leftMargin: vpx(20)
-        //horizontalCenter: headerGameTitle.horizontalCenter
-      }
-      width: vpx(520)
-      height: metadataRow1.height
-      clip: true
-      color: "transparent"
-      RowLayout {
-        id: metadataRow1
-        //anchors { horizontalCenter: parent.horizontalCenter }
-        //spacing: vpx(6)
-        GameDetailsText { metatext: '• Players: ' + Utils.formatPlayers(currentGame.players) }
-        GameDetailsText { metatext: '• Genre: ' + ( currentGame.genre || "unknown" ) }
-        GameDetailsText { metatext: '• Release Date: ' + ( Utils.formatDate(currentGame.release) || "unknown" ) }
-      }
-    }
-
-    Rectangle {
-      id: metadataRect2
-      anchors {
-        top: metadataRect1.bottom; topMargin: vpx(6)
-        left: parent.left; leftMargin: vpx(20)
-        //horizontalCenter: headerGameTitle.horizontalCenter
-      }
-      width: vpx(520)
-      height: metadataRow2.height
-      clip: true
-      color: "transparent"
-      RowLayout {
-        id: metadataRow2
-        //anchors { horizontalCenter: parent.horizontalCenter }
-        //spacing: vpx(6)
-        GameDetailsText { metatext: '• Developer: ' + ( currentGame.developer || "unknown" ) }
-        GameDetailsText { metatext: '• Publisher: ' + ( currentGame.publisher || "unknown" ) }
-        GameDetailsText { metatext: '• Last Played: ' + Utils.formatLastPlayed(currentGame.lastPlayed) }
-        GameDetailsText { metatext: '• Play Time: ' + Utils.formatPlayTime(currentGame.playTime) }
-        }
-    }
-//// Game Metadata End
-// Header/Meta End
-
-// Gameinfo Start
- Item {
-   id: gameDescriptionRect
-   //color: Qt.rgba(1, 1, 1, 0.1)
-   //color: "transparent"//"#393a3b"
-   //opacity: 1
-   height: vpx(80)
-   width: vpx(520)
+ GameDetails {
+   id: gameDetails
+   game: currentGame
+   color: "transparent"
+   width: headerGameTitle.width
+   height: vpx(140)
    anchors {
-       top: metadataRect2.bottom; topMargin: vpx(6)
-       horizontalCenter: headerGameTitle.horizontalCenter
+     top: headerGameTitle.bottom
+     left: headerGameTitle.left
    }
+ }
 
-   GameInfoText {
-       id: gameDescription
-       width: vpx(300)
-       anchors {
-         fill: parent
-         //margins: vpx(6)
-       }
-       text: currentGame.description
-       wrapMode: Text.WordWrap
-       elide: Text.ElideRight
-       color: "#97999b"
-   }
-}
- // Gameinfo End
-
- // Artwork Time!
- Item {
+ Rectangle {
      id: screenshot
      height: vpx(384)
-     width: vpx(500)
+     width: headerGameTitle.width
+     color: "transparent"
+     // border.color: 'red'
+     // border.width: vpx(5)
      anchors {
-         top: gameDescriptionRect.bottom; topMargin: vpx(8)
-         bottom: parent.bottom; bottomMargin: vpx(30)
-         horizontalCenter: gameDescriptionRect.horizontalCenter
+         top: gameDetails.bottom
+         bottom: parent.bottom; bottomMargin: vpx(20)
+         left: headerGameTitle.left
+         horizontalCenter: gameDetails.horizontalCenter
      }
 
  GameVideoItem {
