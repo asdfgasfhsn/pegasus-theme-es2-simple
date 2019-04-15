@@ -26,6 +26,7 @@ import QtQuick.Layouts 1.11
       font.family: "coolvetica" //coolvetica.name
       fontSizeMode: Text.Fit; minimumPixelSize: vpx(6); font.pixelSize: vpx(10)
       font.weight: Font.Bold
+      font.capitalization: Font.AllUppercase
       horizontalAlignment: Text.AlignHCenter
       anchors {
         top: parent.top; topMargin: vpx(10)
@@ -38,6 +39,7 @@ import QtQuick.Layouts 1.11
       width: parent.width
       height: parent.height
       font.family: "coolvetica" //coolvetica.name
+      font.capitalization: Font.AllUppercase
       fontSizeMode: Text.Fit; minimumPixelSize: vpx(10); font.pixelSize: vpx(38)
       horizontalAlignment: Text.AlignHCenter
       verticalAlignment: Text.AlignVCenter
