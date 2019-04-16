@@ -32,15 +32,15 @@ Item {
       fast: true
       horizontalOffset: 0
       verticalOffset: 0
-      spread: 0.15
-      radius: vpx(172)
-      samples: 32
+      spread: 0.333
+      radius: vpx(128)
+      samples: 20
       color: "purple"
       transparentBorder: true
       SequentialAnimation on color {
             loops: Animation.Infinite
-            ColorAnimation { from: "#809932CC"; to: "#800000FF"; duration: 6666 }
-            ColorAnimation { from: "#800000FF"; to: "#809932CC"; duration: 6666 }
+            ColorAnimation { from: "#809932CC"; to: "#800000FF"; duration: 10000 }
+            ColorAnimation { from: "#800000FF"; to: "#809932CC"; duration: 10000 }
         }
     }
 
