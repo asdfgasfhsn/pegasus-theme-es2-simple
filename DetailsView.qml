@@ -58,6 +58,8 @@ FocusScope {
   BackgroundImage {
     id: backgroundimage
     gameData: currentGame
+    collectionView: collectionsView.focus
+    detailView: detailsView.focus
     anchors {
       left: parent.left; right: parent.right
       top: parent.top; bottom: parent.bottom
@@ -132,8 +134,8 @@ FocusScope {
      id: screenshotImage
      anchors { fill: parent }
      game: currentGame
-     collectionView: collectionsView.focus
-     detailView: detailsView.focus
+       collectionView: collectionsView.focus
+       detailView: detailsView.focus
   }
 }
 

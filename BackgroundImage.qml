@@ -4,14 +4,28 @@ import QtGraphicalEffects 1.12
 Item {
   id: root
   property var gameData//: currentCollection.games.get(gameList.currentIndex)
+  property var collectionView
+  property var detailView
+  
   property real dimopacity: 0.666 //0.9
 
-  property string bgSource: gameData ? gameData.assets.background || gameData.assets.screenshots[0]: ""
+  property string bgSource: gameData ? gameData.assets.background || gameData.assets.screenshots[0] : ''
   property string bgImage1
   property string bgImage2
   property bool firstBG: true
 
-  onBgSourceChanged: swapImage(bgSource)
+  onBgSourceChanged: {
+    if ( detailView ) {
+      swapImage(bgSource);
+    }
+  }
+
+  onCollectionViewChanged: {
+    if ( collectionView ) {
+      bgImage1 = ''
+      bgImage2 = ''
+    }
+  }
 
   Item {
     id: bg
