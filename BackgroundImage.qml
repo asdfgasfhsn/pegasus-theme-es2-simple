@@ -6,7 +6,7 @@ Item {
   property var gameData//: currentCollection.games.get(gameList.currentIndex)
   property var collectionView
   property var detailView
-  
+
   property real dimopacity: 0.666 //0.9
 
   property string bgSource: gameData ? gameData.assets.background || gameData.assets.screenshots[0] : ''
@@ -24,6 +24,8 @@ Item {
     if ( collectionView ) {
       bgImage1 = ''
       bgImage2 = ''
+    } else {
+      swapImage(bgSource);
     }
   }
 
