@@ -109,7 +109,7 @@ FocusScope {
    game: currentGame
    color: "transparent"
    width: headerGameTitle.width
-   height: vpx(160)
+   height: vpx(100)
    anchors {
      top: headerGameTitle.bottom
      left: headerGameTitle.left; //leftMargin: vpx(20)
@@ -125,7 +125,7 @@ FocusScope {
      // border.width: vpx(5)
      anchors {
          top: gameDetails.bottom
-         bottom: parent.bottom; bottomMargin: vpx(20)
+         bottom: parent.bottom; bottomMargin: vpx(100)
          left: headerGameTitle.left
          horizontalCenter: gameDetails.horizontalCenter
      }
@@ -226,6 +226,64 @@ FocusScope {
         }
     }
 }
+
+Item {
+  id: metaBar
+  width: parent.width
+  height: vpx(88)
+  // color: "transparent"
+  anchors {
+    bottom: parent.bottom;
+    //horizontalCenter: parent.horizontalCenter
+    left: parent.left; //leftMargin: vpx(20)
+    right: parent.right
+  }
+
+  Rectangle {
+    id: metaBarBg
+    width:  parent.width // / 2
+    height: parent.height
+    color: "#f6f6f6"
+    visible: true
+   //  anchors {
+   //    leftMargin: vpx(20)
+   //   bottomMargin: vpx(20)
+   // }
+  }
+
+  Text {
+      id: collectionName
+      anchors {
+        left: parent.left; leftMargin: vpx(20)
+        top: parent.top
+        }
+      text: "≡ %1".arg(currentCollection.name) || "Not Found"
+      color: "black"
+      font.pixelSize: vpx(18)
+      font.family: "coolvetica"
+      font.capitalization: Font.AllUppercase
+      Behavior on text {
+        FadeAnimation {
+            target: systemItemCount
+          }
+        }
+    }
+
+    GameMetaInfo {
+      id: gameDetails1
+      game: currentGame
+      color: "transparent"
+      width: parent.width
+      // height: vpx(160)
+      anchors {
+        top: collectionName.bottom
+        left: parent.left; leftMargin: vpx(20)
+        bottomMargin: vpx(20)
+      }
+    }
+}
+
+
     // TODO: Add nice artwork or something in footer
     Rectangle {
         id: footer
@@ -234,17 +292,20 @@ FocusScope {
         anchors.right: parent.right
         height: vpx(10)
         color: "transparent"
-        RatingDot {
-          id: ratings
-          width: vpx(100)
-          height: width
-          anchors {
-            bottom: parent.top
-            left: parent.left; leftMargin: vpx(20)
-          }
-          game: currentGame
+        // RatingDot {
+        //   id: ratings
+        //   width: vpx(100)
+        //   height: width
+        //   anchors {
+        //     bottom: parent.top
+        //     left: parent.left; leftMargin: vpx(20)
+        //   }
+        //   game: currentGame
+        //
+        // }
+    }
 
-        }
 
-  }
+
+
 }

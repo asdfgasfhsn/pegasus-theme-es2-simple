@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.11
     id: root
     property string metaTitle
     property string metaContent
-    width: vpx(68)
+    width: vpx(58)
     height: width
     color: "transparent"
 
@@ -17,14 +17,15 @@ import QtQuick.Layouts 1.11
         id: ratingCircle
         width: root.width
         height: root.width
-        color: "#f6f6f6"
+        color: "black " // "#f6f6f6"
         clip: true
 
     Text {
       text: metaTitle
+      color: "#f6f6f6"
       width: parent.width
       font.family: "coolvetica" //coolvetica.name
-      fontSizeMode: Text.Fit; minimumPixelSize: vpx(8); font.pixelSize: vpx(8)
+      fontSizeMode: Text.Fit; minimumPixelSize: vpx(6); font.pixelSize: vpx(8)
       font.weight: Font.Bold
       font.capitalization: Font.AllUppercase
       horizontalAlignment: Text.AlignHCenter
@@ -37,11 +38,12 @@ import QtQuick.Layouts 1.11
     Text {
       id: ratingValue
       text: metaContent
+      color: "#f6f6f6"
       width: parent.width
       height: parent.height
       font.family: "coolvetica" //coolvetica.name
       font.capitalization: Font.AllUppercase
-      fontSizeMode: Text.Fit; minimumPixelSize: vpx(12); font.pixelSize: vpx(44)
+      fontSizeMode: Text.Fit; minimumPixelSize: vpx(10); font.pixelSize: vpx(44)
       horizontalAlignment: Text.AlignHCenter
       verticalAlignment: Text.AlignVCenter
       padding: vpx(10)
