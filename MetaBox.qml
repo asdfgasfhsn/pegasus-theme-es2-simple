@@ -5,8 +5,8 @@ import QtQuick.Layouts 1.11
     id: root
     property string metaTitle
     property string metaContent
-    width: vpx(58)
-    height: width
+    width: vpx(120)
+    height: vpx(72)
     color: "transparent"
 
   RowLayout {
@@ -16,7 +16,7 @@ import QtQuick.Layouts 1.11
     Rectangle {
         id: ratingCircle
         width: root.width
-        height: root.width
+        height: root.height
         color: "black " // "#f6f6f6"
         clip: true
 
@@ -25,7 +25,7 @@ import QtQuick.Layouts 1.11
       color: "#f6f6f6"
       width: parent.width
       font.family: "coolvetica" //coolvetica.name
-      fontSizeMode: Text.Fit; minimumPixelSize: vpx(6); font.pixelSize: vpx(8)
+      fontSizeMode: Text.Fit; minimumPixelSize: vpx(10); font.pixelSize: vpx(10)
       font.weight: Font.Bold
       font.capitalization: Font.AllUppercase
       horizontalAlignment: Text.AlignHCenter

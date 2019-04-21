@@ -158,6 +158,10 @@ FocusScope {
             width: vpx(580)
             height: vpx(700)
 
+            add: Transition {
+                NumberAnimation { properties: "x,y"; from: 100; duration: 1000 }
+            }
+
             anchors {
               rightMargin: vpx(48)
               top: parent.top;
@@ -230,7 +234,7 @@ FocusScope {
 Item {
   id: metaBar
   width: parent.width
-  height: vpx(88)
+  height: vpx(100)
   // color: "transparent"
   anchors {
     bottom: parent.bottom;

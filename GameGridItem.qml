@@ -39,7 +39,7 @@ Rectangle {
     signal imageLoaded(int imgWidth, int imgHeight)
 
     scale: selected ? 1.5 : 1.0
-    //opacity: selected ? 1 : 0.666
+    opacity: selected ? 1 : 0.666
     z: selected ? 3 : 1
 
     Behavior on scale { PropertyAnimation { duration: 666 } }
