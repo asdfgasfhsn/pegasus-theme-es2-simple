@@ -12,8 +12,8 @@ Rectangle {
     Rectangle {
       id: metadataRect1
       anchors {
-        top: parent.top; //topMargin: vpx(6)
-        left: parent.left; //leftMargin: vpx(20)
+        top: parent.top
+        left: parent.left
         horizontalCenter: parent.horizontalCenter
       }
       width: parent.width
@@ -22,7 +22,6 @@ Rectangle {
       RowLayout {
         id: metadataRow1
         anchors{
-          //margins: vpx(10)
           left: parent.left
         }
         spacing: vpx(10)
@@ -36,10 +35,4 @@ Rectangle {
         MetaBox { metaTitle: 'TIME PLAYED'; metaContent: Utils.formatPlayTime(game.playTime) }
       }
     }
-
-    //     GameDetailsText { metatext: 'Developer: ' + ( game.developer || "unknown" ) }
-    //     GameDetailsText { metatext: '• Publisher: ' + ( game.publisher || "unknown" ) }
-    //     GameDetailsText { metatext: '• Total Played: ' + Utils.formatPlayTime(game.playTime) }
-    //     GameDetailsText { metatext: '• Last Played: ' + Utils.formatLastPlayed(game.lastPlayed) }
-    //     GameDetailsText { metatext: '• Release Date: ' + ( Utils.formatDate(game.release) || "unknown" ) }
-}
+  }

@@ -14,15 +14,15 @@ import QtQuick.Layouts 1.11
     anchors.verticalCenter: root.verticalCenter
     anchors.horizontalCenter: root.horizontalCenter
     Rectangle {
-        id: ratingCircle
-        width: root.width
-        height: root.height
-        color: "black " // "#f6f6f6"
-        clip: true
+      id: ratingCircle
+      width: root.width
+      height: root.height
+      color: "#f6f6f6"
+      clip: true
 
     Text {
       text: metaTitle
-      color: "#f6f6f6"
+      color: "black" //"#f6f6f6"
       width: parent.width
       font.family: "coolvetica" //coolvetica.name
       fontSizeMode: Text.Fit; minimumPixelSize: vpx(8); font.pixelSize: vpx(8)
@@ -35,10 +35,11 @@ import QtQuick.Layouts 1.11
         left: parent.left; right: parent.right
       }
     }
+
     Text {
-      id: ratingValue
+      id: metaValue
       text: metaContent
-      color: "#f6f6f6"
+      color: "black" //"#f6f6f6"
       width: parent.width
       height: parent.height
       font.family: "coolvetica" //coolvetica.name
@@ -47,12 +48,10 @@ import QtQuick.Layouts 1.11
       horizontalAlignment: Text.AlignHCenter
       verticalAlignment: Text.AlignVCenter
       padding: vpx(10)
-    Behavior on text {
-      FadeAnimation {
-          target: ratingValue
-        }
+
+      Behavior on text { FadeAnimation { target: metaValue }}
+
       }
-    }
     }
   }
 }

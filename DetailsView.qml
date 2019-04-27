@@ -78,7 +78,7 @@ FocusScope {
         }
 
         color: "transparent"
-        //clip: true
+        clip: true
 
         GridView {
             id: grid
@@ -195,14 +195,14 @@ FocusScope {
       id: metaBarBg
       width:  vpx(620)
       height: parent.height
-      color: "#30f3f3f3"
+      color: "#00f3f3f3"
       visible: true
     }
 
     Text {
         id: collectionName
         anchors {
-          left: parent.left; leftMargin: vpx(10)
+          left: parent.left; //leftMargin: vpx(10)
           top: parent.top;
           topMargin: vpx(4)
           }
@@ -213,7 +213,7 @@ FocusScope {
         font.capitalization: Font.AllUppercase
         Behavior on text {
           FadeAnimation {
-              target: systemItemCount
+              target: collectionName
             }
           }
       }
@@ -225,7 +225,7 @@ FocusScope {
         width: vpx(620) // parent.width
         anchors {
           top: collectionName.bottom; topMargin: vpx(10)
-          left: parent.left; leftMargin: vpx(10)
+          left: parent.left;
           bottomMargin: vpx(20)
         }
      }
@@ -235,45 +235,46 @@ FocusScope {
   GameDetails {
     id: gameDetails
     game: currentGame
-    color: "#30f3f3f3"
-    width: vpx(620)// headerGameTitle.width
+    color: "#00f3f3f3"
+    width: vpx(620)
     height: vpx(100)
     anchors {
       top: metaBar.bottom
-      left: headerGameTitle.left; //leftMargin: vpx(20)
+      left: headerGameTitle.left
     }
   }
 
   Rectangle {
       id: screenshot
       height: vpx(400)
-      width: vpx(600)// headerGameTitle.width
-      color: "#30f3f3f3"
-      // border.color: 'red'
+      width: vpx(600)
+      color: "#00f3f3f3"
       // border.width: vpx(5)
+      // border.color: "red"
+      // radius: vpx(10)
+
       anchors {
           top: gameDetails.bottom
           left: headerGameTitle.left
           horizontalCenter: gameDetails.horizontalCenter
       }
 
-  GameVideoItem {
-      id: screenshotImage
-      anchors { fill: parent }
-      game: currentGame
-        collectionView: collectionsView.focus
-        detailView: detailsView.focus
-   }
+      GameVideoItem {
+          id: screenshotImage
+          anchors { fill: parent }
+          game: currentGame
+            collectionView: collectionsView.focus
+            detailView: detailsView.focus
+       }
  }
 
-    // TODO: Add nice artwork or something in footer
     Rectangle {
         id: footer
         anchors.top: screenshot.bottom
         anchors.left: screenshot.left
         anchors.right: screenshot.right
         height: vpx(10)
-        color: "#30f3f3f3"
+        color: "#00f3f3f3"
     }
 
 

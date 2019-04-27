@@ -17,6 +17,7 @@
 
 import QtQuick 2.8
 import QtMultimedia 5.9
+import QtGraphicalEffects 1.12
 
 Item {
     property var game
@@ -53,7 +54,6 @@ Item {
             if (game && game.assets.videos.length > 0) {
                 for (var i = 0; i < game.assets.videos.length; i++)
                     videoPreview.playlist.addItem(game.assets.videos[i]);
-
                 videoPreview.play();
             }
         }
@@ -70,9 +70,11 @@ Item {
         id: videoBox
         color: "transparent"
         anchors.fill: parent
-        width: Image.width
-        height: Image.height
-        //radius: vpx(4)
+        // border.color: "red"
+        // border.width: vpx(5)
+        width: videoPreviewImage.width
+        height: videoPreviewImage.height
+
         clip: true
         visible: (game && (game.assets.videos.length || game.assets.screenshots.length)) || false
 
@@ -93,14 +95,26 @@ Item {
 
         Image {
             id: videoPreviewImage
-            visible: !videoPreview.visible
-
-            anchors { fill: parent; margins: 1 }
+            visible: false // !videoPreview.visible
+            width: Image.width
+            height: Image.height
+            //anchors { fill: parent; margins: 0 }
             fillMode: Image.PreserveAspectFit
 
             source: (game && game.assets.screenshots.length && game.assets.screenshots[0]) || ""
             sourceSize { width: vpx(256); height: vpx(256) }
             asynchronous: true
+        }
+
+        OpacityMask {
+            anchors { fill: videoBox; margins: 0 }
+            source: videoPreviewImage
+            maskSource: Rectangle {
+                width: videoPreviewImage.width
+                height: videoPreviewImage.height
+                radius: vpx(8)
+                visible: false // this also needs to be invisible or it will cover up the image
+            }
         }
     }
 }
