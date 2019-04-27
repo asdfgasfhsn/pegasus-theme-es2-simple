@@ -60,8 +60,10 @@ Rectangle {
          //width: vpx(300)
          anchors {
            fill: parent
-           margins: vpx(6)
+           // margins: vpx(10)
          }
+         leftPadding: vpx(10)
+         rightPadding: vpx(10)
          text: game.description
          wrapMode: Text.WordWrap
          elide: Text.ElideRight

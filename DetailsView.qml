@@ -67,80 +67,7 @@ FocusScope {
     opacity: 0.555
   }
 
-// Header/Meta Start
-//// Game Title Start
-  Rectangle {
-    id: headerGameTitle
-    readonly property int paddingH: vpx(20) // H as horizontal
-    readonly property int paddingV: vpx(20) // V as vertical
-    width: vpx(580)
-    height: vpx(180)
-    color: "transparent"
-
-    anchors {
-      top: root.top; topMargin: paddingH
-      left: root.left; leftMargin: paddingV
-      rightMargin: paddingV
-
-    }
-
-    HeaderText {
-      titletext: currentGame.title;
-      game: currentGame
-      anchors {
-        verticalCenter: headerGameTitle.verticalCenter
-      }
-      layer.enabled: true
-      layer.effect: DropShadow {
-        fast: true
-        horizontalOffset: 0
-        verticalOffset: 0
-        spread: 0.02
-        radius: 30.0
-        samples: 50
-        color: "#99FFFFFF"
-        transparentBorder: true
-      }
-    }
-  }
-
- GameDetails {
-   id: gameDetails
-   game: currentGame
-   color: "transparent"
-   width: headerGameTitle.width
-   height: vpx(100)
-   anchors {
-     top: headerGameTitle.bottom
-     left: headerGameTitle.left; //leftMargin: vpx(20)
-   }
- }
-
- Rectangle {
-     id: screenshot
-     height: vpx(384)
-     width: headerGameTitle.width
-     color: "transparent"
-     // border.color: 'red'
-     // border.width: vpx(5)
-     anchors {
-         top: gameDetails.bottom
-         bottom: parent.bottom; bottomMargin: vpx(100)
-         left: headerGameTitle.left
-         horizontalCenter: gameDetails.horizontalCenter
-     }
-
- GameVideoItem {
-     id: screenshotImage
-     anchors { fill: parent }
-     game: currentGame
-       collectionView: collectionsView.focus
-       detailView: detailsView.focus
-  }
-}
-
-// End Artwork Time!
-// Content Start
+// GridView start!
     Rectangle {
         id: content
         anchors {
@@ -151,24 +78,22 @@ FocusScope {
         }
 
         color: "transparent"
-        clip: true
+        //clip: true
 
         GridView {
             id: grid
-            width: vpx(580)
+            width: vpx(560)
             height: vpx(700)
 
-            add: Transition {
-                NumberAnimation { properties: "x,y"; from: 100; duration: 1000 }
-            }
+            preferredHighlightBegin: vpx(120)
+            preferredHighlightEnd: vpx(600)
 
             anchors {
               rightMargin: vpx(48)
               top: parent.top;
               right: parent.right;
-              // margins: vpx(50)
-              topMargin: vpx(80)
             }
+
             property bool firstImageLoaded: false
             property real cellHeightRatio: 0.5
 
@@ -211,7 +136,7 @@ FocusScope {
                 height: GridView.view.cellHeight
                 selected: GridView.isCurrentItem
 
-                transform: Rotation { origin.x: parent.width/2; origin.y: parent.width/2; axis { x: 0; y: 1; z: 0 } angle: selected ? 5 : 0 }
+                //transform: Rotation { origin.x: parent.width/2; origin.y: parent.width/2; axis { x: 0; y: 1; z: 0 } angle: selected ? 5 : 0 }
 
                 game: modelData
 
@@ -231,82 +156,124 @@ FocusScope {
     }
 }
 
-Item {
-  id: metaBar
-  width: parent.width
-  height: vpx(100)
-  // color: "transparent"
-  anchors {
-    bottom: parent.bottom;
-    //horizontalCenter: parent.horizontalCenter
-    left: parent.left; //leftMargin: vpx(20)
-    right: parent.right
+
+// Header/Meta Start
+  Rectangle {
+    id: headerGameTitle
+    readonly property int paddingH: vpx(20) // H as horizontal
+    readonly property int paddingV: vpx(20) // V as vertical
+    width: vpx(1260)
+    height: vpx(60)
+    color: "transparent"
+
+    anchors {
+      top: root.top; topMargin: paddingH
+      left: root.left; leftMargin: paddingV
+      rightMargin: paddingV
+
+    }
+
+    HeaderText {
+      titletext: currentGame.title;
+      game: currentGame
+      anchors {
+      }
+    }
+  }
+
+  Item {
+    id: metaBar
+    width: parent.width
+    height: vpx(110)
+    anchors {
+      top: headerGameTitle.bottom
+      left: headerGameTitle.left
+      right: parent.right
+    }
+
+    Rectangle {
+      id: metaBarBg
+      width:  vpx(620)
+      height: parent.height
+      color: "#30f3f3f3"
+      visible: true
+    }
+
+    Text {
+        id: collectionName
+        anchors {
+          left: parent.left; leftMargin: vpx(10)
+          top: parent.top;
+          topMargin: vpx(4)
+          }
+        text: "≡ %1".arg(currentCollection.name) || "Not Found"
+        color: "#f3f3f3"
+        font.pixelSize: vpx(18)
+        font.family: "coolvetica"
+        font.capitalization: Font.AllUppercase
+        Behavior on text {
+          FadeAnimation {
+              target: systemItemCount
+            }
+          }
+      }
+
+      GameMetaInfo {
+        id: gameDetails1
+        game: currentGame
+        color: "transparent"
+        width: vpx(620) // parent.width
+        anchors {
+          top: collectionName.bottom; topMargin: vpx(10)
+          left: parent.left; leftMargin: vpx(10)
+          bottomMargin: vpx(20)
+        }
+     }
+  }
+
+
+  GameDetails {
+    id: gameDetails
+    game: currentGame
+    color: "#30f3f3f3"
+    width: vpx(620)// headerGameTitle.width
+    height: vpx(100)
+    anchors {
+      top: metaBar.bottom
+      left: headerGameTitle.left; //leftMargin: vpx(20)
+    }
   }
 
   Rectangle {
-    id: metaBarBg
-    width:  parent.width // / 2
-    height: parent.height
-    color: "#f6f6f6"
-    visible: true
-   //  anchors {
-   //    leftMargin: vpx(20)
-   //   bottomMargin: vpx(20)
-   // }
-  }
-
-  Text {
-      id: collectionName
+      id: screenshot
+      height: vpx(400)
+      width: vpx(600)// headerGameTitle.width
+      color: "#30f3f3f3"
+      // border.color: 'red'
+      // border.width: vpx(5)
       anchors {
-        left: parent.left; leftMargin: vpx(20)
-        top: parent.top
-        }
-      text: "≡ %1".arg(currentCollection.name) || "Not Found"
-      color: "black"
-      font.pixelSize: vpx(18)
-      font.family: "coolvetica"
-      font.capitalization: Font.AllUppercase
-      Behavior on text {
-        FadeAnimation {
-            target: systemItemCount
-          }
-        }
-    }
-
-    GameMetaInfo {
-      id: gameDetails1
-      game: currentGame
-      color: "transparent"
-      width: parent.width
-      // height: vpx(160)
-      anchors {
-        top: collectionName.bottom
-        left: parent.left; leftMargin: vpx(20)
-        bottomMargin: vpx(20)
+          top: gameDetails.bottom
+          left: headerGameTitle.left
+          horizontalCenter: gameDetails.horizontalCenter
       }
-    }
-}
 
+  GameVideoItem {
+      id: screenshotImage
+      anchors { fill: parent }
+      game: currentGame
+        collectionView: collectionsView.focus
+        detailView: detailsView.focus
+   }
+ }
 
     // TODO: Add nice artwork or something in footer
     Rectangle {
         id: footer
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.top: screenshot.bottom
+        anchors.left: screenshot.left
+        anchors.right: screenshot.right
         height: vpx(10)
-        color: "transparent"
-        // RatingDot {
-        //   id: ratings
-        //   width: vpx(100)
-        //   height: width
-        //   anchors {
-        //     bottom: parent.top
-        //     left: parent.left; leftMargin: vpx(20)
-        //   }
-        //   game: currentGame
-        //
-        // }
+        color: "#30f3f3f3"
     }
 
 

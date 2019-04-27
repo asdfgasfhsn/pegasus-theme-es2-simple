@@ -8,55 +8,62 @@ import QtQuick.Layouts 1.11
     // border.color: 'red'
     // border.width: vpx(5)
 
-    color: "transparent"
+    color: "#f3f3f3"//"#000000"
 
-    width: parent.width
+    property real textWidth: {
+        if (textMetrics.width > parent.width) return parent.width - vpx(20);
+        return textMetrics.width;
+    }
+
+    width: textWidth // textMetrics.width - vpx(20)
     height: parent.height
     clip: true
 
-    Image {
-        id: logo
-        asynchronous: true
-        width: parent.width - vpx(60)
-        height: parent.height - vpx(20)
-        source: (game && game.assets.logo) || ""
-        sourceSize { width: 580; height: 256 }
-        fillMode: Image.PreserveAspectFit
-        smooth: true
+    // Image {
+    //     id: logo
+    //     asynchronous: true
+    //     width: parent.width - vpx(60)
+    //     height: parent.height - vpx(20)
+    //     source: (game && game.assets.logo) || ""
+    //     sourceSize { width: 580; height: 256 }
+    //     fillMode: Image.PreserveAspectFit
+    //     smooth: true
+    //
+    //     anchors {
+    //       verticalCenter: parent.verticalCenter
+    //       horizontalCenter: parent.horizontalCenter
+    //     }
+    //
+    //     Behavior on source {
+    //       FadeAnimation { target: logo }
+    //     }
 
-        anchors {
-          verticalCenter: parent.verticalCenter
-          horizontalCenter: parent.horizontalCenter
-        }
+    TextMetrics {
+        id: textMetrics
+        font.capitalization: Font.AllUppercase
+        font.family: "coolvetica"
+        font.pixelSize: vpx(50)
+        font.weight: Font.Bold
+        text: titletext
+    }
 
-        Behavior on source {
-          FadeAnimation { target: logo }
-        }
+    Text {
+        id: titleText
+        color: "black"//"#f3f3f3"
+        text: textMetrics.text
+        font: textMetrics.font
+        width: textWidth
+        //height: textMetrics.height
 
-      Text {
-          id: titleText
-          text: titletext
-          color: "#f3f3f3"
+        leftPadding: vpx(10)
+        rightPadding: vpx(10)
 
-          width: parent.width
-          height: parent.height
-          horizontalAlignment: Text.AlignHCenter
-          verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
 
-          font.capitalization: Font.AllUppercase
-          font.family: "coolvetica"
-          font.pixelSize: vpx(78)
-          font.weight: Font.Bold
-          fontSizeMode: Text.Fit;
-          minimumPixelSize: vpx(40)
-          Layout.maximumWidth: vpx(500)
-          elide: Text.ElideRight
-
-          visible: parent.status != Image.Ready && parent.status != Image.Loading
-
-          Behavior on text {
-            FadeAnimation { target: titleText }
-          }
-        }
-     }
-  }
+        fontSizeMode: Text.Fit;
+        minimumPixelSize: vpx(30)
+        Layout.maximumWidth: textWidth - vpx(100)
+        elide: Text.ElideRight
+      }
+   }
