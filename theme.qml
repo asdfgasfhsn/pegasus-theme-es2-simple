@@ -12,8 +12,8 @@ FocusScope {
 
     // Loading the fonts here makes them usable in the rest of the theme
     // and can be referred to using their name and weight.
-    FontLoader { source: "fonts/OPENSANS.TTF" }
-    FontLoader { source: "fonts/OPENSANS-LIGHT.TTF" }
+    FontLoader { id: opensans; source: "fonts/OPENSANS.TTF" }
+    FontLoader { id: opensansLight; source: "fonts/OPENSANS-LIGHT.TTF" }
     FontLoader { id: archivoHeader; source: "fonts/ArchivoNarrow-Bold.otf" }
     FontLoader { id: archivoRegular; source: "fonts/ArchivoNarrow-Regular.otf" }
     FontLoader {id: coolvetica; source: "fonts/coolvetica.regular.ttf" }

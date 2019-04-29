@@ -82,10 +82,12 @@ Item {
             id: videoPreview
             visible: playlist.itemCount > 0
 
+            muted: true
+
             width: metaData.resolution ? metaData.resolution.width : 0
             height: metaData.resolution ? metaData.resolution.height : 0
 
-            anchors { fill: parent; margins: 1 }
+            anchors { fill: parent; }//margins: 1 }
             fillMode: VideoOutput.PreserveAspectFit
 
             playlist: Playlist {

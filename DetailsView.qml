@@ -156,6 +156,22 @@ FocusScope {
     }
 }
 
+LinearGradient {
+  width: parent.width
+  height: parent.height
+  anchors {
+    top: parent.top
+    right: parent.right
+    bottom: parent.bottom
+  }
+  start: Qt.point(0, 0)
+  end: Qt.point(0, height)
+  gradient: Gradient {
+    GradientStop { position: 0.0; color: "#00000000" }
+    GradientStop { position: 0.7; color: "#00000000" }
+    GradientStop { position: 0.999; color: "#000000" }
+  }
+}
 
 // Header/Meta Start
   Rectangle {
@@ -167,7 +183,7 @@ FocusScope {
     color: "transparent"
 
     anchors {
-      top: root.top; topMargin: paddingH
+      bottom: root.bottom; bottomMargin: paddingH
       left: root.left; leftMargin: paddingV
       rightMargin: paddingV
 
@@ -186,7 +202,7 @@ FocusScope {
     width: parent.width
     height: vpx(110)
     anchors {
-      top: headerGameTitle.bottom
+      bottom: headerGameTitle.top
       left: headerGameTitle.left
       right: parent.right
     }
@@ -224,9 +240,9 @@ FocusScope {
         color: "transparent"
         width: vpx(620) // parent.width
         anchors {
-          top: collectionName.bottom; topMargin: vpx(10)
+          top: collectionName.bottom; topMargin: vpx(4)
           left: parent.left;
-          bottomMargin: vpx(20)
+          bottomMargin: vpx(4)
         }
      }
   }
@@ -239,7 +255,7 @@ FocusScope {
     width: vpx(620)
     height: vpx(100)
     anchors {
-      top: metaBar.bottom
+      bottom: metaBar.top
       left: headerGameTitle.left
     }
   }
@@ -254,7 +270,7 @@ FocusScope {
       // radius: vpx(10)
 
       anchors {
-          top: gameDetails.bottom
+          bottom: gameDetails.top; bottomMargin: vpx(10)
           left: headerGameTitle.left
           horizontalCenter: gameDetails.horizontalCenter
       }
@@ -262,22 +278,10 @@ FocusScope {
       GameVideoItem {
           id: screenshotImage
           anchors { fill: parent }
+
           game: currentGame
             collectionView: collectionsView.focus
             detailView: detailsView.focus
        }
  }
-
-    Rectangle {
-        id: footer
-        anchors.top: screenshot.bottom
-        anchors.left: screenshot.left
-        anchors.right: screenshot.right
-        height: vpx(10)
-        color: "#00f3f3f3"
-    }
-
-
-
-
 }

@@ -25,6 +25,8 @@ Rectangle {
          wrapMode: Text.WordWrap
          elide: Text.ElideRight
          color: "#f3f3f3"
+         verticalAlignment: Text.AlignBottom // Text.AlignVCenter
+         horizontalAlignment: Text.AlignJustify
      }
   }
 }

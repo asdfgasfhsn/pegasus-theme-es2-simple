@@ -19,25 +19,6 @@ import QtQuick.Layouts 1.11
     height: parent.height
     clip: true
 
-    // Image {
-    //     id: logo
-    //     asynchronous: true
-    //     width: parent.width - vpx(60)
-    //     height: parent.height - vpx(20)
-    //     source: (game && game.assets.logo) || ""
-    //     sourceSize { width: 580; height: 256 }
-    //     fillMode: Image.PreserveAspectFit
-    //     smooth: true
-    //
-    //     anchors {
-    //       verticalCenter: parent.verticalCenter
-    //       horizontalCenter: parent.horizontalCenter
-    //     }
-    //
-    //     Behavior on source {
-    //       FadeAnimation { target: logo }
-    //     }
-
     TextMetrics {
         id: textMetrics
         font.capitalization: Font.AllUppercase
