@@ -72,7 +72,7 @@ FocusScope {
         id: content
         anchors {
           top: parent.top
-          left: screenshot.right
+          left: screenshotBox.right
           right: parent.right
           bottom: parent.bottom
         }
@@ -86,7 +86,7 @@ FocusScope {
             height: vpx(700)
 
             preferredHighlightBegin: vpx(120)
-            preferredHighlightEnd: vpx(600)
+            preferredHighlightEnd: vpx(580)
 
             anchors {
               rightMargin: vpx(48)
@@ -261,18 +261,27 @@ LinearGradient {
   }
 
   Rectangle {
+    id: screenshotBox
+    height: vpx(400)
+    width: vpx(620)
+    color: "transparent"
+    clip: false
+    anchors {
+      bottom: gameDetails.top
+      left: parent.left; leftMargin: vpx(20)
+    }
+
+  Rectangle {
+    // TODO: make width/height adhere to platform specific ratios so screenshots
+    // and videos "fit nicely". Currently forced to 4/3.
       id: screenshot
-      height: vpx(400)
-      width: vpx(600)
+      height: vpx(378)
+      width: vpx(504)
       color: "#00f3f3f3"
-      // border.width: vpx(5)
-      // border.color: "red"
-      // radius: vpx(10)
 
       anchors {
-          bottom: gameDetails.top; bottomMargin: vpx(10)
-          left: headerGameTitle.left
-          horizontalCenter: gameDetails.horizontalCenter
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: parent.verticalCenter
       }
 
       GameVideoItem {
@@ -282,6 +291,8 @@ LinearGradient {
           game: currentGame
             collectionView: collectionsView.focus
             detailView: detailsView.focus
+            collectionShortName: currentCollection.shortName
        }
- }
+    }
+  }
 }

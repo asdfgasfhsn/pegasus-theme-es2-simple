@@ -59,14 +59,14 @@ Rectangle {
 
     Image {
         id: boxFront
-        anchors { fill: parent; margins: vpx(6) }
+        anchors { fill: parent; margins: vpx(4) }
 
         asynchronous: true
         visible: game.assets.boxFront
 
         source: game.assets.boxFront || ""
         sourceSize { width: 256; height: 256 }
-        fillMode: Image.PreserveAspectFit
+        fillMode: Image.PreserveAspectCrop
         smooth: true
 
         onStatusChanged: if (status === Image.Ready) {
@@ -85,7 +85,7 @@ Rectangle {
             loops: Animator.Infinite;
             from: 0;
             to: 360;
-            duration: 500
+            duration: 2000
         }
     }
 
