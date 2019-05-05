@@ -21,12 +21,15 @@ import QtGraphicalEffects 1.12
 Rectangle {
     id: root
 
-    border.color: "#99FFFFFF"
+    property bool selected: false
+    property var game
+    property var systemColor
+
+    border.color: systemColor //"#99FFFFFF"
     border.width: selected ? vpx(3) : 0
     color: selected ? "#000000" : "transparent"
 
-    property bool selected: false
-    property var game
+
 
     property alias imageWidth: boxFront.paintedWidth
     property alias imageHeight: boxFront.paintedHeight

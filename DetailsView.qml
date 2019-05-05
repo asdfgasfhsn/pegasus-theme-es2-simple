@@ -135,7 +135,6 @@ FocusScope {
                 width: GridView.view.cellWidth
                 height: GridView.view.cellHeight
                 selected: GridView.isCurrentItem
-
                 //transform: Rotation { origin.x: parent.width/2; origin.y: parent.width/2; axis { x: 0; y: 1; z: 0 } angle: selected ? 5 : 0 }
 
                 game: modelData
@@ -274,9 +273,12 @@ LinearGradient {
   Rectangle {
     // TODO: make width/height adhere to platform specific ratios so screenshots
     // and videos "fit nicely". Currently forced to 4/3.
+    // 16:9 :: 608 x 342 (PSVita)
+    // 3:2 :: 612:408 (GBA/GB)
+    // 8:7 :: 608:532 (NES)
       id: screenshot
-      height: vpx(378)
       width: vpx(504)
+      height: vpx(378)
       color: "#00f3f3f3"
 
       anchors {
