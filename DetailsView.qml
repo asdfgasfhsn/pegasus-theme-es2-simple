@@ -135,6 +135,7 @@ FocusScope {
                 width: GridView.view.cellWidth
                 height: GridView.view.cellHeight
                 selected: GridView.isCurrentItem
+                systemColor: Utils.systemColor(currentCollection.shortName)
                 //transform: Rotation { origin.x: parent.width/2; origin.y: parent.width/2; axis { x: 0; y: 1; z: 0 } angle: selected ? 5 : 0 }
 
                 game: modelData
